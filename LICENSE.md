@@ -19,3 +19,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+**Important Notices:**
+
+ - *[SFML](https://github.com/LaurentGomila/SFML) is Copyright (C) Laurent Gomila.*
+ - *The Runtime DLLs* `msvcp110.dll`*,* `msvcp110d.dll`*,* `msvcr110.dll`*, and* `msvcr110d.dll` *are Copyright (C) Microsoft. They are only included to prevent end-users from having the install a redistributable.*
