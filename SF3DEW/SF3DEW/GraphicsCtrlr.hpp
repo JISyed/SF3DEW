@@ -87,21 +87,21 @@ namespace sfew
 
 		// Housekeeping ===================
 
-		bool wasGeometryShaderLoaded;				// Flag to indicate if geometry shaders were used or not.
+		bool _wasGeometryShaderLoaded;				// Flag to indicate if geometry shaders were used or not.
 
 		// Data ===========================
 
-		//TextureCtrlr* textures;						// All the textures managed by an object
+		//TextureCtrlr* _textures;						// All the textures managed by an object
 	
-		int winWidth;								// Width of the window in pixels
-		int winHeight;								// Height of the window in pixels
-		GLuint shaderProgram;						// The vertex and fragment shader combined into a program
-		GLuint vertexShader;						// The shader that processes vertices
-		GLuint fragmentShader;						// The shader that processes pixels (fragments)
-		GLuint geometryShader;						// The shader that processes geometry assembled from verts
-		GLuint vbo;									// Vertex Buffer Objects - point to data in graphics card
-		GLuint ebo;									// Element Buffer Object - gives each vertex a number identification
-		GLuint vao;									// Vertex Array Object - stores the links between vertex data and formats
+		int _winWidth;								// Width of the window in pixels
+		int _winHeight;								// Height of the window in pixels
+		GLuint _shaderProgram;						// The vertex and fragment shader combined into a program
+		GLuint _vertexShader;						// The shader that processes vertices
+		GLuint _fragmentShader;						// The shader that processes pixels (fragments)
+		GLuint _geometryShader;						// The shader that processes geometry assembled from verts
+		GLuint _vbo;									// Vertex Buffer Objects - point to data in graphics card
+		GLuint _ebo;									// Element Buffer Object - gives each vertex a number identification
+		GLuint _vao;									// Vertex Array Object - stores the links between vertex data and formats
 													// Vertex data is set in VBOs and vertex formats are set with glVertexAttribPointer()
 													// VAOs don't store vertex data; they need VBOs to reference data
 	

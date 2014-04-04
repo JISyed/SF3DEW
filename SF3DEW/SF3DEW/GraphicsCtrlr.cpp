@@ -133,7 +133,7 @@ namespace sfew
 	// Constructor
 	GraphicsCtrlr::GraphicsCtrlr()
 	{
-		this->wasGeometryShaderLoaded = false;
+		this->_wasGeometryShaderLoaded = false;
 
 		// Create Texture Controller
 		//this->textures = new TextureCtrlr();
@@ -227,9 +227,9 @@ namespace sfew
 		// Determine the correct shader ID
 		switch (shaderType)
 		{
-			case GL_VERTEX_SHADER: shaderToCompile = &(this->vertexShader); break;
-			case GL_GEOMETRY_SHADER: shaderToCompile = &(this->geometryShader); this->wasGeometryShaderLoaded = true; break;
-			case GL_FRAGMENT_SHADER: shaderToCompile = &(this->fragmentShader); break;
+			case GL_VERTEX_SHADER: shaderToCompile = &(this->_vertexShader); break;
+			case GL_GEOMETRY_SHADER: shaderToCompile = &(this->_geometryShader); this->_wasGeometryShaderLoaded = true; break;
+			case GL_FRAGMENT_SHADER: shaderToCompile = &(this->_fragmentShader); break;
 	
 		}
 
@@ -272,8 +272,8 @@ namespace sfew
 	// Set the width and height of the window
 	void GraphicsCtrlr::SetWindowSize(int width, int height)
 	{
-		this->winWidth = width;
-		this->winHeight = height;
+		this->_winWidth = width;
+		this->_winHeight = height;
 	}
 
 	// Generates all needed OpenGL buffers (VBOs, VAOs, etc.)
@@ -282,15 +282,15 @@ namespace sfew
 		// Create a Vertex Array Object (VAO) to store the links between 
 		// vertex data (in VBOs) and vertex formats (set with glVertexAttribPointer())
 		// VAOs don't store vertex data; they need VBOs to reference data
-		glGenVertexArrays(1, &(this->vao));
-		glBindVertexArray(this->vao);
+		glGenVertexArrays(1, &(this->_vao));
+		glBindVertexArray(this->_vao);
 
 
 		// Generate GL vertex buffer object (VBOs)
-		glGenBuffers(1, &(this->vbo));
+		glGenBuffers(1, &(this->_vbo));
 
 		// Make vertex buffer active by binding it
-		glBindBuffer(GL_ARRAY_BUFFER, this->vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, this->_vbo);
 
 		// Copy triangle vertex data to current active (bound) vertex buffer object (VBO).
 		// Static draw indicates that vert data is uploaded once and drawn many times.
@@ -298,10 +298,10 @@ namespace sfew
 
 
 		// Create an Element Buffer Object (EBO) out of the element array
-		glGenBuffers(1, &(this->ebo));
+		glGenBuffers(1, &(this->_ebo));
 
 		// Make the EBO the active element array
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->ebo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->_ebo);
 
 		// Copy element array data into the active EBO
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(squareElements), squareElements, GL_STATIC_DRAW);
@@ -310,9 +310,9 @@ namespace sfew
 	// Free all the created OpenGL buffers (VAOs, VBOs, etc.)
 	void GraphicsCtrlr::DeleteGLBuffers()
 	{
-		glDeleteBuffers(1, &(this->vbo));
-		glDeleteBuffers(1, &(this->ebo));
-		glDeleteVertexArrays(1, &(this->vao));
+		glDeleteBuffers(1, &(this->_vbo));
+		glDeleteBuffers(1, &(this->_ebo));
+		glDeleteVertexArrays(1, &(this->_vao));
 	}
 
 	/*
@@ -379,31 +379,31 @@ namespace sfew
 	void GraphicsCtrlr::LinkShaders()
 	{
 		// Create shader program
-		shaderProgram = glCreateProgram();
+		_shaderProgram = glCreateProgram();
 
 		// Attach shaders (geometry shader is optional)
-		glAttachShader(shaderProgram, vertexShader);
-		glAttachShader(shaderProgram, fragmentShader);
-		if(this->wasGeometryShaderLoaded)
+		glAttachShader(_shaderProgram, _vertexShader);
+		glAttachShader(_shaderProgram, _fragmentShader);
+		if(this->_wasGeometryShaderLoaded)
 		{
-			glAttachShader(shaderProgram, geometryShader);
+			glAttachShader(_shaderProgram, _geometryShader);
 		}
 
 		// Define the output of the fragment shader (not built-in)
-		glBindFragDataLocation(shaderProgram, 0, "outColor");
+		glBindFragDataLocation(_shaderProgram, 0, "outColor");
 
 		// Link the shaders in the shader program
 		std::cout << "Linking Shaders...\n";
-		glLinkProgram(shaderProgram);
+		glLinkProgram(_shaderProgram);
 		GLint progLinkStatus;
-		glGetProgramiv(shaderProgram, GL_LINK_STATUS, &progLinkStatus);
+		glGetProgramiv(_shaderProgram, GL_LINK_STATUS, &progLinkStatus);
 		if(progLinkStatus != GL_TRUE)
 		{
 			std::cout << "Error Linking:\n";
 			char errorLogBuffer[512];
-			glGetProgramInfoLog(shaderProgram, 512, NULL, errorLogBuffer);
+			glGetProgramInfoLog(_shaderProgram, 512, NULL, errorLogBuffer);
 			std::cout << errorLogBuffer << std::endl;
-			glDeleteProgram(shaderProgram);
+			glDeleteProgram(_shaderProgram);
 			Sleep(11000);
 			exit(1);
 		}
@@ -415,22 +415,22 @@ namespace sfew
 	void GraphicsCtrlr::DeleteShaders()
 	{
 		// Detach shaders from the shader program
-		glDetachShader(shaderProgram, vertexShader);
-		glDeleteShader(vertexShader);
+		glDetachShader(_shaderProgram, _vertexShader);
+		glDeleteShader(_vertexShader);
 
 		// Delete shaders
-		glDetachShader(shaderProgram, fragmentShader);
-		glDeleteShader(fragmentShader);
+		glDetachShader(_shaderProgram, _fragmentShader);
+		glDeleteShader(_fragmentShader);
 
 		// Also handle the gemoetry shader if loaded
-		if(this->wasGeometryShaderLoaded)
+		if(this->_wasGeometryShaderLoaded)
 		{
-			glDetachShader(shaderProgram, geometryShader);
-			glDeleteShader(geometryShader);
+			glDetachShader(_shaderProgram, _geometryShader);
+			glDeleteShader(_geometryShader);
 		}
 
 		// Delete shader program
-		glDeleteProgram(shaderProgram);
+		glDeleteProgram(_shaderProgram);
 	}
 
 
@@ -440,20 +440,20 @@ namespace sfew
 		std::cout << "Formatting Vertex Attributes.\n";
 
 		// Make the current shaders the active shaders
-		glUseProgram(shaderProgram);
+		glUseProgram(_shaderProgram);
 
 		// Format the vertex attribute data for the shaders to process
-		GLint posAttrib = glGetAttribLocation(shaderProgram, "position");
+		GLint posAttrib = glGetAttribLocation(_shaderProgram, "position");
 		glEnableVertexAttribArray(posAttrib);
 		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE,
 							   8*sizeof(float), 0);
 
-		GLint colAttrib = glGetAttribLocation(shaderProgram, "color");
+		GLint colAttrib = glGetAttribLocation(_shaderProgram, "color");
 		glEnableVertexAttribArray(colAttrib);
 		glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE,
 							   8*sizeof(float), (void*)(3*sizeof(float)));
 
-		GLint texAttrib = glGetAttribLocation(shaderProgram, "texcoord");
+		GLint texAttrib = glGetAttribLocation(_shaderProgram, "texcoord");
 		glEnableVertexAttribArray(texAttrib);
 		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE,
 							   8*sizeof(float), (void*)(6*sizeof(float)));
@@ -465,10 +465,10 @@ namespace sfew
 		std::cout << "Uploading Vertex Uniforms.\n";
 
 		// Make the current shaders the active shaders
-		glUseProgram(shaderProgram);
+		glUseProgram(_shaderProgram);
 
 		// Setup uniform data for shaders
-		GLint uniflucScale = glGetUniformLocation(shaderProgram, "flucScale");
+		GLint uniflucScale = glGetUniformLocation(_shaderProgram, "flucScale");
 		glUniform1f(uniflucScale, 1.0f);
 
 		// View matrix (Camera transform)
@@ -477,18 +477,18 @@ namespace sfew
 			glm::vec3(0.0f, 0.0f, 13.0f),	// Point centered on screen
 			glm::vec3(0.0f, 0.0f, 1.0f)		// Up vector
 		);
-		GLint uniView = glGetUniformLocation(this->shaderProgram, "view");
+		GLint uniView = glGetUniformLocation(this->_shaderProgram, "view");
 		glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
 		// Projection matrix (Camera properties)
-		float aspectRatio = (float) this->winHeight / (float) this->winHeight;
+		float aspectRatio = (float) this->_winHeight / (float) this->_winHeight;
 		glm::mat4 proj = glm::perspective(
 			75.0f,							// vertical Field-Of-View (angle)
 			aspectRatio,					// aspect ratio
 			1.0f,							// near plane
 			50.0f							// far plane
 		);
-		GLint uniProj = glGetUniformLocation(this->shaderProgram, "proj");
+		GLint uniProj = glGetUniformLocation(this->_shaderProgram, "proj");
 		glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
 		/*
@@ -504,41 +504,41 @@ namespace sfew
 	// Getter for shaderProgram
 	GLuint GraphicsCtrlr::GetShaderProgramID()
 	{
-		return this->shaderProgram;
+		return this->_shaderProgram;
 	}
 
 	// Send a matrix uniform to the shaders
 	void GraphicsCtrlr::SetUniform(glm::mat4 matrix, const char* nameInShader)
 	{
-		GLint uniformLocation = glGetUniformLocation(this->shaderProgram, nameInShader);
+		GLint uniformLocation = glGetUniformLocation(this->_shaderProgram, nameInShader);
 		glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
 	// Send a int uniform to the shaders
 	void GraphicsCtrlr::SetUniform(int numberValue, const char* nameInShader)
 	{
-		GLint uniformLocation = glGetUniformLocation(this->shaderProgram, nameInShader);
+		GLint uniformLocation = glGetUniformLocation(this->_shaderProgram, nameInShader);
 		glUniform1i(uniformLocation, numberValue);
 	}
 
 	// Send a float uniform to the shaders
 	void GraphicsCtrlr::SetUniform(float numberValue, const char* nameInShader)
 	{
-		GLint uniformLocation = glGetUniformLocation(this->shaderProgram, nameInShader);
+		GLint uniformLocation = glGetUniformLocation(this->_shaderProgram, nameInShader);
 		glUniform1f(uniformLocation, numberValue);
 	}
 
 	// Send a vector (of size 3) to the shaders
 	void GraphicsCtrlr::SetUniform(glm::vec3 vector, const char* nameInShader)
 	{
-		GLint uniformLocation = glGetUniformLocation(this->shaderProgram, nameInShader);
+		GLint uniformLocation = glGetUniformLocation(this->_shaderProgram, nameInShader);
 		glUniform3fv(uniformLocation, 1, glm::value_ptr(vector));
 	}
 
 	// Send a vector (of size 4) to the shaders
 	void GraphicsCtrlr::SetUniform(glm::vec4 vector, const char* nameInShader)
 	{
-		GLint uniformLocation = glGetUniformLocation(this->shaderProgram, nameInShader);
+		GLint uniformLocation = glGetUniformLocation(this->_shaderProgram, nameInShader);
 		glUniform4fv(uniformLocation, 1, glm::value_ptr(vector));
 	}
 
