@@ -31,10 +31,19 @@
     <Filter Include="Header Files\Utilities">
       <UniqueIdentifier>{71772512-5bca-49ee-a3e9-4e09ef2357a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Framework">
+      <UniqueIdentifier>{0f04c94d-dbaa-4fac-863e-bef38db01d19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsCtrlr.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source Files\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,5 +65,16 @@
     <None Include="DLLs\openal32.dll">
       <Filter>DLLs</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GraphicsCtrlr.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.hpp">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearAlgebraTypes.hpp">
+      <Filter>Header Files\Framework</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
