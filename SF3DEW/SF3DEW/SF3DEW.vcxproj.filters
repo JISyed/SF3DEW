@@ -45,6 +45,9 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\basic.frag">
@@ -75,6 +78,9 @@
     </ClInclude>
     <ClInclude Include="LinearAlgebraTypes.hpp">
       <Filter>Header Files\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.hpp">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

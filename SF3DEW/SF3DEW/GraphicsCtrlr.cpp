@@ -7,13 +7,6 @@
 #include <iostream>
 #include <fstream>
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtx/transform.hpp>
-
-using namespace std;
-
 namespace sfew
 {
 
@@ -259,7 +252,7 @@ namespace sfew
 	// Prints OpenGL version on console
 	void GraphicsCtrlr::PrintOpenGLVersion()
 	{
-		cout << "OpenGL Version: " << glGetString(GL_VERSION) << endl << endl << endl;
+		std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl << std::endl << std::endl;
 	}
 
 	// Initalizes GLEW

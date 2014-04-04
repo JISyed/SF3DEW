@@ -111,6 +111,7 @@ if %srce% geq 4 exit %srce% else exit 0</Command>
   <ItemGroup>
     <ClCompile Include="GraphicsCtrlr.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +125,7 @@ if %srce% geq 4 exit %srce% else exit 0</Command>
   <ItemGroup>
     <ClInclude Include="GraphicsCtrlr.hpp" />
     <ClInclude Include="LinearAlgebraTypes.hpp" />
+    <ClInclude Include="Shader.hpp" />
     <ClInclude Include="Transform.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

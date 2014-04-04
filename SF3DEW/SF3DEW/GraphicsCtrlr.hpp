@@ -12,6 +12,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "LinearAlgebraTypes.hpp"
+#include "Shader.hpp"
 
 namespace sfew
 {
