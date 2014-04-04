@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="DLLs">
+      <UniqueIdentifier>{ca21e17a-59be-4e33-b7a9-e36074281365}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{d26803fb-d41c-4003-bf8f-009618d1e300}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{b5f97a50-8f91-4d04-af53-5ddccf3b163c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{011ea9f6-a07a-42dd-999d-999e466a920b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utilities">
+      <UniqueIdentifier>{f034daeb-aaa6-493c-a572-dfbd7a53f1fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utilities">
+      <UniqueIdentifier>{71772512-5bca-49ee-a3e9-4e09ef2357a6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\basic.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\basic.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="DLLs\libsndfile-1.dll">
+      <Filter>DLLs</Filter>
+    </None>
+    <None Include="DLLs\msvcp110.dll">
+      <Filter>DLLs</Filter>
+    </None>
+    <None Include="DLLs\msvcr110.dll">
+      <Filter>DLLs</Filter>
+    </None>
+    <None Include="DLLs\openal32.dll">
+      <Filter>DLLs</Filter>
+    </None>
+  </ItemGroup>
+</Project>
