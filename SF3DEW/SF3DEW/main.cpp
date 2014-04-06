@@ -6,8 +6,9 @@
 #include <fstream>				// For ifstream
 #include <iostream>				// For cout
 #include <string>
+#include <memory>				// For unique_ptr
 
-const char* loadShaderFile(const char* filePath);
+#include "Shader.hpp"
 
 int main()
 {
@@ -33,10 +34,9 @@ int main()
 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	std::string vertexShaderSource(loadShaderFile("./Shaders/basic.vert"));
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	const char* vss = vertexShaderSource.c_str();
-	glShaderSource(vertexShader, 1, &vss, NULL);
+	// Experiment: Test shader object
+	std::unique_ptr<sfew::Shader> theShader(new sfew::Shader("./Shaders/basic.vert", 
+															 "./Shaders/basic.frag") );
 
 	bool isRunning = true;
 	while(isRunning)
@@ -61,56 +61,4 @@ int main()
 	}
 
 	return 0;
-}
-
-// Read shader files into memory
-const char* loadShaderFile(const char* filePath)
-{
-	const char * shaderFileBuffer = NULL;
-
-	std::ifstream inSdrFileStream(filePath);
-	if(inSdrFileStream)
-	{
-		// Get length of shader file by seeking and telling (offset of 0)
-		inSdrFileStream.seekg(0, inSdrFileStream.end);
-		unsigned long fileLength = (unsigned long) inSdrFileStream.tellg() + 1;
-		inSdrFileStream.seekg(0, inSdrFileStream.beg);
-
-		std::cout << "Shader File: Reading " << fileLength << " chars...\n";
-
-		// Read shader file into a memory buffer (array)
-		char * inputFileBuffer = new char[fileLength];
-		memset(inputFileBuffer, 0, fileLength);
-		inSdrFileStream.read(inputFileBuffer, fileLength);
-		inputFileBuffer[fileLength-1] = 0;
-
-		// Close file and print status
-		if(inputFileBuffer)
-		{
-			std::cout << "... Read successfully.\n\n";
-			std::cout << "---------------------------------\n";
-			std::cout << inputFileBuffer << std::endl;
-			std::cout << "---------------------------------\n";
-			std::cout << std::endl;
-			inSdrFileStream.close();
-		}
-		else
-		{
-			std::cout << "... Error: Only " << inSdrFileStream.gcount() << " could be read!\n";
-			inSdrFileStream.close();
-			delete [] inputFileBuffer;
-			return NULL;
-		}
-
-		// Hand over file contents to a const pointer
-		shaderFileBuffer = inputFileBuffer;
-		inputFileBuffer = NULL;
-	}
-	else
-	{
-		std::cout << "Shader File: Error. Not found!" << std::endl;
-		return NULL;
-	}
-
-	return shaderFileBuffer;
 }

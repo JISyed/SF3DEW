@@ -60,17 +60,17 @@ namespace sfew
 
 	// Properties =========================================
 
-	Vector3 Transform::GetPosition()
+	Vector3 Transform::GetPosition() const
 	{
 		return _position;
 	}
 
-	Vector3 Transform::GetScale()
+	Vector3 Transform::GetScale() const
 	{
 		return _scale;
 	}
 
-	Vector3 Transform::GetEulerAngles()
+	Vector3 Transform::GetEulerAngles() const
 	{
 		return _eulerAngles;
 	}

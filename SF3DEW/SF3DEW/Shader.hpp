@@ -9,6 +9,8 @@
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/System/NonCopyable.hpp>
+#include <string>
 
 namespace sfew
 {
@@ -18,13 +20,13 @@ namespace sfew
 		Fragment
 	};
 
-	class Shader
+	class Shader : sf::NonCopyable
 	{
 	public:
 
 		// Ctor/Dtor ======================
 
-		Shader(const char* vertexShaderPath, const char * fragmentShaderPath);
+		Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
 		~Shader();
 
 		// Routines =======================
@@ -35,11 +37,24 @@ namespace sfew
 
 		// Helpers ========================
 
+		void loadShaderFile(const std::string& filePath, ShaderType type);	// Loads shader from text file
+		void compileShader(ShaderType type);	// Compiles specified shader for OpenGL
+		void linkShaders();						// Link the vertex and fragment shaders together
+
 		// Data ===========================
 
 		GLuint _shaderProgram;		// Handle to the shader program (vertex + fragment shader combined)
 		GLuint _vertexShader;		// Handle to the vertex shader (processes vertices)
 		GLuint _fragmentShader;		// Handle to the fragment shader (processes pixels)
+		std::string _vertexCode;	// Code for the vertex shader
+		std::string _fragmentCode;	// Code for the fragment shader
+
+		// Instance flags =================
+
+		bool _flaggedAsLinked;		// Were the shaders linked?
+		bool _flaggedVertAsLoaded;	// Was the vertex shader loaded?
+		bool _flaggedFragAsLoaded;	// Was the fragment shader loaded?
+		
 	};
 
 	

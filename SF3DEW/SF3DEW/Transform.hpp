@@ -34,9 +34,9 @@ namespace sfew
 
 		// Properties =====================
 
-		Vector3 GetPosition();
-		Vector3 GetScale();
-		Vector3 GetEulerAngles();
+		Vector3 GetPosition() const;
+		Vector3 GetScale() const;
+		Vector3 GetEulerAngles() const;
 		void SetPosition(Vector3 newPosition);
 		void SetScale(Vector3 newScale);
 		void SetEulerAngles(Vector3 newEulerAngles);
