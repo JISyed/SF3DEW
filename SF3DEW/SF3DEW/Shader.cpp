@@ -11,6 +11,7 @@ namespace sfew
 	// Ctor/Dtor ========================================
 
 	Shader::Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) :
+		INameable("Unnamed Shader"),
 		_flaggedAsLinked(false),
 		_flaggedVertAsLoaded(false),
 		_flaggedFragAsLoaded(false)

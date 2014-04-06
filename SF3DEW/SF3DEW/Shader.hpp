@@ -12,6 +12,8 @@
 #include <SFML/System/NonCopyable.hpp>
 #include <string>
 
+#include "INameable.hpp"
+
 namespace sfew
 {
 	enum class ShaderType : char
@@ -20,14 +22,14 @@ namespace sfew
 		Fragment
 	};
 
-	class Shader : sf::NonCopyable
+	class Shader : sf::NonCopyable, INameable
 	{
 	public:
 
 		// Ctor/Dtor ======================
 
 		Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
-		~Shader();
+		virtual ~Shader();
 
 		// Routines =======================
 

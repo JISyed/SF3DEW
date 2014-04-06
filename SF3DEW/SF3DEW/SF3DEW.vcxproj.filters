@@ -34,6 +34,9 @@
     <Filter Include="Header Files\Framework">
       <UniqueIdentifier>{0f04c94d-dbaa-4fac-863e-bef38db01d19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Interfaces">
+      <UniqueIdentifier>{8227008c-6236-4804-ba11-e4ca48b0587b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -81,6 +84,9 @@
     </ClInclude>
     <ClInclude Include="Shader.hpp">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="INameable.hpp">
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

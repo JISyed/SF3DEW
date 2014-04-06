@@ -124,6 +124,7 @@ if %srce% geq 4 exit %srce% else exit 0</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsCtrlr.hpp" />
+    <ClInclude Include="INameable.hpp" />
     <ClInclude Include="LinearAlgebraTypes.hpp" />
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="Transform.hpp" />
