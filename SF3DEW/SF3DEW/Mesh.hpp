@@ -40,10 +40,6 @@ namespace sfew
 		// Data ===========================
 
 		GLuint _vbo;		// Handle to vertex data in shader
-
-		// Instance flags =================
-
-		
 		
 	};
 

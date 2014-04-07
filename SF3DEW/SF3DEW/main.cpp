@@ -16,6 +16,7 @@ int main()
 {
 	sf::Window window(sf::VideoMode(800, 600), "SF3DEW Test", sf::Style::Close | sf::Style::Titlebar);
 	window.setVerticalSyncEnabled(true);
+	sf::Vector2u winSize = window.getSize();
 
 	std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 

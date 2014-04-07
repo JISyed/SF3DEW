@@ -22,5 +22,4 @@ SOFTWARE.
 
 **Important Notices:**
 
- - *[SFML](https://github.com/LaurentGomila/SFML) is Copyright (C) Laurent Gomila.*
- - *The Runtime DLLs* `msvcp110.dll`*,* `msvcp110d.dll`*,* `msvcr110.dll`*, and* `msvcr110d.dll` *are Copyright (C) Microsoft. They are only included to prevent end-users from having the install a redistributable.*
+ - *The Runtime DLLs* `msvcp110.dll`* and* `msvcr110.dll` *are Copyright (C) Microsoft. They are only included to prevent end-users from having the install a redistributable.*
