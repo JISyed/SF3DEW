@@ -16,7 +16,7 @@
 
 namespace sfew
 {
-	class Mesh : sf::NonCopyable, INameable
+	class Mesh : sf::NonCopyable, public INameable
 	{
 	public:
 

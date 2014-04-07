@@ -12,6 +12,7 @@
 #include <SFML/System/NonCopyable.hpp>
 #include <string>
 
+#include "LinearAlgebraTypes.hpp"
 #include "INameable.hpp"
 
 namespace sfew
@@ -22,7 +23,7 @@ namespace sfew
 		Fragment
 	};
 
-	class Shader : sf::NonCopyable, INameable
+	class Shader : sf::NonCopyable, public INameable
 	{
 	public:
 
@@ -36,6 +37,18 @@ namespace sfew
 		void UseShader();				// Make current active shader for OpenGL
 		static void StopUsingShaders();	// Assigns no shader to OpenGL rendering
 
+		// Pass in uniform data to shader
+		void SetUniform(const std::string& uniformName, float x);
+		void SetUniform(const std::string& uniformName, float x, float y);
+		void SetUniform(const std::string& uniformName, float x, float y, float z);
+		void SetUniform(const std::string& uniformName, float x, float y, float z, float w);
+		void SetUniform(const std::string& uniformName, Vector2 vector);
+		void SetUniform(const std::string& uniformName, Vector3 vector);
+		void SetUniform(const std::string& uniformName, Vector4 vector);
+		void SetUniform(const std::string& uniformName, Matrix2 matrix);
+		void SetUniform(const std::string& uniformName, Matrix3 matrix);
+		void SetUniform(const std::string& uniformName, Matrix4 matrix);
+
 		// Properties =====================
 
 	private:
@@ -46,6 +59,8 @@ namespace sfew
 		void compileShader(ShaderType type);	// Compiles specified shader for OpenGL
 		void linkShaders();						// Link the vertex and fragment shaders together
 		void formatVertexAttributes();			// Format vertex data for shaders to use
+		bool verifyShaderIsLinkedForUniforms();	// Verify shader is linked for uniform assignment
+		bool verifyUniformLegitimacy(GLint uniformHandle, const std::string& uniformName);	// Verify that the uniform variable is valid
 
 		// Data ===========================
 

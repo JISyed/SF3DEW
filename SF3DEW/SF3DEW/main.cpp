@@ -34,14 +34,20 @@ int main()
 	};
 	std::vector<float> vertexData(vertices, vertices + sizeof(vertices) / sizeof(float));
 	std::unique_ptr<sfew::Mesh> theMesh(new sfew::Mesh(vertexData));
+	theMesh->SetName("Triangle");
 
 	// Experiment: Test shader object
 	std::unique_ptr<sfew::Shader> theShader(new sfew::Shader("./Shaders/basic.vert", "./Shaders/basic.frag") );
+	theShader->SetName("Basic Shader");
+	theShader->SetUniform("brightnessRatio", 0.6f);
 
 	// Experiment: Test camera object
 	std::unique_ptr<sfew::Camera> theCamera(new sfew::Camera());
 	theCamera->SetAspectRatio(winSize.x, winSize.y);
-	//GLint uniformView = glGetUniformLocation(
+	sfew::Matrix4 viewMatrix = theCamera->GenerateViewMatrix();
+	theShader->SetUniform("view", viewMatrix);
+	sfew::Matrix4 projectionMatrix = theCamera->GenerateProjectionMatrix();
+	theShader->SetUniform("proj", projectionMatrix);
 
 	theShader->UseShader();
 

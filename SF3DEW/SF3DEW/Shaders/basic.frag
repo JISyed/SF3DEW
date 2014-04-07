@@ -2,7 +2,10 @@
 
 out vec4 outColor;
 
+uniform float brightnessRatio;
+
 void main()
 {
-    outColor = vec4(1.0, 1.0, 1.0, 1.0);
+	float bri = brightnessRatio;
+    outColor = vec4(bri, bri, bri, 1.0);
 }
