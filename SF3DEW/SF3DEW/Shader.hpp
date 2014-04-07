@@ -33,6 +33,9 @@ namespace sfew
 
 		// Routines =======================
 
+		void UseShader();				// Make current active shader for OpenGL
+		static void StopUsingShaders();	// Assigns no shader to OpenGL rendering
+
 		// Properties =====================
 
 	private:
@@ -42,6 +45,7 @@ namespace sfew
 		void loadShaderFile(const std::string& filePath, ShaderType type);	// Loads shader from text file
 		void compileShader(ShaderType type);	// Compiles specified shader for OpenGL
 		void linkShaders();						// Link the vertex and fragment shaders together
+		void formatVertexAttributes();			// Format vertex data for shaders to use
 
 		// Data ===========================
 

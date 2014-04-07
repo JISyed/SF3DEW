@@ -28,6 +28,9 @@ namespace sfew
 
 		// Link the shaders
 		linkShaders();
+
+		// Format the vertex attribute data sent from VBOs
+		formatVertexAttributes();
 	}
 
 	Shader::~Shader()
@@ -55,6 +58,25 @@ namespace sfew
 	}
 
 	// Routines =========================================
+
+	// Make current active shader for OpenGL
+	void Shader::UseShader()
+	{
+		if (!_flaggedAsLinked)
+		{
+			// Can't use unlinked shaders
+			std::cout << "Warning: Cannot use shader \"" << _name << "\" unlinked." << std::endl;
+			return;
+		}
+
+		glUseProgram(_shaderProgram);
+	}
+	
+	// Assigns no shader to OpenGL rendering
+	void Shader::StopUsingShaders()
+	{
+		glUseProgram(NULL);
+	}
 
 	// Properties =========================================
 
@@ -188,6 +210,33 @@ namespace sfew
 		// If you're here, everything was successful
 		std::cout << "...success!" << std::endl;
 		_flaggedAsLinked = true;
+	}
+
+	// Format vertex data for shaders to use
+	void Shader::formatVertexAttributes()
+	{
+		std::cout << "Formatting vertex data..." << std::endl;
+
+		// Make current shader the active shader
+		UseShader();
+
+		// Format the vertex attribute data for the shaders to process
+		GLint posAttrib = glGetAttribLocation(_shaderProgram, "position");
+		glEnableVertexAttribArray(posAttrib);
+		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE,
+							   8*sizeof(float), 0);
+
+		GLint colAttrib = glGetAttribLocation(_shaderProgram, "color");
+		glEnableVertexAttribArray(colAttrib);
+		glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE,
+							   8*sizeof(float), (void*)(3*sizeof(float)));
+
+		GLint texAttrib = glGetAttribLocation(_shaderProgram, "texcoord");
+		glEnableVertexAttribArray(texAttrib);
+		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE,
+							   8*sizeof(float), (void*)(6*sizeof(float)));
+
+		std::cout << "...success" << std::endl;
 	}
 
 } // namespace sfew
