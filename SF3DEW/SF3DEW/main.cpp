@@ -12,14 +12,21 @@
 
 int main()
 {
-	sf::Window window(sf::VideoMode(800, 600), "Hello Luka", sf::Style::Close | sf::Style::Titlebar);
+	sf::Window window(sf::VideoMode(800, 600), "SF3DEW Test", sf::Style::Close | sf::Style::Titlebar);
 	window.setVerticalSyncEnabled(true);
+
+	std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 
 	glewExperimental = GL_TRUE;
 	glewInit();
 
-	GLuint vertexBuffer;
-	glGenBuffers(1, &vertexBuffer);
+	glEnable(GL_DEPTH_TEST);
+
+	/*
+	GLuint vao;
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+	*/
 
 	float vertices[] = {
 		 0.0f,  0.5f, // Vertex 1 (X, Y)
@@ -37,6 +44,8 @@ int main()
 	// Experiment: Test shader object
 	std::unique_ptr<sfew::Shader> theShader(new sfew::Shader("./Shaders/basic.vert", 
 															 "./Shaders/basic.frag") );
+
+	theShader->UseShader();
 
 	bool isRunning = true;
 	while(isRunning)
@@ -56,6 +65,8 @@ int main()
 		}
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		window.display();
 	}

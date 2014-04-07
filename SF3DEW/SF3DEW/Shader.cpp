@@ -221,6 +221,7 @@ namespace sfew
 		UseShader();
 
 		// Format the vertex attribute data for the shaders to process
+		/*
 		GLint posAttrib = glGetAttribLocation(_shaderProgram, "position");
 		glEnableVertexAttribArray(posAttrib);
 		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE,
@@ -235,6 +236,14 @@ namespace sfew
 		glEnableVertexAttribArray(texAttrib);
 		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE,
 							   8*sizeof(float), (void*)(6*sizeof(float)));
+		*/
+
+		GLint posAttrib = glGetAttribLocation(_shaderProgram, "position");
+		glEnableVertexAttribArray(posAttrib);
+		glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+		// Stop this shader from being the current active
+		Shader::StopUsingShaders();
 
 		std::cout << "...success" << std::endl;
 	}
