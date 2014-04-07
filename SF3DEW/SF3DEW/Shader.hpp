@@ -37,6 +37,8 @@ namespace sfew
 		void UseShader();				// Make current active shader for OpenGL
 		static void StopUsingShaders();	// Assigns no shader to OpenGL rendering
 
+		// Properties =====================
+
 		// Pass in uniform data to shader
 		void SetUniform(const std::string& uniformName, float x);
 		void SetUniform(const std::string& uniformName, float x, float y);
@@ -48,8 +50,6 @@ namespace sfew
 		void SetUniform(const std::string& uniformName, Matrix2 matrix);
 		void SetUniform(const std::string& uniformName, Matrix3 matrix);
 		void SetUniform(const std::string& uniformName, Matrix4 matrix);
-
-		// Properties =====================
 
 	private:
 

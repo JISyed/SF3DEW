@@ -6,7 +6,7 @@ namespace sfew
 	// Ctor/Dtor ========================================
 
 	// Ctor
-	Camera::Camera() : INameable("Main Camera"),
+	Camera::Camera() : INameable("Unnamed Camera"),
 		_position(20.0f, 0.0f, 13.0f),
 		_screenCenterPoint(0.0f, 0.0f, 13.0f),
 		_upDirection(Transform::WorldUp()),

@@ -364,7 +364,13 @@ namespace sfew
 
 		GLint posAttrib = glGetAttribLocation(_shaderProgram, "position");
 		glEnableVertexAttribArray(posAttrib);
-		glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+		glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE,
+							   5*sizeof(float), 0);
+
+		GLint colAttrib = glGetAttribLocation(_shaderProgram, "color");
+		glEnableVertexAttribArray(colAttrib);
+		glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE,
+							   5*sizeof(float), (void*)(2*sizeof(float)));
 
 		// Stop this shader from being the current active
 		Shader::StopUsingShaders();

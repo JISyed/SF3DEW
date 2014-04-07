@@ -17,7 +17,7 @@
 
 namespace sfew
 {
-	class Camera : sf::NonCopyable, INameable
+	class Camera : sf::NonCopyable, public INameable
 	{
 	public:
 		
