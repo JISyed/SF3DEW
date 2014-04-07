@@ -3,8 +3,8 @@
 //
 // Written by Jibran Syed (4-6-2014)
 
-#ifndef TRANSFORM_H
-#define TRANSFORM_H
+#ifndef INAMEABLE_H
+#define INAMEABLE_H
 
 #include <string>
 

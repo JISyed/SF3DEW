@@ -11,6 +11,7 @@
 
 #include "Shader.hpp"
 #include "Mesh.hpp"
+#include "Camera.hpp"
 
 int main()
 {
@@ -36,6 +37,11 @@ int main()
 
 	// Experiment: Test shader object
 	std::unique_ptr<sfew::Shader> theShader(new sfew::Shader("./Shaders/basic.vert", "./Shaders/basic.frag") );
+
+	// Experiment: Test camera object
+	std::unique_ptr<sfew::Camera> theCamera(new sfew::Camera());
+	theCamera->SetAspectRatio(winSize.x, winSize.y);
+	//GLint uniformView = glGetUniformLocation(
 
 	theShader->UseShader();
 
