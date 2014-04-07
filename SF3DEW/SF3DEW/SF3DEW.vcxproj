@@ -111,6 +111,7 @@ if %srce% geq 4 exit %srce% else exit 0</Command>
   <ItemGroup>
     <ClCompile Include="GraphicsCtrlr.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
@@ -126,6 +127,7 @@ if %srce% geq 4 exit %srce% else exit 0</Command>
     <ClInclude Include="GraphicsCtrlr.hpp" />
     <ClInclude Include="INameable.hpp" />
     <ClInclude Include="LinearAlgebraTypes.hpp" />
+    <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="Transform.hpp" />
   </ItemGroup>
