@@ -17,16 +17,28 @@ namespace sfew
 		// Setup default wrapping behavior
 		SetWrapping(TextureWrapType::Repeat);
 
-		// Upload a blank white texture map to graphics card
-		float texels[] = {
-			0.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
-			1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 0.0f
-		};
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, texels);
-		glGenerateMipmap(GL_TEXTURE_2D);
-
 		// Setup default filtering properties
 		SetFiltering(TextureFilterType::NearestNeighbor);
+
+		// Define a blank white texture
+		float texels[] = {
+			1.0f, 1.0f, 1.0f,   1.0f, 1.0f, 1.0f,
+			1.0f, 1.0f, 1.0f,   1.0f, 1.0f, 1.0f
+		};
+
+		// Upload a blank white texture map to graphics card
+		glTexImage2D(
+			GL_TEXTURE_2D,	// Target Type
+			0,				// Level Of Detail
+			GL_RGB,			// Format to store in graphics card
+			2,				// Image width
+			2,				// Image height
+			0,				// Border (has to be 0)
+			GL_RGB,			// Format from image source
+			GL_FLOAT,		// Data type from image source
+			texels			// Pointer to image source
+		);
+		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 
 	// Ctor
@@ -39,10 +51,32 @@ namespace sfew
 		// Setup default wrapping behavior
 		SetWrapping(TextureWrapType::Repeat);
 
-		glGenerateMipmap(GL_TEXTURE_2D);
-
 		// Setup default filtering properties
 		SetFiltering(TextureFilterType::NearestNeighbor);
+
+		// Load texture image from specified file path
+		sf::Image loadedImage;
+		if(!loadedImage.loadFromFile(textureFilePath))
+		{
+			// Create a blank white texture upon load fail
+			std::cout << "Resorting to a blank white texture" << std::endl;
+			loadedImage.create(2, 2, sf::Color::White);
+		}
+
+		// Upload texture to graphics card
+		sf::Vector2u size = loadedImage.getSize();
+		glTexImage2D(
+			GL_TEXTURE_2D,				// Target Type
+			0,							// Level Of Detail
+			GL_RGB,						// Format to store in graphics card
+			(int) size.x,				// Image width
+			(int) size.y,				// Image height
+			0,							// Border (has to be 0)
+			GL_RGBA,					// Format from image source
+			GL_UNSIGNED_BYTE,			// Data type from image source
+			loadedImage.getPixelsPtr()	// Pointer to image source
+		);
+		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 
 	// Dtor

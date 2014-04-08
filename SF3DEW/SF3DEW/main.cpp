@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 #include <memory>				// For unique_ptr
-#include <time.h>
+#include <time.h>				// THIS SHOULD BE TEMPORARY
 
 #include "Shader.hpp"
 #include "Mesh.hpp"
@@ -41,7 +41,7 @@ int main()
 	};
 	std::vector<float> vertexData(vertices, vertices + sizeof(vertices) / sizeof(float));
 	std::unique_ptr<sfew::Mesh> theMesh(new sfew::Mesh(vertexData));
-	theMesh->SetName("Rectangle");
+	theMesh->SetName("Rectangle Mesh");
 
 	// Experiment: Test shader object
 	std::unique_ptr<sfew::Shader> theShader(new sfew::Shader("./Shaders/basic.vert", "./Shaders/basic.frag") );
@@ -52,7 +52,8 @@ int main()
 	theShader->SetUniform("triangleColor", delta, delta, delta);
 
 	// Experiment: Test texture object
-	std::unique_ptr<sfew::Texture> theTexture(new sfew::Texture());
+	std::unique_ptr<sfew::Texture> theTexture(new sfew::Texture("./Textures/texPatches.png"));
+	theTexture->SetName("Patches Texture");
 	theTexture->UseTexture();
 
 	// Experiment: Test camera object
