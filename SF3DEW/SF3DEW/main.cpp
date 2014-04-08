@@ -14,6 +14,7 @@
 #include "Mesh.hpp"
 #include "Camera.hpp"
 #include "Texture.hpp"
+#include "Transform.hpp"
 
 int main()
 {
@@ -51,21 +52,25 @@ int main()
 	float delta = (sin(t * 4.0f) + 1.0f)/2.0f;
 	theShader->SetUniform("triangleColor", delta, delta, delta);
 
+	sfew::Matrix4 rotator;
+
 	// Experiment: Test texture object
 	std::unique_ptr<sfew::Texture> theTexture(new sfew::Texture("./Textures/texPatches.png"));
 	theTexture->SetName("Patches Texture");
 	theTexture->UseTexture();
 
 	// Experiment: Test camera object
-	/*
 	std::unique_ptr<sfew::Camera> theCamera(new sfew::Camera());
 	theCamera->SetName("Main Camera");
 	theCamera->SetAspectRatio(winSize.x, winSize.y);
+	theCamera->SetPosition(sfew::Vector3(1.2f, 1.2f, 1.2f));
+	theCamera->LookAtPoint(sfew::Vector3(0.0f, 0.0f, 0.0f));
+	theCamera->SetUpDirection(sfew::Vector3(0.0f, 0.0f, 1.0f));
+
 	sfew::Matrix4 viewMatrix = theCamera->GenerateViewMatrix();
 	theShader->SetUniform("view", viewMatrix);
 	sfew::Matrix4 projectionMatrix = theCamera->GenerateProjectionMatrix();
-	theShader->SetUniform("proj", projectionMatrix);
-	*/
+	theShader->SetUniform("projection", projectionMatrix);
 
 	theShader->UseShader();
 
@@ -90,7 +95,14 @@ int main()
 
 		t = (float) clock() / (float) CLOCKS_PER_SEC;
 		delta = (sin(t * 4.0f) + 1.0f)/2.0f;
-		theShader->SetUniform("triangleColor", delta, delta, delta);
+		theShader->SetUniform("triangleColor", 1.0f, 1.0f, 1.0f);
+
+		rotator = glm::rotate(
+			rotator, 
+			1.0f * 3.14f, 
+			sfew::Transform::WorldForward()
+		);
+		theShader->SetUniform("model", rotator);
 
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 

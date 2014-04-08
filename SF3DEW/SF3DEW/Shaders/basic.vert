@@ -7,9 +7,14 @@ in vec2 texcoord;
 out vec3 fragmentColor;
 out vec2 uvs;
 
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
 void main()
 {
 	uvs = texcoord;
 	fragmentColor = color;
-    gl_Position = vec4(position, 0.0, 1.0);
+	mat4 finalMat = projection * view * model;
+    gl_Position = finalMat * vec4(position, 0.0, 1.0);
 }

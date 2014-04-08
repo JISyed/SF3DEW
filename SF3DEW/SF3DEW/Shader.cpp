@@ -339,8 +339,6 @@ namespace sfew
 	// Format vertex data for shaders to use
 	void Shader::formatVertexAttributes()
 	{
-		std::cout << "Formatting vertex data..." << std::endl;
-
 		// Make current shader the active shader
 		UseShader();
 
@@ -379,8 +377,6 @@ namespace sfew
 
 		// Stop this shader from being the current active
 		Shader::StopUsingShaders();
-
-		std::cout << "...success" << std::endl;
 	}
 
 	// Verify shader is linked for uniform assignment
