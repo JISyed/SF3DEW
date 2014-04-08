@@ -30,14 +30,14 @@ int main()
 
 	// Experiment: Test mesh object
 	float vertices[] = {
-		// X     Y     R     G     B
-		-0.5f,  0.5f, 1.0f, 0.0f, 0.0f, // Top-left
-		 0.5f,  0.5f, 0.0f, 1.0f, 0.0f, // Top-right
-		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, // Bottom-right
+		// X     Y     R     G     B     U     V
+		-0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Top-left
+		 0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // Top-right
+		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, // Bottom-right
 
-		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, // Bottom-right
-		-0.5f, -0.5f, 1.0f, 1.0f, 1.0f, // Bottom-left
-		-0.5f,  0.5f, 1.0f, 0.0f, 0.0f  // Top-left
+		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, // Bottom-right
+		-0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // Bottom-left
+		-0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f  // Top-left
 	};
 	std::vector<float> vertexData(vertices, vertices + sizeof(vertices) / sizeof(float));
 	std::unique_ptr<sfew::Mesh> theMesh(new sfew::Mesh(vertexData));
@@ -50,6 +50,10 @@ int main()
 	float t = (float) clock() / (float) CLOCKS_PER_SEC;
 	float delta = (sin(t * 4.0f) + 1.0f)/2.0f;
 	theShader->SetUniform("triangleColor", delta, delta, delta);
+
+	// Experiment: Test texture object
+	std::unique_ptr<sfew::Texture> theTexture(new sfew::Texture());
+	theTexture->UseTexture();
 
 	// Experiment: Test camera object
 	/*

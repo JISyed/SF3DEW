@@ -11,6 +11,7 @@
 #include <SFML/OpenGL.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System/NonCopyable.hpp>
+#include <string>
 
 #include "INameable.hpp"
 
@@ -24,6 +25,13 @@ namespace sfew
 		None
 	};
 
+	enum class TextureFilterType : char
+	{
+		NearestNeighbor,
+		Bilinear,
+		Trilinear
+	};
+
 	class Texture : sf::NonCopyable, public INameable
 	{
 	public:
@@ -31,12 +39,14 @@ namespace sfew
 		// Ctor/Dtor ======================
 
 		Texture();
+		Texture(const std::string& textureFilePath);
 		virtual ~Texture();
 
 		// Routines =======================
 
 		void UseTexture();			// Makes texture the current active texture
 		void SetWrapping(TextureWrapType wrapBehavior);	// Set wrapping behavior when outside standard UV coordinates
+		void SetFiltering(TextureFilterType filter);	// Set texture filtering (how texture gets sampled)
 
 		// Properties =====================
 
@@ -50,7 +60,7 @@ namespace sfew
 
 		// Data ===========================
 
-		GLuint _textureHandle;		// Handle to texture for OpenGL
+		GLuint _textureHandle;				// Handle to texture for OpenGL
 		
 	};
 
