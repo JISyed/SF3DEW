@@ -13,6 +13,7 @@
 #include "Shader.hpp"
 #include "Mesh.hpp"
 #include "Camera.hpp"
+#include "Texture.hpp"
 
 int main()
 {
