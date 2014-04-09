@@ -38,6 +38,18 @@ namespace sfew
 		_eulerAngles += relativeRotation;
 	}
 
+	// Get the matrix based on transform
+	Matrix4 Transform::GenerateModelMatrix() const
+	{
+		Matrix4 translationMatrix = glm::translate(_position);
+		Matrix4 scalingMatrix = glm::scale(_scale);
+		Matrix4 rotationMatrix = glm::rotate(_eulerAngles.x, 1.0f, 0.0f, 0.0f);
+		rotationMatrix = glm::rotate(rotationMatrix, _eulerAngles.y, 0.0f, 1.0f, 0.0f);
+		rotationMatrix = glm::rotate(rotationMatrix, _eulerAngles.z, 0.0f, 0.0f, 1.0f);
+
+		return translationMatrix * rotationMatrix * scalingMatrix;
+	}
+
 	// Static Routines =========================================
 
 	// Get the world's up vector

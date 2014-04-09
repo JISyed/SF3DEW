@@ -32,6 +32,12 @@ namespace sfew
 
 	// Routines =========================================
 
+	// Make active mesh to draw
+	void Mesh::MakeActiveMeshToDraw()
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+	}
+
 	// Properties =========================================
 
 	int Mesh::GetNumberOfVertices() const

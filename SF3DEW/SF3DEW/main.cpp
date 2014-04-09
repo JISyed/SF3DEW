@@ -93,16 +93,15 @@ int main()
 	float delta = (sin(t * 4.0f) + 1.0f)/2.0f;
 	theShader->SetUniform("triangleColor", 1.0f, 1.0f, 1.0f);
 
-	sfew::Matrix4 rotator;
-	rotator = glm::rotate(
-		rotator, 
-		0.0f, 
-		sfew::Transform::WorldUp()
-	);
-	theShader->SetUniform("model", rotator);
+	// Experiment: Test transform objects
+	std::unique_ptr<sfew::Transform> theTransform(new sfew::Transform());
+	theShader->SetUniform("model", theTransform->GenerateModelMatrix());
+	std::unique_ptr<sfew::Transform> secondTransform(new sfew::Transform());
+	secondTransform->SetPosition(sfew::Vector3(-2.0f, 0.0f, 0.1f));
+	theShader->SetUniform("model", secondTransform->GenerateModelMatrix());
 
 	// Experiment: Test texture object
-	std::unique_ptr<sfew::Texture> theTexture(new sfew::Texture("./Textures/texGameOver.png"));
+	std::unique_ptr<sfew::Texture> theTexture(new sfew::Texture("./Textures/texPatches.png"));
 	theTexture->SetName("Patches Texture");
 	theTexture->UseTexture();
 
@@ -114,12 +113,9 @@ int main()
 	theCamera->LookAtPoint(sfew::Vector3(0.0f, 0.0f, 0.0f));
 	theCamera->SetUpDirection(sfew::Transform::WorldUp());
 
-	sfew::Matrix4 viewMatrix = theCamera->GenerateViewMatrix();
-	theShader->SetUniform("view", viewMatrix);
-	sfew::Matrix4 projectionMatrix = theCamera->GenerateProjectionMatrix();
-	theShader->SetUniform("projection", projectionMatrix);
-
-	theShader->UseShader();
+	theShader->SetUniform("view", theCamera->GenerateViewMatrix());
+	theShader->SetUniform("projection", theCamera->GenerateProjectionMatrix());
+	
 
 	bool isRunning = true;
 	while(isRunning)
@@ -144,12 +140,15 @@ int main()
 		//delta = (sin(t * 4.0f) + 1.0f)/2.0f;
 		//theShader->SetUniform("triangleColor", delta, delta, delta);
 
-		rotator = glm::rotate(
-			rotator, 
-			1.0f, 
-			sfew::Transform::WorldUp()
-		);
-		theShader->SetUniform("model", rotator);
+		theShader->UseShader();
+		theMesh->MakeActiveMeshToDraw();
+
+		theTransform->Rotate(sfew::Vector3(0.0f, 1.0f, 0.0f));
+		theShader->SetUniform("model", theTransform->GenerateModelMatrix());
+
+		glDrawArrays(GL_TRIANGLES, 0, theMesh->GetNumberOfVertices());
+
+		theShader->SetUniform("model", secondTransform->GenerateModelMatrix());
 
 		glDrawArrays(GL_TRIANGLES, 0, theMesh->GetNumberOfVertices());
 

@@ -27,7 +27,7 @@ namespace sfew
 
 		// Routines =======================
 
-		
+		void MakeActiveMeshToDraw();	// Make active mesh to draw
 
 		// Properties =====================
 

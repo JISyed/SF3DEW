@@ -25,6 +25,7 @@ namespace sfew
 		void Translate(Vector3 relativePosition);	// Apply relative translation
 		void Scale(Vector3 relativeScaling);		// Apply relative scaling
 		void Rotate(Vector3 relativeRotation);		// Apply relative rotation
+		Matrix4 GenerateModelMatrix() const;		// Get the matrix based on transform
 
 		// Static Routines ================
 
