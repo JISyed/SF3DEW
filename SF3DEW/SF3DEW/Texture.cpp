@@ -63,6 +63,9 @@ namespace sfew
 			loadedImage.create(2, 2, sf::Color::White);
 		}
 
+		// Flip upside down to render properly in OpenGL
+		loadedImage.flipVertically();
+
 		// Upload texture to graphics card
 		sf::Vector2u size = loadedImage.getSize();
 		glTexImage2D(
