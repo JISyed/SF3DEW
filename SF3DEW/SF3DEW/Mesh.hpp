@@ -31,6 +31,8 @@ namespace sfew
 
 		// Properties =====================
 
+		int GetNumberOfVertices() const;
+
 	private:
 
 		// Helpers ========================
@@ -40,7 +42,8 @@ namespace sfew
 		// Data ===========================
 
 		GLuint _vbo;		// Handle to vertex data in shader
-		
+		int _numberOfVerts;	// Total number of vertices in mesh
+
 	};
 
 	

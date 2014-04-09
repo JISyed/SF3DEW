@@ -17,6 +17,11 @@ namespace sfew
 		// Send the vertex data into the graphics card
 		//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 		glBufferData(GL_ARRAY_BUFFER, newVertexDataArray.size() * sizeof(float), newVertexDataArray.data(), GL_STATIC_DRAW);
+
+		// Calculate the total number of vertices
+		// This assumes vertex data is 8 floats long!!!
+		// See Shader::formatVertexAttributes()
+		_numberOfVerts = newVertexDataArray.size() / 8;
 	}
 
 	Mesh::~Mesh()
@@ -28,6 +33,11 @@ namespace sfew
 	// Routines =========================================
 
 	// Properties =========================================
+
+	int Mesh::GetNumberOfVertices() const
+	{
+		return _numberOfVerts;
+	}
 
 	// Helpers =========================================
 

@@ -151,7 +151,7 @@ int main()
 		);
 		//theShader->SetUniform("model", rotator);
 
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glDrawArrays(GL_TRIANGLES, 0, theMesh->GetNumberOfVertices());
 
 		window.display();
 	}
