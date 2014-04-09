@@ -30,6 +30,9 @@ int main()
 	glEnable(GL_CULL_FACE); glCullFace(GL_BACK);
 	glEnable(GL_DEPTH_TEST);
 
+	// Black background
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
 	// Experiment: Test mesh object
 	GLfloat vertices[] = {
 		// X     Y      Z     R     G     B     U     V
