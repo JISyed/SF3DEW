@@ -21,20 +21,51 @@ namespace sfew
 		Music
 	};
 
+	enum class AudioStatusType : char
+	{
+		Playing,
+		Paused,
+		Stopped,
+		Muted
+	};
+
 	class AudioSource : sf::NonCopyable, public INameable
 	{
 	public:
 
 		// Ctor/Dtor ======================
 
-		AudioSource(const std::string& vertexShaderPath, AudioType type);
+		AudioSource(const std::string& audioFilePath, AudioType type);
 		~AudioSource();
 
 		// Routines =======================
 
-		
+		void Play();
+		void Pause();
+		void Stop();
+		void Mute();
+		void Unmute();
 
 		// Properties =====================
+
+		void SetLooping(bool loop);
+		bool IsLooping() const;
+		void SetVolume(float newVolume);
+		float GetVolume() const;
+		void SetPitch(float newPitch);
+		float GetPitch() const;
+		void SetPlayingOffset(sf::Time newOffset);
+		sf::Time GetPlayingOffset() const;
+		
+		sf::Time GetDuration() const;
+		unsigned int GetChannelCount() const;
+		unsigned int GetSampleRate() const;
+
+		bool IsPlaying() const;
+		bool IsPaused() const;
+		bool IsStopped() const;
+		bool IsMuted() const;
+
 
 	private:
 
@@ -45,7 +76,8 @@ namespace sfew
 		// Data ===========================
 
 		AudioType _audioType;		// Is the audio a sound effect or music?
-		sf::SoundBuffer _buffer;	// Data buffer for sounds only
+		AudioStatusType _playStatus;// The play state of the audio (play, pause, etc)
+		sf::SoundBuffer _buffer;	// Data buffer for sound only (not music)
 		sf::Sound _soundEffect;		// The sound effect delegation
 		sf::Music _music;			// The music delegation
 
