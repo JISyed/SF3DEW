@@ -15,6 +15,7 @@
 #include "Camera.hpp"
 #include "Texture.hpp"
 #include "Transform.hpp"
+#include "AudioSource.hpp"
 
 int main()
 {
@@ -119,6 +120,34 @@ int main()
 	theShader->SetUniform("view", theCamera->GenerateViewMatrix());
 	theShader->SetUniform("projection", theCamera->GenerateProjectionMatrix());
 	
+	// SFML audio test
+	
+	// Load two sound buffers
+	sf::SoundBuffer sndBufLaser;
+	if(!sndBufLaser.loadFromFile("./Audio/sndPlayerLaser.wav"))
+	{
+		std::cout << "Warning! Sound file does not exist!" << std::endl;
+	}
+	sf::SoundBuffer sndBufItem;
+	if(!sndBufItem.loadFromFile("./Audio/sndItemGet.wav"))
+	{
+		std::cout << "Warning! Sound file does not exist!" << std::endl;
+	}
+	sf::Sound sndLaser;
+	sndLaser.setBuffer(sndBufLaser);
+	sf::Sound sndItem;
+	sndItem.setBuffer(sndBufItem);
+
+	sndLaser.play();
+	sndItem.play();
+
+	sf::Music musRolling;
+	if(!musRolling.openFromFile("./Audio/rolling_by_madgarden.ogg"))
+	{
+		std::cout << "Warning! Music file does not exist!" << std::endl;
+	}
+	musRolling.setLoop(true);
+	musRolling.play();
 
 	bool isRunning = true;
 	while(isRunning)
@@ -157,6 +186,12 @@ int main()
 
 		window.display();
 	}
+
+	musRolling.stop();
+
+	sndLaser.play();
+
+	sf::sleep(sf::seconds(sndBufLaser.getDuration().asSeconds()));
 
 	return 0;
 }

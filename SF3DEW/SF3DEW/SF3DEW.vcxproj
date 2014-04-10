@@ -72,7 +72,13 @@ ROBOCOPY "$(ProjectDir)Textures" "$(SolutionDir)$(Configuration)\Textures" *.* /
 
 set trce=%errorlevel%
 echo Exit Code %trce%
-if %trce% geq 4 exit %trce% else exit 0</Command>
+if %trce% geq 4 exit %trce% else exit 0
+
+ROBOCOPY "$(ProjectDir)Audio" "$(SolutionDir)$(Configuration)\Audio" *.* /E /XX
+
+set arce=%errorlevel%
+echo Exit Code %arce%
+if %arce% geq 4 exit %arce% else exit 0</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy nessesary files to build.</Message>
@@ -116,11 +122,18 @@ ROBOCOPY "$(ProjectDir)Textures" "$(SolutionDir)$(Configuration)\Textures" *.* /
 
 set trce=%errorlevel%
 echo Exit Code %trce%
-if %trce% geq 4 exit %trce% else exit 0</Command>
+if %trce% geq 4 exit %trce% else exit 0
+
+ROBOCOPY "$(ProjectDir)Audio" "$(SolutionDir)$(Configuration)\Audio" *.* /E /XX
+
+set arce=%errorlevel%
+echo Exit Code %arce%
+if %arce% geq 4 exit %arce% else exit 0</Command>
       <Message>Copy nessesary files to build.</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AudioSource.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GraphicsCtrlr.cpp" />
     <ClCompile Include="main.cpp" />
@@ -130,6 +143,7 @@ if %trce% geq 4 exit %trce% else exit 0</Command>
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Audio\rolling_by_madgarden.ogg" />
     <None Include="DLLs\libsndfile-1.dll" />
     <None Include="DLLs\msvcp110.dll" />
     <None Include="DLLs\msvcr110.dll" />
@@ -138,6 +152,7 @@ if %trce% geq 4 exit %trce% else exit 0</Command>
     <None Include="Shaders\basic.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AudioSource.hpp" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="GraphicsCtrlr.hpp" />
     <ClInclude Include="INameable.hpp" />
@@ -150,6 +165,10 @@ if %trce% geq 4 exit %trce% else exit 0</Command>
   <ItemGroup>
     <Image Include="Textures\texGameOver.png" />
     <Image Include="Textures\texPatches.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Audio\sndItemGet.wav" />
+    <Media Include="Audio\sndPlayerLaser.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

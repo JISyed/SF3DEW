@@ -37,6 +37,12 @@
     <Filter Include="Header Files\Interfaces">
       <UniqueIdentifier>{8227008c-6236-4804-ba11-e4ca48b0587b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Audio">
+      <UniqueIdentifier>{faaee51b-aaf6-4744-88ca-f1321c0b03db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Audio">
+      <UniqueIdentifier>{a0706169-c5dc-4c34-9677-94f33a84cd72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -60,6 +66,9 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="AudioSource.cpp">
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\basic.frag">
@@ -79,6 +88,9 @@
     </None>
     <None Include="DLLs\openal32.dll">
       <Filter>DLLs</Filter>
+    </None>
+    <None Include="Audio\rolling_by_madgarden.ogg">
+      <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +118,9 @@
     <ClInclude Include="Texture.hpp">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="AudioSource.hpp">
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\texGameOver.png">
@@ -114,5 +129,13 @@
     <Image Include="Textures\texPatches.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Audio\sndItemGet.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Audio\sndPlayerLaser.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>
