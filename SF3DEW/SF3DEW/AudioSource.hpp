@@ -73,7 +73,8 @@ namespace sfew
 
 		// Helpers ========================
 
-		sf::SoundSource::Status getInternalStatus() const;
+		sf::SoundSource::Status getInternalStatus() const;	// Get play state directly from SFML
+		void updatePlayStatus();	// Retrive play status from SFML to update AudioSource's status
 
 		// Data ===========================
 

@@ -119,37 +119,6 @@ int main()
 
 	theShader->SetUniform("view", theCamera->GenerateViewMatrix());
 	theShader->SetUniform("projection", theCamera->GenerateProjectionMatrix());
-	
-	// SFML audio test
-	
-	// Load two sound buffers
-	/*
-	sf::SoundBuffer sndBufLaser;
-	if(!sndBufLaser.loadFromFile("./Audio/sndPlayerLaser.wav"))
-	{
-		std::cout << "Warning! Sound file does not exist!" << std::endl;
-	}
-	sf::SoundBuffer sndBufItem;
-	if(!sndBufItem.loadFromFile("./Audio/sndItemGet.wav"))
-	{
-		std::cout << "Warning! Sound file does not exist!" << std::endl;
-	}
-	sf::Sound sndLaserii;
-	sndLaserii.setBuffer(sndBufLaser);
-	sf::Sound sndItemii;
-	sndItemii.setBuffer(sndBufItem);
-
-	sndLaserii.play();
-	sndItemii.play();
-
-	sf::Music musRollingii;
-	if(!musRollingii.openFromFile("./Audio/rolling_by_madgarden.ogg"))
-	{
-		std::cout << "Warning! Music file does not exist!" << std::endl;
-	}
-	musRollingii.setLoop(true);
-	musRollingii.play();
-	*/
 
 	// Experiment: Testing AudioSource
 	std::unique_ptr<sfew::AudioSource> sndLaser(new sfew::AudioSource("./Audio/sndPlayerLaser.wav", sfew::AudioType::Sound));
@@ -159,6 +128,10 @@ int main()
 	sndLaser->Play();
 	sndItem->Play();
 	musRolling->Play();
+
+	sf::sleep(sf::seconds(2.0f));
+
+	musRolling->Mute();
 
 	// START GAME LOOP
 	bool isRunning = true;
@@ -205,9 +178,11 @@ int main()
 
 	//sf::sleep(sndBufLaser.getDuration());
 
-	musRolling->Stop();
-	sndLaser->Play();
-	sf::sleep(sndLaser->GetDuration());
+	//musRolling->Stop();
+	musRolling->Unmute();
+	//sndLaser->Play();
+	//sf::sleep(sndLaser->GetDuration());
+	sf::sleep(sf::seconds(2.0f));
 
 	return 0;
 }

@@ -58,6 +58,13 @@ namespace sfew
 		// Make sure audio was successfully loaded
 		if(!_flaggedAsLoaded) return;
 
+		// Update the audio state based off internal SFML state
+		updatePlayStatus();
+
+		// Automatically unmute
+		Unmute();
+
+		// Play audio
 		if(_playStatus != AudioStatusType::Playing)
 		{
 			if(_audioType == AudioType::Sound)
@@ -78,6 +85,10 @@ namespace sfew
 		// Make sure audio was successfully loaded
 		if(!_flaggedAsLoaded) return;
 
+		// Update the audio state based off internal SFML state
+		updatePlayStatus();
+
+		// Pause audio
 		if(_playStatus != AudioStatusType::Paused)
 		{
 			if(_audioType == AudioType::Sound)
@@ -97,6 +108,10 @@ namespace sfew
 		// Make sure audio was successfully loaded
 		if(!_flaggedAsLoaded) return;
 
+		// Update the audio state based off internal SFML state
+		updatePlayStatus();
+
+		// Stop audio
 		if(_playStatus != AudioStatusType::Stopped)
 		{
 			if(_audioType == AudioType::Sound)
@@ -114,6 +129,7 @@ namespace sfew
 
 	void AudioSource::Mute()
 	{
+		// Mute audio and remember previous volume and status
 		if(_playStatus != AudioStatusType::Muted)
 		{
 			_volBeforeMute = GetVolume();
@@ -127,6 +143,7 @@ namespace sfew
 
 	void AudioSource::Unmute()
 	{
+		// Unmute by applying previous volume and status
 		if(_playStatus == AudioStatusType::Muted)
 		{
 			SetVolume(_volBeforeMute);
@@ -186,6 +203,9 @@ namespace sfew
 		{
 			_music.setVolume(newVolume);
 		}
+
+		// Set volume for previously remembered state as well
+		_volBeforeMute = newVolume;
 	}
 
 	float AudioSource::GetVolume() const
@@ -346,6 +366,7 @@ namespace sfew
 
 	// Helpers =========================================
 
+	// Get play state directly from SFML
 	sf::SoundSource::Status AudioSource::getInternalStatus() const
 	{
 		sf::SoundSource::Status audioStatus;
@@ -360,6 +381,47 @@ namespace sfew
 		}
 
 		return audioStatus;
+	}
+
+	// Retrive play status from SFML to update AudioSource's status
+	void AudioSource::updatePlayStatus()
+	{
+		sf::SoundSource::Status internalStatus = getInternalStatus();
+
+		if(_playStatus == AudioStatusType::Muted)
+		{
+			switch (internalStatus)
+			{
+			case sf::SoundSource::Stopped:
+				_statusBeforeMute = AudioStatusType::Stopped;
+				break;
+			case sf::SoundSource::Paused:
+				_statusBeforeMute = AudioStatusType::Paused;
+				break;
+			case sf::SoundSource::Playing:
+				_statusBeforeMute = AudioStatusType::Playing;
+				break;
+			default:
+				break;
+			}
+		}
+		else
+		{
+			switch (internalStatus)
+			{
+			case sf::SoundSource::Stopped:
+				_playStatus = AudioStatusType::Stopped;
+				break;
+			case sf::SoundSource::Paused:
+				_playStatus = AudioStatusType::Paused;
+				break;
+			case sf::SoundSource::Playing:
+				_playStatus = AudioStatusType::Playing;
+				break;
+			default:
+				break;
+			}
+		}
 	}
 
 } // namespace sfew
