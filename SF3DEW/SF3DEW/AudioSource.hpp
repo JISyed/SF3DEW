@@ -1,7 +1,9 @@
-// CLASS NAME
-// DESCRIPTION
+// AudioSource
+// Wrapper for SFML audio functionality
+// Allows to store either a sfx or music without different classes
+// Only supports 2D audio (no spacialization)
 //
-// Written by Jibran Syed (MONTH-DAY-YEAR)
+// Written by Jibran Syed (4-10-2014)
 
 #ifndef AUDIO_SOURCE_H
 #define AUDIO_SOURCE_H
@@ -71,7 +73,6 @@ namespace sfew
 
 		// Helpers ========================
 
-		
 
 		// Data ===========================
 
@@ -80,6 +81,9 @@ namespace sfew
 		sf::SoundBuffer _buffer;	// Data buffer for sound only (not music)
 		sf::Sound _soundEffect;		// The sound effect delegation
 		sf::Music _music;			// The music delegation
+		
+		float _volBeforeMute;				// Volume before muting started
+		AudioStatusType _statusBeforeMute;	// Play state before muting started
 
 		// Flags ==========================
 
