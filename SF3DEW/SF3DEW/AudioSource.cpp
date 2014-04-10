@@ -223,14 +223,14 @@ namespace sfew
 
 	void AudioSource::SetPitch(float newPitch)
 	{
-		// Restrict pitch between 0.01 and 100
-		if(newPitch < 0.01f)
+		// Restrict pitch between 0.05 and 50
+		if(newPitch < 0.05f)
 		{
-			newPitch = 0.01f;
+			newPitch = 0.05f;
 		}
-		if(newPitch > 100.0f)
+		if(newPitch > 50.0f)
 		{
-			newPitch = 100.0f;
+			newPitch = 50.0f;
 		}
 
 		// Set new pitch

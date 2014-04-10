@@ -125,13 +125,24 @@ int main()
 	std::unique_ptr<sfew::AudioSource> sndItem(new sfew::AudioSource("./Audio/sndItemGet.wav", sfew::AudioType::Sound));
 	std::unique_ptr<sfew::AudioSource> musRolling(new sfew::AudioSource("./Audio/rolling_by_madgarden.ogg", sfew::AudioType::Music));
 
-	sndLaser->Play();
-	sndItem->Play();
+	//sndLaser->Play();
+	//sndItem->Play();
+
 	musRolling->Play();
 
-	sf::sleep(sf::seconds(2.0f));
+	std::cout << "Loops: " << musRolling->IsLooping() << std::endl
+		<< "Volume: " << musRolling->GetVolume() << std::endl
+		<< "Pitch: " << musRolling->GetPitch() << std::endl
+		<< "Offset: " << musRolling->GetPlayingOffset().asSeconds() << std::endl
+		<< "Duration: " << musRolling->GetDuration().asSeconds() << std::endl
+		<< "Channels: " << musRolling->GetChannelCount() << std::endl
+		<< "Sample Rate: " << musRolling->GetSampleRate() << std::endl;
 
-	musRolling->Mute();
+	//sf::sleep(sf::seconds(2.0f));
+
+	//musRolling->Mute();
+	//musRolling->Pause();
+	//musRolling->Stop();
 
 	// START GAME LOOP
 	bool isRunning = true;
@@ -179,10 +190,11 @@ int main()
 	//sf::sleep(sndBufLaser.getDuration());
 
 	//musRolling->Stop();
-	musRolling->Unmute();
-	//sndLaser->Play();
-	//sf::sleep(sndLaser->GetDuration());
-	sf::sleep(sf::seconds(2.0f));
+	//musRolling->Unmute();
+	//musRolling->Play();
+	sndLaser->Play();
+	sf::sleep(sndLaser->GetDuration());
+	//sf::sleep(sf::seconds(2.0f));
 
 	return 0;
 }
