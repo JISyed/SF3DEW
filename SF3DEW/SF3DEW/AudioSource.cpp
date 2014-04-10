@@ -11,6 +11,8 @@ namespace sfew
 		INameable("Unnamed AudioSource"),
 		_audioType(type),
 		_playStatus(AudioStatusType::Stopped),
+		_volBeforeMute(100.0f),
+		_statusBeforeMute(AudioStatusType::Muted),
 		_flaggedAsLoaded(false)
 	{
 		std::cout << "Loading audio from \"" << audioFilePath << "\"" << std::endl;
@@ -56,7 +58,19 @@ namespace sfew
 		// Make sure audio was successfully loaded
 		if(!_flaggedAsLoaded) return;
 
+		if(_playStatus != AudioStatusType::Playing)
+		{
+			if(_audioType == AudioType::Sound)
+			{
+				_soundEffect.play();
+			}
+			else if(_audioType == AudioType::Music)
+			{
+				_music.play();
+			}
 
+			_playStatus = AudioStatusType::Playing;
+		}
 	}
 
 	void AudioSource::Pause()
@@ -64,24 +78,61 @@ namespace sfew
 		// Make sure audio was successfully loaded
 		if(!_flaggedAsLoaded) return;
 
+		if(_playStatus != AudioStatusType::Paused)
+		{
+			if(_audioType == AudioType::Sound)
+			{
+				_soundEffect.pause();
+			}
+			else if(_audioType == AudioType::Music)
+			{
+				_music.pause();
+			}
 
+			_playStatus = AudioStatusType::Paused;
+		}
 	}
 	void AudioSource::Stop()
 	{
 		// Make sure audio was successfully loaded
 		if(!_flaggedAsLoaded) return;
 
+		if(_playStatus != AudioStatusType::Stopped)
+		{
+			if(_audioType == AudioType::Sound)
+			{
+				_soundEffect.stop();
+			}
+			else if(_audioType == AudioType::Music)
+			{
+				_music.stop();
+			}
 
+			_playStatus = AudioStatusType::Stopped;
+		}
 	}
 
 	void AudioSource::Mute()
 	{
+		if(_playStatus != AudioStatusType::Muted)
+		{
+			_volBeforeMute = GetVolume();
+			_statusBeforeMute = _playStatus;
 
+			SetVolume(0.0f);
+
+			_playStatus = AudioStatusType::Muted;
+		}
 	}
 
 	void AudioSource::Unmute()
 	{
-
+		if(_playStatus == AudioStatusType::Muted)
+		{
+			SetVolume(_volBeforeMute);
+			_playStatus = _statusBeforeMute;
+			_statusBeforeMute = AudioStatusType::Muted;
+		}
 	}
 
 	// Properties =========================================
@@ -272,17 +323,20 @@ namespace sfew
 
 	bool AudioSource::IsPlaying() const
 	{
-		return _playStatus == AudioStatusType::Playing;
+		return (_playStatus == AudioStatusType::Playing) 
+			|| (_statusBeforeMute == AudioStatusType::Playing);
 	}
 
 	bool AudioSource::IsPaused() const
 	{
-		return _playStatus == AudioStatusType::Paused;
+		return (_playStatus == AudioStatusType::Paused) 
+			|| (_statusBeforeMute == AudioStatusType::Paused);
 	}
 
 	bool AudioSource::IsStopped() const
 	{
-		return _playStatus == AudioStatusType::Stopped;
+		return (_playStatus == AudioStatusType::Stopped) 
+			|| (_statusBeforeMute == AudioStatusType::Stopped);
 	}
 
 	bool AudioSource::IsMuted() const
@@ -291,5 +345,21 @@ namespace sfew
 	}
 
 	// Helpers =========================================
+
+	sf::SoundSource::Status AudioSource::getInternalStatus() const
+	{
+		sf::SoundSource::Status audioStatus;
+
+		if(_audioType == AudioType::Sound)
+		{
+			audioStatus = _soundEffect.getStatus();
+		}
+		else if(_audioType == AudioType::Music)
+		{
+			audioStatus = _music.getStatus();
+		}
+
+		return audioStatus;
+	}
 
 } // namespace sfew

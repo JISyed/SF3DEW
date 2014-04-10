@@ -38,7 +38,7 @@ namespace sfew
 		// Ctor/Dtor ======================
 
 		AudioSource(const std::string& audioFilePath, AudioType type);
-		~AudioSource();
+		virtual ~AudioSource();
 
 		// Routines =======================
 
@@ -73,6 +73,7 @@ namespace sfew
 
 		// Helpers ========================
 
+		sf::SoundSource::Status getInternalStatus() const;
 
 		// Data ===========================
 

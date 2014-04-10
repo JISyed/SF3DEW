@@ -123,6 +123,7 @@ int main()
 	// SFML audio test
 	
 	// Load two sound buffers
+	/*
 	sf::SoundBuffer sndBufLaser;
 	if(!sndBufLaser.loadFromFile("./Audio/sndPlayerLaser.wav"))
 	{
@@ -133,22 +134,33 @@ int main()
 	{
 		std::cout << "Warning! Sound file does not exist!" << std::endl;
 	}
-	sf::Sound sndLaser;
-	sndLaser.setBuffer(sndBufLaser);
-	sf::Sound sndItem;
-	sndItem.setBuffer(sndBufItem);
+	sf::Sound sndLaserii;
+	sndLaserii.setBuffer(sndBufLaser);
+	sf::Sound sndItemii;
+	sndItemii.setBuffer(sndBufItem);
 
-	sndLaser.play();
-	sndItem.play();
+	sndLaserii.play();
+	sndItemii.play();
 
-	sf::Music musRolling;
-	if(!musRolling.openFromFile("./Audio/rolling_by_madgarden.ogg"))
+	sf::Music musRollingii;
+	if(!musRollingii.openFromFile("./Audio/rolling_by_madgarden.ogg"))
 	{
 		std::cout << "Warning! Music file does not exist!" << std::endl;
 	}
-	musRolling.setLoop(true);
-	musRolling.play();
+	musRollingii.setLoop(true);
+	musRollingii.play();
+	*/
 
+	// Experiment: Testing AudioSource
+	std::unique_ptr<sfew::AudioSource> sndLaser(new sfew::AudioSource("./Audio/sndPlayerLaser.wav", sfew::AudioType::Sound));
+	std::unique_ptr<sfew::AudioSource> sndItem(new sfew::AudioSource("./Audio/sndItemGet.wav", sfew::AudioType::Sound));
+	std::unique_ptr<sfew::AudioSource> musRolling(new sfew::AudioSource("./Audio/rolling_by_madgarden.ogg", sfew::AudioType::Music));
+
+	sndLaser->Play();
+	sndItem->Play();
+	musRolling->Play();
+
+	// START GAME LOOP
 	bool isRunning = true;
 	while(isRunning)
 	{
@@ -187,11 +199,15 @@ int main()
 		window.display();
 	}
 
-	musRolling.stop();
+	//musRollingii.stop();
 
-	sndLaser.play();
+	//sndLaserii.play();
 
-	sf::sleep(sf::seconds(sndBufLaser.getDuration().asSeconds()));
+	//sf::sleep(sndBufLaser.getDuration());
+
+	musRolling->Stop();
+	sndLaser->Play();
+	sf::sleep(sndLaser->GetDuration());
 
 	return 0;
 }
