@@ -135,9 +135,9 @@ namespace sfew
 			_volBeforeMute = GetVolume();
 			_statusBeforeMute = _playStatus;
 
-			SetVolume(0.0f);
-
 			_playStatus = AudioStatusType::Muted;
+
+			SetVolume(0.0f);
 		}
 	}
 
@@ -203,9 +203,6 @@ namespace sfew
 		{
 			_music.setVolume(newVolume);
 		}
-
-		// Set volume for previously remembered state as well
-		_volBeforeMute = newVolume;
 	}
 
 	float AudioSource::GetVolume() const
