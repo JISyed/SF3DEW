@@ -35,6 +35,9 @@ int main()
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Experiment: Test mesh object
+	
+	// CUBE
+	/*
 	GLfloat vertices[] = {
 		// X     Y      Z     R     G     B     U     V
 		// Back
@@ -85,6 +88,101 @@ int main()
 		-0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
 		 0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f
 	};
+	//*/
+
+	// TETRAHEDRON
+	/*
+	GLfloat vertices[] = {
+		-0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,	// L
+		 0.0f,  0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f,	// T
+		 0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,	// R
+
+		-0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,	// L
+		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,	// F
+		 0.0f,  0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,	// T
+
+		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,	// F
+		 0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,	// R
+		 0.0f,  0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,	// T
+
+		-0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,	// L
+		 0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,	// R
+		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 5.0f, 1.0f	// F
+	};
+	//*/
+
+	// OCTOHEDRON
+	/*
+	GLfloat vertices[] = {
+		 0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+		 0.0f,  0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
+		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+
+		-0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+		 0.0f,  0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
+
+		 0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+		 0.0f,  0.0f, -0.5f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+		 0.0f,  0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
+
+		-0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+		 0.0f,  0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
+		 0.0f,  0.0f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+
+		 0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+		 0.0f, -0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
+
+		-0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+		 0.0f, -0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
+		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+
+		 0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+		 0.0f, -0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
+		 0.0f,  0.0f, -0.5f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+
+		-0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+		 0.0f,  0.0f, -0.5f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+		 0.0f, -0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f
+	};
+	//*/
+
+	// TRIANGLE PRISM
+	GLfloat vertices[] = {
+		-0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // LO 
+		 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, // BO
+		 0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // RO
+
+		-0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // LI
+		 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // RI
+		 0.0f, -1.4f, -0.1f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, // BI
+
+		-0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // LO
+		-0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 0.2f, 1.0f, // LI
+		 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BO
+
+		-0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 0.2f, 1.0f, // LI
+		 0.0f, -1.4f, -0.1f, 1.0f, 1.0f, 1.0f, 0.2f, 0.0f, // BI
+		 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BO
+
+		 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BO
+		 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 0.2f, 1.0f, // RI
+		 0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // RO
+
+		 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BO
+		 0.0f, -1.4f, -0.1f, 1.0f, 1.0f, 1.0f, 0.2f, 0.0f, // BI
+		 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 0.2f, 1.0f, // RI
+
+		-0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // LO
+		 0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // RO
+		 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, // RI
+
+		 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, // RI
+		-0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 0.0f, 0.2f, // LI
+		-0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f  // LO 
+	};
+
 	std::vector<float> vertexData(vertices, vertices + sizeof(vertices) / sizeof(float));
 	std::unique_ptr<sfew::Mesh> theMesh(new sfew::Mesh(vertexData));
 	theMesh->SetName("Rectangle Mesh");
@@ -128,6 +226,7 @@ int main()
 	//sndLaser->Play();
 	//sndItem->Play();
 
+	musRolling->SetVolume(10.0f);
 	musRolling->Play();
 
 	std::cout << "Loops: " << musRolling->IsLooping() << std::endl
@@ -189,11 +288,11 @@ int main()
 
 	//sf::sleep(sndBufLaser.getDuration());
 
-	//musRolling->Stop();
+	musRolling->Stop();
 	//musRolling->Unmute();
 	//musRolling->Play();
-	sndLaser->Play();
-	sf::sleep(sndLaser->GetDuration());
+	//sndLaser->Play();
+	//sf::sleep(sndLaser->GetDuration());
 	//sf::sleep(sf::seconds(2.0f));
 
 	return 0;
