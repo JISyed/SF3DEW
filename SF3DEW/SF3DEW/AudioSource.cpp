@@ -48,7 +48,7 @@ namespace sfew
 
 	AudioSource::~AudioSource()
 	{
-		
+		Stop();
 	}
 
 	// Routines =========================================

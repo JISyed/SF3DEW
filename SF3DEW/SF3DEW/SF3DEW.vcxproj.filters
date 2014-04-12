@@ -43,6 +43,12 @@
     <Filter Include="Source Files\Audio">
       <UniqueIdentifier>{a0706169-c5dc-4c34-9677-94f33a84cd72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{af0dffc0-8280-442d-9908-0a98648dbb14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{e77b98f9-6af7-4ee8-9925-d3930c7d1288}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -68,6 +74,12 @@
     </ClCompile>
     <ClCompile Include="AudioSource.cpp">
       <Filter>Source Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="FontRenderer.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Source Files\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +135,15 @@
     </ClInclude>
     <ClInclude Include="AudioSource.hpp">
       <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="FontRenderer.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ISystemObject.hpp">
+      <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

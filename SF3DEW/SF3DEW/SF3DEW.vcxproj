@@ -145,8 +145,10 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="AudioSource.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="FontRenderer.cpp" />
     <ClCompile Include="GraphicsCtrlr.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -165,10 +167,13 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <None Include="Shaders\basic.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Application.hpp" />
     <ClInclude Include="AudioSource.hpp" />
     <ClInclude Include="Camera.hpp" />
+    <ClInclude Include="FontRenderer.hpp" />
     <ClInclude Include="GraphicsCtrlr.hpp" />
     <ClInclude Include="INameable.hpp" />
+    <ClInclude Include="ISystemObject.hpp" />
     <ClInclude Include="LinearAlgebraTypes.hpp" />
     <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="Shader.hpp" />

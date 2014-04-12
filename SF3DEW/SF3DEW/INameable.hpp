@@ -1,5 +1,5 @@
 // Nameable Interface (INameable)
-// Protocol that gives
+// Protocol that gives objects a string name
 //
 // Written by Jibran Syed (4-6-2014)
 

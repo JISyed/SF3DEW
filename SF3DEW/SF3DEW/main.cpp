@@ -16,6 +16,7 @@
 #include "Texture.hpp"
 #include "Transform.hpp"
 #include "AudioSource.hpp"
+#include "FontRenderer.hpp"
 
 int main()
 {
@@ -211,7 +212,8 @@ int main()
 	std::unique_ptr<sfew::Camera> theCamera(new sfew::Camera());
 	theCamera->SetName("Main Camera");
 	theCamera->SetAspectRatio(winSize.x, winSize.y);
-	theCamera->SetPosition(sfew::Vector3(1.2f, 1.2f, 1.2f));
+	float camStart = 1.2f;
+	theCamera->SetPosition(sfew::Vector3(camStart, camStart, camStart));
 	theCamera->LookAtPoint(sfew::Vector3(0.0f, 0.0f, 0.0f));
 	theCamera->SetUpDirection(sfew::Transform::WorldUp());
 
@@ -229,26 +231,20 @@ int main()
 	musRolling->SetVolume(10.0f);
 	musRolling->Play();
 
-	// Messing with fonts
-	
+	// Load a font with SFML
 	sf::Font testFont;
 	if(!testFont.loadFromFile("./Fonts/Mars_1_0_0_6.otf"))
 	{
 		std::cout << "Warning! Font not found!" << std::endl;
 	}
-	
-	// Text label using the font
 
-	sf::Text textLabel;
-	textLabel.setFont(testFont);
-	textLabel.setString("Hello Everyone!");
-	textLabel.setCharacterSize(48);
-	textLabel.setColor(sf::Color::Red);
-	textLabel.setStyle(sf::Text::Style::Underlined);
-	textLabel.setPosition(10,10);
-	textLabel.setRotation(0);
-	textLabel.setScale(1,1);
-
+	// Experiment: testing FontRenderer
+	std::unique_ptr<sfew::FontRenderer> testLabel(new sfew::FontRenderer(window, testFont));
+	testLabel->SetTextString("A Video Game!");
+	testLabel->SetFontSize(48);
+	testLabel->SetColor(0.0f, 0.5f, 0.7f, 1.0f);
+	testLabel->SetStyle(sf::Text::Style::Regular);
+	testLabel->SetPosition(10, 10);
 
 	// START GAME LOOP
 	bool isRunning = true;
@@ -274,11 +270,15 @@ int main()
 		//delta = (sin(t * 4.0f) + 1.0f)/2.0f;
 		//theShader->SetUniform("triangleColor", delta, delta, delta);
 
+		// Move camera
+		camStart += 0.0004f;
+		theCamera->SetPosition(sfew::Vector3(camStart, camStart, camStart));
+		theShader->SetUniform("view", theCamera->GenerateViewMatrix());
+
 		// Draw 3D
 		theShader->UseShader();
 		theTexture->UseTexture();
 		theMesh->MakeActiveMeshToDraw();
-		sfew::Shader::EnableVertexAttributes();
 
 		theTransform->Rotate(sfew::Vector3(0.0f, 1.0f, 0.0f));
 		theShader->SetUniform("model", theTransform->GenerateModelMatrix());
@@ -290,16 +290,11 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, theMesh->GetNumberOfVertices());
 
 		// Draw font
-		sfew::Mesh::StopUsingMeshes();
-		sfew::Shader::DisableVertexAttributes();
-		window.pushGLStates();
-		window.draw(textLabel);
-		window.popGLStates();
+		testLabel->Draw();
 
 		window.display();
 	}
 
-	musRolling->Stop();
 	//sndLaser->Play();
 	//sf::sleep(sndLaser->GetDuration());
 	//sf::sleep(sf::seconds(2.0f));
