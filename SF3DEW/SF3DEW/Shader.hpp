@@ -36,6 +36,8 @@ namespace sfew
 
 		void UseShader();				// Make current active shader for OpenGL
 		static void StopUsingShaders();	// Assigns no shader to OpenGL rendering
+		static void EnableVertexAttributes();	// Use vertex attributes to draw 3D
+		static void DisableVertexAttributes();	// Stop using vertex attributes to draw 2D
 
 		// Properties =====================
 

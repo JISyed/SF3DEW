@@ -19,7 +19,7 @@
 
 int main()
 {
-	sf::Window window(sf::VideoMode(800, 600), "SF3DEW Test", sf::Style::Close | sf::Style::Titlebar);
+	sf::RenderWindow window(sf::VideoMode(800, 600), "SF3DEW Test", sf::Style::Close | sf::Style::Titlebar);
 	window.setVerticalSyncEnabled(true);
 	sf::Vector2u winSize = window.getSize();
 
@@ -241,10 +241,13 @@ int main()
 
 	sf::Text textLabel;
 	textLabel.setFont(testFont);
-	textLabel.setString("Hello Ruka!");
-	textLabel.setCharacterSize(24);
+	textLabel.setString("Hello Everyone!");
+	textLabel.setCharacterSize(48);
 	textLabel.setColor(sf::Color::Red);
 	textLabel.setStyle(sf::Text::Style::Underlined);
+	textLabel.setPosition(10,10);
+	textLabel.setRotation(0);
+	textLabel.setScale(1,1);
 
 
 	// START GAME LOOP
@@ -271,8 +274,11 @@ int main()
 		//delta = (sin(t * 4.0f) + 1.0f)/2.0f;
 		//theShader->SetUniform("triangleColor", delta, delta, delta);
 
+		// Draw 3D
 		theShader->UseShader();
+		theTexture->UseTexture();
 		theMesh->MakeActiveMeshToDraw();
+		sfew::Shader::EnableVertexAttributes();
 
 		theTransform->Rotate(sfew::Vector3(0.0f, 1.0f, 0.0f));
 		theShader->SetUniform("model", theTransform->GenerateModelMatrix());
@@ -283,7 +289,12 @@ int main()
 
 		glDrawArrays(GL_TRIANGLES, 0, theMesh->GetNumberOfVertices());
 
-		
+		// Draw font
+		sfew::Mesh::StopUsingMeshes();
+		sfew::Shader::DisableVertexAttributes();
+		window.pushGLStates();
+		window.draw(textLabel);
+		window.popGLStates();
 
 		window.display();
 	}

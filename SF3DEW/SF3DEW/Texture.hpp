@@ -44,7 +44,8 @@ namespace sfew
 
 		// Routines =======================
 
-		void UseTexture();			// Makes texture the current active texture
+		static void StopUsingTextures();	// Stops all textures from being the active texture
+		void UseTexture();					// Makes texture the current active texture
 		void SetWrapping(TextureWrapType wrapBehavior);	// Set wrapping behavior when outside standard UV coordinates
 		void SetFiltering(TextureFilterType filter);	// Set texture filtering (how texture gets sampled)
 

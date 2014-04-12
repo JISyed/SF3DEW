@@ -91,6 +91,12 @@ namespace sfew
 
 	// Routines =========================================
 
+	// Stops all textures from being the active texture
+	void Texture::StopUsingTextures()
+	{
+		glBindTexture(GL_TEXTURE_2D, NULL);
+	}
+
 	// Makes texture the current active texture
 	void Texture::UseTexture()
 	{

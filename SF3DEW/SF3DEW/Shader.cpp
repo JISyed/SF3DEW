@@ -78,6 +78,22 @@ namespace sfew
 		glUseProgram(NULL);
 	}
 
+	// Use vertex attributes to draw 3D
+	void Shader::EnableVertexAttributes()
+	{
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glEnableVertexAttribArray(2);
+	}
+
+	// Stop using vertex attributes to draw 2D
+	void Shader::DisableVertexAttributes()
+	{
+		glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
+		glDisableVertexAttribArray(2);
+	}
+
 	// Uniform Setters =======================================
 
 	// Pass in uniform data to shader

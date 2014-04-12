@@ -38,6 +38,12 @@ namespace sfew
 		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
 	}
 
+	// Makes no mesh the active mesh
+	void Mesh::StopUsingMeshes()
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, NULL);
+	}
+
 	// Properties =========================================
 
 	int Mesh::GetNumberOfVertices() const

@@ -28,6 +28,7 @@ namespace sfew
 		// Routines =======================
 
 		void MakeActiveMeshToDraw();	// Make active mesh to draw
+		static void StopUsingMeshes();	// Makes no mesh the active mesh
 
 		// Properties =====================
 
