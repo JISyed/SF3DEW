@@ -9,6 +9,7 @@
 #include <vector>
 #include <memory>				// For unique_ptr
 #include <time.h>				// THIS SHOULD BE TEMPORARY
+#include <sstream>				// For stringstream
 
 #include "Shader.hpp"
 #include "Mesh.hpp"
@@ -18,9 +19,13 @@
 #include "AudioSource.hpp"
 #include "FontRenderer.hpp"
 #include "Random.hpp"
+#include "SystemTime.hpp"
 
 int main()
 {
+	// Make system time first!
+	sfew::SystemTime systemTime;
+
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SF3DEW Test", sf::Style::Close | sf::Style::Titlebar);
 	window.setVerticalSyncEnabled(true);
 	sf::Vector2u winSize = window.getSize();
@@ -247,37 +252,18 @@ int main()
 	testLabel->SetStyle(sf::Text::Style::Regular);
 	testLabel->SetPosition(10, 10);
 
-	// Expeirment: testing Random
-	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
-	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
-	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
-	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
-	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
-	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
-	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
-	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
-
-	std::cout << "Random Float (3 - 27): " << sfew::Random::Range(3.0f, 27.0f) << std::endl;
-	std::cout << "Random Float (3 - 27): " << sfew::Random::Range(3.0f, 27.0f) << std::endl;
-	std::cout << "Random Float (3 - 27): " << sfew::Random::Range(3.0f, 27.0f) << std::endl;
-	std::cout << "Random Float (3 - 27): " << sfew::Random::Range(3.0f, 27.0f) << std::endl;
-	std::cout << "Random Float (3 - 27): " << sfew::Random::Range(3.0f, 27.0f) << std::endl;
-	std::cout << "Random Float (3 - 27): " << sfew::Random::Range(3.0f, 27.0f) << std::endl;
-	std::cout << "Random Float (3 - 27): " << sfew::Random::Range(3.0f, 27.0f) << std::endl;
-
-	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
-	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
-	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
-	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
-	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
-	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
-	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
-	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
+	// Experiment: testing SystemTime (delta should be 0 here)
+	std::cout << "Run: " << sfew::SystemTime::GetGameRunTime().asSeconds() << std::endl;
+	std::cout << "Delta: " << sfew::SystemTime::GetDeltaTime().asSeconds() << std::endl;
 
 	// START GAME LOOP
+	std::stringstream fpsStr;
 	bool isRunning = true;
 	while(isRunning)
 	{
+		// Update the delta time (mandatory)
+		systemTime.Loop();
+
 		sf::Event event;
 		while(window.pollEvent(event))
 		{
@@ -299,9 +285,15 @@ int main()
 		//theShader->SetUniform("triangleColor", delta, delta, delta);
 
 		// Move camera
-		camStart += 0.0004f;
-		theCamera->SetPosition(sfew::Vector3(camStart, camStart, camStart));
-		theShader->SetUniform("view", theCamera->GenerateViewMatrix());
+		//camStart += 0.0004f;
+		//theCamera->SetPosition(sfew::Vector3(camStart, camStart, camStart));
+		//theShader->SetUniform("view", theCamera->GenerateViewMatrix());
+
+		// Update font renderer
+		float fpsVal = sfew::SystemTime::GetFPS();
+		fpsStr.str(std::string());
+		fpsStr << "FPS: " << fpsVal;
+		testLabel->SetTextString(fpsStr.str());
 
 		// Draw 3D
 		theShader->UseShader();

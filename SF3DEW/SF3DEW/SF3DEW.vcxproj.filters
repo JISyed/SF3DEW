@@ -84,6 +84,9 @@
     <ClCompile Include="Random.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
+    <ClCompile Include="SystemTime.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\basic.frag">
@@ -149,6 +152,9 @@
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Random.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemTime.hpp">
       <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>

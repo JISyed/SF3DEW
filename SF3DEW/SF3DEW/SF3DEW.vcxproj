@@ -154,6 +154,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SystemTime.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
@@ -179,6 +180,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="Shader.hpp" />
+    <ClInclude Include="SystemTime.hpp" />
     <ClInclude Include="Texture.hpp" />
     <ClInclude Include="Transform.hpp" />
   </ItemGroup>
