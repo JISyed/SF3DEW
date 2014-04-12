@@ -1,8 +1,8 @@
 #include <GL/glew.h>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
-#include <SFML/OpenGL.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/OpenGL.hpp>
 #include <fstream>				// For ifstream
 #include <iostream>				// For cout
 #include <string>
@@ -228,6 +228,15 @@ int main()
 
 	musRolling->SetVolume(10.0f);
 	musRolling->Play();
+
+	// Messing with fonts
+	/*
+	sf::Font testFont;
+	if(!testFont.loadFromFile("./Fonts/Mars_1_0_0_6.otf"))
+	{
+		std::cout << "Warning! Font not found!" << std::endl;
+	}
+	*/
 
 	std::cout << "Loops: " << musRolling->IsLooping() << std::endl
 		<< "Volume: " << musRolling->GetVolume() << std::endl

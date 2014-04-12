@@ -78,7 +78,13 @@ ROBOCOPY "$(ProjectDir)Audio" "$(SolutionDir)$(Configuration)\Audio" *.* /E /XX
 
 set arce=%errorlevel%
 echo Exit Code %arce%
-if %arce% geq 4 exit %arce% else exit 0</Command>
+if %arce% geq 4 exit %arce% else exit 0
+
+ROBOCOPY "$(ProjectDir)Fonts" "$(SolutionDir)$(Configuration)\Fonts" *.* /E /XX
+
+set frce=%errorlevel%
+echo Exit Code %frce%
+if %frce% geq 4 exit %frce% else exit 0</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy nessesary files to build.</Message>
@@ -128,7 +134,13 @@ ROBOCOPY "$(ProjectDir)Audio" "$(SolutionDir)$(Configuration)\Audio" *.* /E /XX
 
 set arce=%errorlevel%
 echo Exit Code %arce%
-if %arce% geq 4 exit %arce% else exit 0</Command>
+if %arce% geq 4 exit %arce% else exit 0
+
+ROBOCOPY "$(ProjectDir)Fonts" "$(SolutionDir)$(Configuration)\Fonts" *.* /E /XX
+
+set frce=%errorlevel%
+echo Exit Code %frce%
+if %frce% geq 4 exit %frce% else exit 0</Command>
       <Message>Copy nessesary files to build.</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -169,6 +181,9 @@ if %arce% geq 4 exit %arce% else exit 0</Command>
   <ItemGroup>
     <Media Include="Audio\sndItemGet.wav" />
     <Media Include="Audio\sndPlayerLaser.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Fonts\Mars_1_0_0_6.otf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
