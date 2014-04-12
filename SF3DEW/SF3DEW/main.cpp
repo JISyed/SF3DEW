@@ -230,27 +230,22 @@ int main()
 	musRolling->Play();
 
 	// Messing with fonts
-	//*
+	
 	sf::Font testFont;
 	if(!testFont.loadFromFile("./Fonts/Mars_1_0_0_6.otf"))
 	{
 		std::cout << "Warning! Font not found!" << std::endl;
 	}
-	//*/
+	
+	// Text label using the font
 
-	std::cout << "Loops: " << musRolling->IsLooping() << std::endl
-		<< "Volume: " << musRolling->GetVolume() << std::endl
-		<< "Pitch: " << musRolling->GetPitch() << std::endl
-		<< "Offset: " << musRolling->GetPlayingOffset().asSeconds() << std::endl
-		<< "Duration: " << musRolling->GetDuration().asSeconds() << std::endl
-		<< "Channels: " << musRolling->GetChannelCount() << std::endl
-		<< "Sample Rate: " << musRolling->GetSampleRate() << std::endl;
+	sf::Text textLabel;
+	textLabel.setFont(testFont);
+	textLabel.setString("Hello Ruka!");
+	textLabel.setCharacterSize(24);
+	textLabel.setColor(sf::Color::Red);
+	textLabel.setStyle(sf::Text::Style::Underlined);
 
-	//sf::sleep(sf::seconds(2.0f));
-
-	//musRolling->Mute();
-	//musRolling->Pause();
-	//musRolling->Stop();
 
 	// START GAME LOOP
 	bool isRunning = true;
@@ -288,18 +283,12 @@ int main()
 
 		glDrawArrays(GL_TRIANGLES, 0, theMesh->GetNumberOfVertices());
 
+		
+
 		window.display();
 	}
 
-	//musRollingii.stop();
-
-	//sndLaserii.play();
-
-	//sf::sleep(sndBufLaser.getDuration());
-
 	musRolling->Stop();
-	//musRolling->Unmute();
-	//musRolling->Play();
 	//sndLaser->Play();
 	//sf::sleep(sndLaser->GetDuration());
 	//sf::sleep(sf::seconds(2.0f));
