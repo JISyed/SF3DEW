@@ -152,6 +152,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="GraphicsCtrlr.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -176,6 +177,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClInclude Include="ISystemObject.hpp" />
     <ClInclude Include="LinearAlgebraTypes.hpp" />
     <ClInclude Include="Mesh.hpp" />
+    <ClInclude Include="Random.hpp" />
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="Texture.hpp" />
     <ClInclude Include="Transform.hpp" />

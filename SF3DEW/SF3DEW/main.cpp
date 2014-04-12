@@ -17,6 +17,7 @@
 #include "Transform.hpp"
 #include "AudioSource.hpp"
 #include "FontRenderer.hpp"
+#include "Random.hpp"
 
 int main()
 {
@@ -245,6 +246,33 @@ int main()
 	testLabel->SetColor(0.0f, 0.5f, 0.7f, 1.0f);
 	testLabel->SetStyle(sf::Text::Style::Regular);
 	testLabel->SetPosition(10, 10);
+
+	// Expeirment: testing Random
+	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
+	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
+	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
+	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
+	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
+	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
+	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
+	std::cout << "Random Normalize Float: " << sfew::Random::NormalizedFloat() << std::endl;
+
+	std::cout << "Random Float (3 - 27): " << sfew::Random::Range(3.0f, 27.0f) << std::endl;
+	std::cout << "Random Float (3 - 27): " << sfew::Random::Range(3.0f, 27.0f) << std::endl;
+	std::cout << "Random Float (3 - 27): " << sfew::Random::Range(3.0f, 27.0f) << std::endl;
+	std::cout << "Random Float (3 - 27): " << sfew::Random::Range(3.0f, 27.0f) << std::endl;
+	std::cout << "Random Float (3 - 27): " << sfew::Random::Range(3.0f, 27.0f) << std::endl;
+	std::cout << "Random Float (3 - 27): " << sfew::Random::Range(3.0f, 27.0f) << std::endl;
+	std::cout << "Random Float (3 - 27): " << sfew::Random::Range(3.0f, 27.0f) << std::endl;
+
+	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
+	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
+	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
+	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
+	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
+	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
+	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
+	std::cout << "Random Int (1 - 100): " << sfew::Random::Range(1, 100) << std::endl;
 
 	// START GAME LOOP
 	bool isRunning = true;
