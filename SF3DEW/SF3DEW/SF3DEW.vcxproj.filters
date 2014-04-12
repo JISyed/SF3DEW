@@ -92,6 +92,9 @@
     <None Include="Audio\rolling_by_madgarden.ogg">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="DLLs\glew32.dll">
+      <Filter>DLLs</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsCtrlr.hpp">

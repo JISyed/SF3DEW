@@ -230,13 +230,13 @@ int main()
 	musRolling->Play();
 
 	// Messing with fonts
-	/*
+	//*
 	sf::Font testFont;
 	if(!testFont.loadFromFile("./Fonts/Mars_1_0_0_6.otf"))
 	{
 		std::cout << "Warning! Font not found!" << std::endl;
 	}
-	*/
+	//*/
 
 	std::cout << "Loops: " << musRolling->IsLooping() << std::endl
 		<< "Volume: " << musRolling->GetVolume() << std::endl
