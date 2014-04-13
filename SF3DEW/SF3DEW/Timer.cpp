@@ -27,7 +27,21 @@ namespace sfew
 	// Update timer in game loop
 	void Timer::Update()
 	{
+		// Skip if already triggered
+		if(_alreadyTriggered) return;
 
+		// Check if time's up
+		if(GetTimeRemaining().asSeconds() <= 0.0f)
+		{
+			// Run callback
+			executeCallback();
+
+			// Restart if looping
+			if(_loops)
+			{
+				Reset();
+			}
+		}
 	}
 
 	// Adds time to make timer trigger later
@@ -62,6 +76,11 @@ namespace sfew
 		if(loop == true)
 		{
 			_alreadyTriggered = false;
+			
+			if(_triggerTime.asSeconds() < 0.0f)
+			{
+				Reset();
+			}
 		}
 
 		_loops = loop;
@@ -115,12 +134,17 @@ namespace sfew
 	// Fire the triggered event
 	void Timer::executeCallback()
 	{
+		// Mark as already triggered
+		_alreadyTriggered = true;
+
 		// Check if target is valid
+		/*
 		if(_triggerEvent.target<Callback>() == nullptr)
 		{
 			std::cout << "Error! Timer's callback has no target!" << std::endl;
 			return;
 		}
+		*/
 
 		// Fire the callback
 		_triggerEvent();

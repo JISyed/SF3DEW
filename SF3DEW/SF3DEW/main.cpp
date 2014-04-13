@@ -20,6 +20,12 @@
 #include "FontRenderer.hpp"
 #include "Random.hpp"
 #include "SystemTime.hpp"
+#include "Timer.hpp"
+
+void exampleCallback()
+{
+	std::cout << "Yeah!" << std::endl;
+}
 
 int main()
 {
@@ -256,6 +262,12 @@ int main()
 	std::cout << "Run: " << sfew::SystemTime::GetGameRunTime().asSeconds() << std::endl;
 	std::cout << "Delta: " << sfew::SystemTime::GetDeltaTime().asSeconds() << std::endl;
 
+	// Experiment: tesing Timers
+	//std::unique_ptr<sfew::Timer> theTimer(new sfew::Timer(sf::seconds(5.0f), std::bind(&exampleCallback)));
+	
+	std::unique_ptr<sfew::Timer> theTimer(new sfew::Timer(sf::seconds(5.0f), [&theTransform](){theTransform->Translate(sfew::Vector3(0.0f, 0.5f, 0.0f));} ));
+	theTimer->SetLooping(true);
+
 	// START GAME LOOP
 	std::stringstream fpsStr;
 	bool isRunning = true;
@@ -263,6 +275,7 @@ int main()
 	{
 		// Update the delta time (mandatory)
 		systemTime.Loop();
+		theTimer->Update();
 
 		sf::Event event;
 		while(window.pollEvent(event))
