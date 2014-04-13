@@ -38,6 +38,7 @@ namespace sfew
 		static void StopUsingShaders();	// Assigns no shader to OpenGL rendering
 		static void EnableVertexAttributes();	// Use vertex attributes to draw 3D
 		static void DisableVertexAttributes();	// Stop using vertex attributes to draw 2D
+		bool HasUniform(const std::string& uniformName);	// Does uniform name exist in shader program?
 
 		// Properties =====================
 
@@ -62,7 +63,7 @@ namespace sfew
 		void linkShaders();						// Link the vertex and fragment shaders together
 		void formatVertexAttributes();			// Format vertex data for shaders to use
 		bool verifyShaderIsLinkedForUniforms();	// Verify shader is linked for uniform assignment
-		bool verifyUniformLegitimacy(GLint uniformHandle, const std::string& uniformName);	// Verify that the uniform variable is valid
+		bool verifyUniformLegitimacy(const std::string& uniformName);	// Verify that the uniform variable is valid
 
 		// Data ===========================
 

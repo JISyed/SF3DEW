@@ -72,13 +72,13 @@ namespace sfew
 		glUseProgram(_shaderProgram);
 	}
 	
-	// Assigns no shader to OpenGL rendering
+	// STATIC: Assigns no shader to OpenGL rendering
 	void Shader::StopUsingShaders()
 	{
 		glUseProgram(NULL);
 	}
 
-	// Use vertex attributes to draw 3D
+	// STATIC: Use vertex attributes to draw 3D
 	void Shader::EnableVertexAttributes()
 	{
 		glEnableVertexAttribArray(0);
@@ -86,12 +86,37 @@ namespace sfew
 		glEnableVertexAttribArray(2);
 	}
 
-	// Stop using vertex attributes to draw 2D
+	// STATIC: Stop using vertex attributes to draw 2D
 	void Shader::DisableVertexAttributes()
 	{
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		glDisableVertexAttribArray(2);
+	}
+
+	// Does uniform name exist in shader program?
+	bool Shader::HasUniform(const std::string& uniformName)
+	{
+		// Is the shader linked?
+		if(!verifyShaderIsLinkedForUniforms())
+		{
+			return false;
+		}
+
+		// Make active shader
+		glUseProgram(_shaderProgram);
+
+		// Attempt to get the uniform handle from the name
+		GLint uniformHandle = glGetUniformLocation(_shaderProgram, uniformName.c_str());
+		
+		// Return false if uniform does not exist
+		if(uniformHandle == -1)
+		{
+			return false;
+		}
+
+		// The uniform exists
+		return true;
 	}
 
 	// Uniform Setters =======================================
@@ -100,10 +125,8 @@ namespace sfew
 	void Shader::SetUniform(const std::string& uniformName, float x)
 	{
 		// Get uniform variable handle from graphics card
-		if(!verifyShaderIsLinkedForUniforms()) return;
-		glUseProgram(_shaderProgram);
+		if(!verifyUniformLegitimacy(uniformName)) return;
 		GLint uniformHandle = glGetUniformLocation(_shaderProgram, uniformName.c_str());
-		if(!verifyUniformLegitimacy(uniformHandle, uniformName)) return;
 
 		// Send the uniform value to shader in graphics card, if uniform exists
 		glUniform1f(uniformHandle, x);
@@ -112,10 +135,8 @@ namespace sfew
 	void Shader::SetUniform(const std::string& uniformName, float x, float y)
 	{
 		// Get uniform variable handle from graphics card
-		if(!verifyShaderIsLinkedForUniforms()) return;
-		glUseProgram(_shaderProgram);
+		if(!verifyUniformLegitimacy(uniformName)) return;
 		GLint uniformHandle = glGetUniformLocation(_shaderProgram, uniformName.c_str());
-		if(!verifyUniformLegitimacy(uniformHandle, uniformName)) return;
 
 		// Send the uniform value to shader in graphics card, if uniform exists
 		glUniform2f(uniformHandle, x, y);
@@ -124,10 +145,8 @@ namespace sfew
 	void Shader::SetUniform(const std::string& uniformName, float x, float y, float z)
 	{
 		// Get uniform variable handle from graphics card
-		if(!verifyShaderIsLinkedForUniforms()) return;
-		glUseProgram(_shaderProgram);
+		if(!verifyUniformLegitimacy(uniformName)) return;
 		GLint uniformHandle = glGetUniformLocation(_shaderProgram, uniformName.c_str());
-		if(!verifyUniformLegitimacy(uniformHandle, uniformName)) return;
 
 		// Send the uniform value to shader in graphics card, if uniform exists
 		glUniform3f(uniformHandle, x, y, z);
@@ -136,10 +155,8 @@ namespace sfew
 	void Shader::SetUniform(const std::string& uniformName, float x, float y, float z, float w)
 	{
 		// Get uniform variable handle from graphics card
-		if(!verifyShaderIsLinkedForUniforms()) return;
-		glUseProgram(_shaderProgram);
+		if(!verifyUniformLegitimacy(uniformName)) return;
 		GLint uniformHandle = glGetUniformLocation(_shaderProgram, uniformName.c_str());
-		if(!verifyUniformLegitimacy(uniformHandle, uniformName)) return;
 
 		// Send the uniform value to shader in graphics card, if uniform exists
 		glUniform4f(uniformHandle, x, y, z, w);
@@ -148,10 +165,8 @@ namespace sfew
 	void Shader::SetUniform(const std::string& uniformName, Vector2 vector)
 	{
 		// Get uniform variable handle from graphics card
-		if(!verifyShaderIsLinkedForUniforms()) return;
-		glUseProgram(_shaderProgram);
+		if(!verifyUniformLegitimacy(uniformName)) return;
 		GLint uniformHandle = glGetUniformLocation(_shaderProgram, uniformName.c_str());
-		if(!verifyUniformLegitimacy(uniformHandle, uniformName)) return;
 
 		// Send the uniform value to shader in graphics card, if uniform exists
 		glUniform2fv(uniformHandle, 1, glm::value_ptr(vector));
@@ -160,10 +175,8 @@ namespace sfew
 	void Shader::SetUniform(const std::string& uniformName, Vector3 vector)
 	{
 		// Get uniform variable handle from graphics card
-		if(!verifyShaderIsLinkedForUniforms()) return;
-		glUseProgram(_shaderProgram);
+		if(!verifyUniformLegitimacy(uniformName)) return;
 		GLint uniformHandle = glGetUniformLocation(_shaderProgram, uniformName.c_str());
-		if(!verifyUniformLegitimacy(uniformHandle, uniformName)) return;
 
 		// Send the uniform value to shader in graphics card, if uniform exists
 		glUniform3fv(uniformHandle, 1, glm::value_ptr(vector));
@@ -172,10 +185,8 @@ namespace sfew
 	void Shader::SetUniform(const std::string& uniformName, Vector4 vector)
 	{
 		// Get uniform variable handle from graphics card
-		if(!verifyShaderIsLinkedForUniforms()) return;
-		glUseProgram(_shaderProgram);
+		if(!verifyUniformLegitimacy(uniformName)) return;
 		GLint uniformHandle = glGetUniformLocation(_shaderProgram, uniformName.c_str());
-		if(!verifyUniformLegitimacy(uniformHandle, uniformName)) return;
 
 		// Send the uniform value to shader in graphics card, if uniform exists
 		glUniform4fv(uniformHandle, 1, glm::value_ptr(vector));
@@ -184,10 +195,8 @@ namespace sfew
 	void Shader::SetUniform(const std::string& uniformName, Matrix2 matrix)
 	{
 		// Get uniform variable handle from graphics card
-		if(!verifyShaderIsLinkedForUniforms()) return;
-		glUseProgram(_shaderProgram);
+		if(!verifyUniformLegitimacy(uniformName)) return;
 		GLint uniformHandle = glGetUniformLocation(_shaderProgram, uniformName.c_str());
-		if(!verifyUniformLegitimacy(uniformHandle, uniformName)) return;
 
 		// Send the uniform value to shader in graphics card, if uniform exists
 		glUniformMatrix2fv(uniformHandle, 1, GL_FALSE, glm::value_ptr(matrix));
@@ -196,10 +205,8 @@ namespace sfew
 	void Shader::SetUniform(const std::string& uniformName, Matrix3 matrix)
 	{
 		// Get uniform variable handle from graphics card
-		if(!verifyShaderIsLinkedForUniforms()) return;
-		glUseProgram(_shaderProgram);
+		if(!verifyUniformLegitimacy(uniformName)) return;
 		GLint uniformHandle = glGetUniformLocation(_shaderProgram, uniformName.c_str());
-		if(!verifyUniformLegitimacy(uniformHandle, uniformName)) return;
 
 		// Send the uniform value to shader in graphics card, if uniform exists
 		glUniformMatrix3fv(uniformHandle, 1, GL_FALSE, glm::value_ptr(matrix));
@@ -208,10 +215,8 @@ namespace sfew
 	void Shader::SetUniform(const std::string& uniformName, Matrix4 matrix)
 	{
 		// Get uniform variable handle from graphics card
-		if(!verifyShaderIsLinkedForUniforms()) return;
-		glUseProgram(_shaderProgram);
+		if(!verifyUniformLegitimacy(uniformName)) return;
 		GLint uniformHandle = glGetUniformLocation(_shaderProgram, uniformName.c_str());
-		if(!verifyUniformLegitimacy(uniformHandle, uniformName)) return;
 
 		// Send the uniform value to shader in graphics card, if uniform exists
 		glUniformMatrix4fv(uniformHandle, 1, GL_FALSE, glm::value_ptr(matrix));
@@ -391,9 +396,9 @@ namespace sfew
 	}
 
 	// Verify that the uniform variable is valid
-	bool Shader::verifyUniformLegitimacy(GLint uniformHandle, const std::string& uniformName)
+	bool Shader::verifyUniformLegitimacy(const std::string& uniformName)
 	{
-		if(uniformHandle == -1)
+		if(!HasUniform(uniformName))
 		{
 			std::cout << "Warning: Uniform \"" << uniformName << "\" does not exist in shader \"" << _name << "\"!" << std::endl;
 			return false;

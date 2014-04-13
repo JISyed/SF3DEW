@@ -29,6 +29,7 @@ namespace sfew
 		// Routines =======================
 
 		void Use();					// Makes the active material for drawing
+		bool HasUniform(const std::string& uniformName);	// Does uniform exist in shader?
 
 		// Properties =====================
 
@@ -36,6 +37,8 @@ namespace sfew
 		std::weak_ptr<Texture> GetTexture() const;
 		void SetShader(std::weak_ptr<Shader> newShader);
 		std::weak_ptr<Shader> GetShader() const;
+		void SetColor(Vector4 newColor);
+		Vector4 GetColor() const;
 
 		// Pass in uniform data to shader
 		void SetUniform(const std::string& uniformName, float x);
@@ -50,14 +53,14 @@ namespace sfew
 		void SetUniform(const std::string& uniformName, Matrix4 matrix);
 
 		const std::string& GetShaderName() const;
-		const std::string& GetMaterialName() const;
+		const std::string& GetTextureName() const;
 
 	private:
 
 		// Helpers ========================
 
 		bool validateShader() const;		// Does shader pointer still exist?
-		bool validateMaterial() const;		// Does material pointer still exist?
+		bool validateTexture() const;		// Does texture pointer still exist?
 
 		// Data ===========================
 
@@ -65,6 +68,10 @@ namespace sfew
 		std::weak_ptr<Texture> _texture;		// The texture being referenced
 		std::shared_ptr<Texture> _blankTexture;	// Strong reference to blank texture
 		Vector4 _color;							// The color tint
+
+		// Flags ==========================
+
+		bool _flaggedAsColorChanged;	// Did the color change from last frame?
 	};
 
 	

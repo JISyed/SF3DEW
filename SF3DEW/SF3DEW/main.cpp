@@ -206,7 +206,7 @@ int main()
 	theShader->SetUniform("brightnessRatio", 1.0f);
 	float t = (float) clock() / (float) CLOCKS_PER_SEC;
 	float delta = (sin(t * 4.0f) + 1.0f)/2.0f;
-	theShader->SetUniform("triangleColor", 1.0f, 1.0f, 1.0f);
+	theShader->SetUniform("meshColor", 1.0f, 1.0f, 1.0f, 1.0f);
 
 	// Experiment: Test transform objects
 	std::unique_ptr<sfew::Transform> theTransform(new sfew::Transform());
