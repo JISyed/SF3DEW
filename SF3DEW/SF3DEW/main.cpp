@@ -21,6 +21,7 @@
 #include "Random.hpp"
 #include "SystemTime.hpp"
 #include "Timer.hpp"
+#include "Material.hpp"
 
 void exampleCallback()
 {
@@ -208,17 +209,19 @@ int main()
 	float delta = (sin(t * 4.0f) + 1.0f)/2.0f;
 	theShader->SetUniform("meshColor", 1.0f, 1.0f, 1.0f, 1.0f);
 
-	// Experiment: Test transform objects
-	std::unique_ptr<sfew::Transform> theTransform(new sfew::Transform());
-	theShader->SetUniform("model", theTransform->GenerateModelMatrix());
-	std::unique_ptr<sfew::Transform> secondTransform(new sfew::Transform());
-	secondTransform->SetPosition(sfew::Vector3(-2.0f, 0.0f, 0.1f));
-	theShader->SetUniform("model", secondTransform->GenerateModelMatrix());
-
 	// Experiment: Test texture object
 	std::shared_ptr<sfew::Texture> theTexture(new sfew::Texture("./Textures/texPatches.png"));
 	theTexture->SetName("Patches Texture");
-	theTexture->UseTexture();
+
+	// Experiment: Test Material object
+	std::unique_ptr<sfew::Material> theMaterial(new sfew::Material(theShader, theTexture));
+
+	// Experiment: Test transform objects
+	std::unique_ptr<sfew::Transform> theTransform(new sfew::Transform());
+	theMaterial->SetUniform("model", theTransform->GenerateModelMatrix());
+	std::unique_ptr<sfew::Transform> secondTransform(new sfew::Transform());
+	secondTransform->SetPosition(sfew::Vector3(-2.0f, 0.0f, 0.1f));
+	theMaterial->SetUniform("model", secondTransform->GenerateModelMatrix());
 
 	// Experiment: Test camera object
 	std::unique_ptr<sfew::Camera> theCamera(new sfew::Camera());
@@ -229,8 +232,8 @@ int main()
 	theCamera->LookAtPoint(sfew::Vector3(0.0f, 0.0f, 0.0f));
 	theCamera->SetUpDirection(sfew::Transform::WorldUp());
 
-	theShader->SetUniform("view", theCamera->GenerateViewMatrix());
-	theShader->SetUniform("projection", theCamera->GenerateProjectionMatrix());
+	theMaterial->SetUniform("view", theCamera->GenerateViewMatrix());
+	theMaterial->SetUniform("projection", theCamera->GenerateProjectionMatrix());
 
 	// Experiment: Testing AudioSource
 	std::unique_ptr<sfew::AudioSource> sndLaser(new sfew::AudioSource("./Audio/sndPlayerLaser.wav", sfew::AudioType::Sound));
@@ -274,7 +277,7 @@ int main()
 	bool isRunning = true;
 	while(isRunning)
 	{
-		// Update the delta time (mandatory)
+		// Update the delta time and timer (mandatory)
 		systemTime.Loop();
 		theTimer->Update();
 
@@ -296,12 +299,12 @@ int main()
 
 		//t = (float) clock() / (float) CLOCKS_PER_SEC;
 		//delta = (sin(t * 4.0f) + 1.0f)/2.0f;
-		//theShader->SetUniform("triangleColor", delta, delta, delta);
+		//theMaterial->SetUniform("triangleColor", delta, delta, delta);
 
 		// Move camera
 		//camStart += 0.0004f;
 		//theCamera->SetPosition(sfew::Vector3(camStart, camStart, camStart));
-		//theShader->SetUniform("view", theCamera->GenerateViewMatrix());
+		//theMaterial->SetUniform("view", theCamera->GenerateViewMatrix());
 
 		// Update font renderer
 		float fpsVal = sfew::SystemTime::GetFPS();
@@ -310,16 +313,15 @@ int main()
 		testLabel->SetTextString(fpsStr.str());
 
 		// Draw 3D
-		theShader->UseShader();
-		theTexture->UseTexture();
+		theMaterial->Use();
 		theMesh->MakeActiveMeshToDraw();
 
 		theTransform->Rotate(sfew::Vector3(0.0f, 1.0f, 0.0f));
-		theShader->SetUniform("model", theTransform->GenerateModelMatrix());
+		theMaterial->SetUniform("model", theTransform->GenerateModelMatrix());
 
 		glDrawArrays(GL_TRIANGLES, 0, theMesh->GetNumberOfVertices());
 
-		theShader->SetUniform("model", secondTransform->GenerateModelMatrix());
+		theMaterial->SetUniform("model", secondTransform->GenerateModelMatrix());
 
 		glDrawArrays(GL_TRIANGLES, 0, theMesh->GetNumberOfVertices());
 

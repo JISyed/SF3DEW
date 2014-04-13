@@ -104,52 +104,92 @@ namespace sfew
 	// Pass in uniform data to shader
 	void Material::SetUniform(const std::string& uniformName, float x)
 	{
+		// Make sure pointers are still valid
+		if(!validateShader()) return;
 
+		// Set uniform
+		_shader._Get()->SetUniform(uniformName, x);
 	}
 
 	void Material::SetUniform(const std::string& uniformName, float x, float y)
 	{
+		// Make sure pointers are still valid
+		if(!validateShader()) return;
 
+		// Set uniform
+		_shader._Get()->SetUniform(uniformName, x, y);
 	}
 
 	void Material::SetUniform(const std::string& uniformName, float x, float y, float z)
 	{
+		// Make sure pointers are still valid
+		if(!validateShader()) return;
 
+		// Set uniform
+		_shader._Get()->SetUniform(uniformName, x, y, z);
 	}
 
 	void Material::SetUniform(const std::string& uniformName, float x, float y, float z, float w)
 	{
+		// Make sure pointers are still valid
+		if(!validateShader()) return;
 
+		// Set uniform
+		_shader._Get()->SetUniform(uniformName, x, y, z, w);
 	}
 
 	void Material::SetUniform(const std::string& uniformName, Vector2 vector)
 	{
+		// Make sure pointers are still valid
+		if(!validateShader()) return;
 
+		// Set uniform
+		_shader._Get()->SetUniform(uniformName, vector);
 	}
 
 	void Material::SetUniform(const std::string& uniformName, Vector3 vector)
 	{
+		// Make sure pointers are still valid
+		if(!validateShader()) return;
 
+		// Set uniform
+		_shader._Get()->SetUniform(uniformName, vector);
 	}
 
 	void Material::SetUniform(const std::string& uniformName, Vector4 vector)
 	{
+		// Make sure pointers are still valid
+		if(!validateShader()) return;
 
+		// Set uniform
+		_shader._Get()->SetUniform(uniformName, vector);
 	}
 
 	void Material::SetUniform(const std::string& uniformName, Matrix2 matrix)
 	{
+		// Make sure pointers are still valid
+		if(!validateShader()) return;
 
+		// Set uniform
+		_shader._Get()->SetUniform(uniformName, matrix);
 	}
 
 	void Material::SetUniform(const std::string& uniformName, Matrix3 matrix)
 	{
+		// Make sure pointers are still valid
+		if(!validateShader()) return;
 
+		// Set uniform
+		_shader._Get()->SetUniform(uniformName, matrix);
 	}
 
 	void Material::SetUniform(const std::string& uniformName, Matrix4 matrix)
 	{
+		// Make sure pointers are still valid
+		if(!validateShader()) return;
 
+		// Set uniform
+		_shader._Get()->SetUniform(uniformName, matrix);
 	}
 
 
