@@ -156,6 +156,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SystemTime.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +183,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="SystemTime.hpp" />
     <ClInclude Include="Texture.hpp" />
+    <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Transform.hpp" />
   </ItemGroup>
   <ItemGroup>
