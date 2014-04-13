@@ -201,7 +201,7 @@ int main()
 	theMesh->SetName("Rectangle Mesh");
 
 	// Experiment: Test shader object
-	std::unique_ptr<sfew::Shader> theShader(new sfew::Shader("./Shaders/basic.vert", "./Shaders/basic.frag") );
+	std::shared_ptr<sfew::Shader> theShader(new sfew::Shader("./Shaders/basic.vert", "./Shaders/basic.frag") );
 	theShader->SetName("Basic Shader");
 	theShader->SetUniform("brightnessRatio", 1.0f);
 	float t = (float) clock() / (float) CLOCKS_PER_SEC;
@@ -216,7 +216,7 @@ int main()
 	theShader->SetUniform("model", secondTransform->GenerateModelMatrix());
 
 	// Experiment: Test texture object
-	std::unique_ptr<sfew::Texture> theTexture(new sfew::Texture("./Textures/texPatches.png"));
+	std::shared_ptr<sfew::Texture> theTexture(new sfew::Texture("./Textures/texPatches.png"));
 	theTexture->SetName("Patches Texture");
 	theTexture->UseTexture();
 
@@ -265,6 +265,7 @@ int main()
 	// Experiment: tesing Timers
 	//std::unique_ptr<sfew::Timer> theTimer(new sfew::Timer(sf::seconds(5.0f), std::bind(&exampleCallback)));
 	
+	// Move the center object up every 5 seconds with lambda!
 	std::unique_ptr<sfew::Timer> theTimer(new sfew::Timer(sf::seconds(5.0f), [&theTransform](){theTransform->Translate(sfew::Vector3(0.0f, 0.5f, 0.0f));} ));
 	theTimer->SetLooping(true);
 
