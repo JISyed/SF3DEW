@@ -22,6 +22,8 @@ namespace sfew
 
 		// Ctor/Dtor ======================
 
+		Material();
+		Material(std::weak_ptr<Texture> texture);
 		Material(std::weak_ptr<Shader> shader);
 		Material(std::weak_ptr<Shader> shader, std::weak_ptr<Texture> texture);
 		~Material();
@@ -67,6 +69,7 @@ namespace sfew
 		std::weak_ptr<Shader> _shader;			// The shader being referenced
 		std::weak_ptr<Texture> _texture;		// The texture being referenced
 		std::shared_ptr<Texture> _blankTexture;	// Strong reference to blank texture
+		std::shared_ptr<Shader> _blankShader;	// Strong reference to blank shader
 		Vector4 _color;							// The color tint
 
 		// Flags ==========================

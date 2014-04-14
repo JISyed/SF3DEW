@@ -6,12 +6,45 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	// Ctor without texture
+	// Default Ctor
+	Material::Material() : 
+		INameable("Blank Material"),
+		_color(1.0f, 1.0f, 1.0f, 1.0f),
+		_flaggedAsColorChanged(true)
+	{
+		// Make a blank shader
+		_blankShader = std::shared_ptr<Shader>(new Shader());
+
+		// Assign it to internal shader pointer
+		_shader = _blankShader;
+
+		// Make a blank texture
+		_blankTexture = std::shared_ptr<Texture>(new Texture());
+
+		// Assign it to internal texture pointer
+		_texture = _blankTexture;
+	}
+
+	// Ctor with texture only
+	Material::Material(std::weak_ptr<Texture> texture) : 
+		INameable("Unnamed Material"),
+		_color(1.0f, 1.0f, 1.0f, 1.0f),
+		_texture(texture),
+		_flaggedAsColorChanged(true)
+	{
+		// Make a blank shader
+		_blankShader = std::shared_ptr<Shader>(new Shader());
+
+		// Assign it to internal shader pointer
+		_shader = _blankShader;
+	}
+
+	// Ctor with shader only
 	Material::Material(std::weak_ptr<Shader> shader) : 
 		INameable("Unnamed Material"),
 		_color(1.0f, 1.0f, 1.0f, 1.0f),
 		_shader(shader),
-		_flaggedAsColorChanged(false)
+		_flaggedAsColorChanged(true)
 	{
 		// Make a blank texture
 		_blankTexture = std::shared_ptr<Texture>(new Texture());
@@ -20,13 +53,13 @@ namespace sfew
 		_texture = _blankTexture;
 	}
 
-	// Ctor with texture
+	// Ctor with both
 	Material::Material(std::weak_ptr<Shader> shader, std::weak_ptr<Texture> texture) :
 		INameable("Unnamed Material"),
 		_color(1.0f, 1.0f, 1.0f, 1.0f),
 		_shader(shader),
 		_texture(texture),
-		_flaggedAsColorChanged(false)
+		_flaggedAsColorChanged(true)
 	{
 
 	}

@@ -201,7 +201,6 @@ int main()
 	std::shared_ptr<sfew::Shader> theShader(new sfew::Shader("./Shaders/basic.vert", "./Shaders/basic.frag") );
 	//std::shared_ptr<sfew::Shader> theShader(new sfew::Shader() );
 	theShader->SetName("Basic Shader");
-	theShader->SetUniform("meshColor", 1.0f, 1.0f, 1.0f, 1.0f);
 
 	// Experiment: Test texture object
 	std::shared_ptr<sfew::Texture> theTexture(new sfew::Texture("./Textures/texPatches.png"));
@@ -209,6 +208,7 @@ int main()
 
 	// Experiment: Test Material object
 	std::unique_ptr<sfew::Material> theMaterial(new sfew::Material(theShader, theTexture));
+	//std::unique_ptr<sfew::Material> theMaterial(new sfew::Material() );
 
 	// Experiment: Test transform objects
 	std::unique_ptr<sfew::Transform> theTransform(new sfew::Transform());
