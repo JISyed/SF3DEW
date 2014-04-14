@@ -1,4 +1,6 @@
 #include "Camera.hpp"
+
+#include <iostream>
 #include "Transform.hpp"	// For Transform::WorldUp()
 
 namespace sfew

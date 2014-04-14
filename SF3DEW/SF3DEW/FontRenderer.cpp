@@ -1,7 +1,6 @@
 #include "FontRenderer.hpp"
 
 #include <iostream>
-#include <SFML/Graphics/RenderWindow.hpp>
 #include "Shader.hpp"
 #include "Mesh.hpp"
 #include "Texture.hpp"
@@ -79,9 +78,9 @@ namespace sfew
 		_textLabel.setString(newText);
 	}
 
-	const std::string& FontRenderer::GetTextString() const
+	const std::string FontRenderer::GetTextString() const
 	{
-		return _textLabel.getString();
+		return _textLabel.getString().toAnsiString();
 	}
 
 	void FontRenderer::SetFont(const sf::Font& newFont)

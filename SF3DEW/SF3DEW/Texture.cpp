@@ -1,7 +1,7 @@
 #include "Texture.hpp"
 
 #include <iostream>
-#include <fstream>
+#include <SFML/Graphics.hpp>	// For sf::Image
 
 namespace sfew
 {

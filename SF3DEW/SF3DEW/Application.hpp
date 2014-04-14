@@ -10,7 +10,6 @@
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <string>
 
 #include "ISystemObject.hpp"
 

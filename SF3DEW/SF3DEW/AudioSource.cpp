@@ -1,7 +1,6 @@
 #include "AudioSource.hpp"
 
 #include <iostream>
-#include <fstream>
 
 namespace sfew
 {

@@ -7,7 +7,7 @@
 #include <iostream>				// For cout
 #include <string>
 #include <vector>
-#include <memory>				// For unique_ptr
+#include <memory>				// For unique_ptr, share_ptr, and weak_ptr
 #include <time.h>				// THIS SHOULD BE TEMPORARY
 #include <sstream>				// For stringstream
 

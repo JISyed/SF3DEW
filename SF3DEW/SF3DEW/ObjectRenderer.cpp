@@ -1,7 +1,7 @@
 #include "ObjectRenderer.hpp"
 
 #include <iostream>
-#include <GL/glew.h>
+#include <GL/glew.h>	// For glDrawArrays()
 
 #define START_AT_FIRST_VERTEX 0
 

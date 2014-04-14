@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+static std::string empty("");
+
 namespace sfew
 {
 	// Ctor/Dtor ========================================
@@ -226,7 +228,7 @@ namespace sfew
 	const std::string& Material::GetShaderName() const
 	{
 		// Make sure pointers are still valid
-		if(!validateShader()) return std::string();
+		if(!validateShader()) return empty;
 
 		// Get name string
 		return _shader._Get()->GetName();
@@ -235,7 +237,7 @@ namespace sfew
 	const std::string& Material::GetTextureName() const
 	{
 		// Make sure pointers are still valid
-		if(!validateTexture()) return std::string();
+		if(!validateTexture()) return empty;
 
 		// Get name string
 		return _texture._Get()->GetName();

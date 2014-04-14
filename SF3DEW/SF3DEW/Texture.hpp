@@ -8,8 +8,6 @@
 #define TEXTURE_OBJECT_H
 
 #include <GL/glew.h>
-#include <SFML/OpenGL.hpp>
-#include <SFML/Graphics.hpp>
 #include <SFML/System/NonCopyable.hpp>
 #include <string>
 

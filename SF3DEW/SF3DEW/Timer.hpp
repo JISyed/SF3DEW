@@ -8,15 +8,14 @@
 #ifndef SFEW_TIMER_H
 #define SFEW_TIMER_H
 
-#include <functional>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
 #include <SFML/System/NonCopyable.hpp>
 
+#include "Callback.hpp"
+
 namespace sfew
 {
-	typedef std::function<void()> Callback;
-
 	class Timer : sf::NonCopyable
 	{
 	public:

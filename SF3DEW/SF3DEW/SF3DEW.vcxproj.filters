@@ -175,6 +175,9 @@
     <ClInclude Include="ObjectRenderer.hpp">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Callback.hpp">
+      <Filter>Header Files\Framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\texGameOver.png">

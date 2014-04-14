@@ -36,7 +36,7 @@ namespace sfew
 		// Properties =====================
 
 		void SetTextString(const std::string& newText);
-		const std::string& GetTextString() const;
+		const std::string GetTextString() const;
 		void SetFont(const sf::Font& newFont);
 		const sf::Font* GetFont() const;
 		void SetFontSize(unsigned int newSize);

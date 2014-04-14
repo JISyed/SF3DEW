@@ -3,6 +3,8 @@
 #include <iostream>
 #include <fstream>
 #include <functional>	// For reference_wrapper
+#include <chrono>		// For seconds()
+#include <thread>		// For sleep_for()
 
 #define SFEW_LOG_SIZE 512
 
@@ -351,8 +353,9 @@ namespace sfew
 			char errorLog[SFEW_LOG_SIZE];
 			glGetShaderInfoLog(shaderHandle.get(), SFEW_LOG_SIZE, NULL, errorLog);
 			std::cout << errorLog << std::endl;
+
 			std::cout << "Quitting in 11 seconds..." << std::endl;
-			Sleep(11000);
+			std::this_thread::sleep_for( std::chrono::seconds(11) );
 			exit(1);
 		}
 
@@ -386,8 +389,9 @@ namespace sfew
 			char errorLog[SFEW_LOG_SIZE];
 			glGetProgramInfoLog(_shaderProgram, SFEW_LOG_SIZE, NULL, errorLog);
 			std::cout << errorLog << std::endl;
+
 			std::cout << "Quitting in 11 seconds..." << std::endl;
-			Sleep(11000);
+			std::this_thread::sleep_for( std::chrono::seconds(11) );
 			exit(1);
 		}
 
