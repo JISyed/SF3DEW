@@ -12,16 +12,12 @@ namespace sfew
 		_color(1.0f, 1.0f, 1.0f, 1.0f),
 		_flaggedAsColorChanged(true)
 	{
-		// Make a blank shader
+		// Make a blank shader and assign it
 		_blankShader = std::shared_ptr<Shader>(new Shader());
-
-		// Assign it to internal shader pointer
 		_shader = _blankShader;
 
-		// Make a blank texture
+		// Make a blank texture and assign it
 		_blankTexture = std::shared_ptr<Texture>(new Texture());
-
-		// Assign it to internal texture pointer
 		_texture = _blankTexture;
 	}
 

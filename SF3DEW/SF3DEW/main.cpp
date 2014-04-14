@@ -194,7 +194,8 @@ int main()
 	};
 
 	std::vector<float> vertexData(vertices, vertices + sizeof(vertices) / sizeof(float));
-	std::unique_ptr<sfew::Mesh> theMesh(new sfew::Mesh(vertexData));
+	//std::unique_ptr<sfew::Mesh> theMesh(new sfew::Mesh(vertexData));
+	std::unique_ptr<sfew::Mesh> theMesh(new sfew::Mesh() );
 	theMesh->SetName("Rectangle Mesh");
 
 	// Experiment: Test shader object

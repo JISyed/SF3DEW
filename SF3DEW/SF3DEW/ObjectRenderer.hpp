@@ -21,6 +21,9 @@ namespace sfew
 		// Ctor/Dtor ======================
 
 		ObjectRenderer();
+		ObjectRenderer(std::weak_ptr<Mesh> mesh);
+		ObjectRenderer(std::weak_ptr<Material> material);
+		ObjectRenderer(std::weak_ptr<Mesh> mesh, std::weak_ptr<Material> material);
 		~ObjectRenderer();
 
 		// Routines =======================
@@ -33,12 +36,16 @@ namespace sfew
 
 		// Helpers ========================
 
-		
+		bool validateMesh() const;			// Does mesh pointer still exist?
+		bool validateMaterial() const;		// Does material pointer still exist?
 
 		// Data ===========================
 
-		
-		
+		std::weak_ptr<Mesh> _mesh;					// The mesh being referenced
+		std::weak_ptr<Material> _material;			// The material being referenced
+		std::shared_ptr<Mesh> _blankMesh;			// Strong reference to a blank mesh
+		std::shared_ptr<Material> _blankMaterial;	// Strong reference to a blank material
+
 	};
 
 	

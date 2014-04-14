@@ -22,6 +22,7 @@ namespace sfew
 
 		// Ctor/Dtor ======================
 
+		Mesh();
 		Mesh(const std::vector<float>& newVertexDataArray);
 		virtual ~Mesh();
 

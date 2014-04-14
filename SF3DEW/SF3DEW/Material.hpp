@@ -26,7 +26,7 @@ namespace sfew
 		Material(std::weak_ptr<Texture> texture);
 		Material(std::weak_ptr<Shader> shader);
 		Material(std::weak_ptr<Shader> shader, std::weak_ptr<Texture> texture);
-		~Material();
+		virtual ~Material();
 
 		// Routines =======================
 
