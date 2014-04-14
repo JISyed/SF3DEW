@@ -13,10 +13,6 @@ namespace sfew
 	{
 	public:
 
-		// Ctor/Dtor ======================
-
-		virtual ~ISystemObject(){};
-
 		// System Routines ================
 
 		virtual bool Setup() = 0;		// Run at the begining of the program

@@ -149,10 +149,10 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="AudioSource.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="FontRenderer.cpp" />
-    <ClCompile Include="GraphicsCtrlr.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="ObjectRenderer.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SystemTime.cpp" />
@@ -169,18 +169,20 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <None Include="DLLs\openal32.dll" />
     <None Include="Shaders\basic.frag" />
     <None Include="Shaders\basic.vert" />
+    <None Include="Shaders\brightness.frag" />
+    <None Include="Shaders\brightness.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AudioSource.hpp" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="FontRenderer.hpp" />
-    <ClInclude Include="GraphicsCtrlr.hpp" />
     <ClInclude Include="INameable.hpp" />
     <ClInclude Include="ISystemObject.hpp" />
     <ClInclude Include="LinearAlgebraTypes.hpp" />
     <ClInclude Include="Material.hpp" />
     <ClInclude Include="Mesh.hpp" />
+    <ClInclude Include="ObjectRenderer.hpp" />
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="SystemTime.hpp" />

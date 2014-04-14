@@ -29,6 +29,7 @@ namespace sfew
 
 		// Ctor/Dtor ======================
 
+		Shader();
 		Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
 		virtual ~Shader();
 
@@ -64,6 +65,8 @@ namespace sfew
 		void formatVertexAttributes();			// Format vertex data for shaders to use
 		bool verifyShaderIsLinkedForUniforms();	// Verify shader is linked for uniform assignment
 		bool verifyUniformLegitimacy(const std::string& uniformName);	// Verify that the uniform variable is valid
+		void loadBlankShaderPlaceholder();		// Load the shader that loads by default
+		void loadMissingShaderPlaceholder();	// Load the shader that serves as a placeholder to a missing shader
 
 		// Data ===========================
 
@@ -78,6 +81,7 @@ namespace sfew
 		bool _flaggedAsLinked;		// Were the shaders linked?
 		bool _flaggedVertAsLoaded;	// Was the vertex shader loaded?
 		bool _flaggedFragAsLoaded;	// Was the fragment shader loaded?
+		bool _flaggedAsLoadFailed;	// Did either shader fail to load?
 		
 	};
 

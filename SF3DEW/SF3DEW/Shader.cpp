@@ -6,21 +6,23 @@
 
 #define SFEW_LOG_SIZE 512
 
+// Macro for loading GLSL code by memory
+#define GLSL(version, shader)  "#version " #version "\n" #shader
+
 namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	Shader::Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) :
-		INameable("Unnamed Shader"),
+	// Default Ctor
+	Shader::Shader() :
+		INameable("Default Shader"),
 		_flaggedAsLinked(false),
 		_flaggedVertAsLoaded(false),
-		_flaggedFragAsLoaded(false)
+		_flaggedFragAsLoaded(false),
+		_flaggedAsLoadFailed(false)
 	{
-		// Load the shaders
-		loadShaderFile(vertexShaderPath, ShaderType::Vertex);
-		_flaggedVertAsLoaded = true;
-		loadShaderFile(fragmentShaderPath, ShaderType::Fragment);
-		_flaggedFragAsLoaded = true;
+		// Load blank shaders
+		loadBlankShaderPlaceholder();
 
 		// Compile the shaders
 		compileShader(ShaderType::Vertex);
@@ -33,6 +35,36 @@ namespace sfew
 		formatVertexAttributes();
 	}
 
+	// Ctor
+	Shader::Shader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) :
+		INameable("Unnamed Shader"),
+		_flaggedAsLinked(false),
+		_flaggedVertAsLoaded(false),
+		_flaggedFragAsLoaded(false),
+		_flaggedAsLoadFailed(false)
+	{
+		// Load the shaders
+		loadShaderFile(vertexShaderPath, ShaderType::Vertex);
+		loadShaderFile(fragmentShaderPath, ShaderType::Fragment);
+
+		// Load alternative shader if loading failed
+		if(_flaggedAsLoadFailed)
+		{
+			loadMissingShaderPlaceholder();
+		}
+
+		// Compile the shaders
+		compileShader(ShaderType::Vertex);
+		compileShader(ShaderType::Fragment);
+
+		// Link the shaders
+		linkShaders();
+
+		// Format the vertex attribute data sent from VBOs
+		formatVertexAttributes();
+	}
+
+	// Dtor
 	Shader::~Shader()
 	{
 		// Detach shaders and delete program if link was successful
@@ -258,22 +290,29 @@ namespace sfew
 				std::cout << "---------------------------------\n";
 				std::cout << std::endl;
 				inSdrFileStream.close();
+
+				if(type == ShaderType::Vertex)
+				{
+					_flaggedVertAsLoaded = true;
+				}
+				else if(type == ShaderType::Fragment)
+				{
+					_flaggedFragAsLoaded = true;
+				}
 			}
 			else
 			{
 				std::cout << "... Error: Only " << inSdrFileStream.gcount() << " chars could be read!\n";
 				inSdrFileStream.close();
-				std::cout << "Quitting in 11 seconds..." << std::endl;
-				Sleep(11000);
-				exit(1);
+				std::cout << "Loading magenta placeholder..." << std::endl;
+				_flaggedAsLoadFailed = true;
 			}
 		}
 		else
 		{
 			std::cout << "Shader File: Error. Not found!" << std::endl;
-			std::cout << "Quitting in 11 seconds..." << std::endl;
-			Sleep(11000);
-			exit(1);
+			std::cout << "Loading magenta placeholder..." << std::endl;
+			_flaggedAsLoadFailed = true;
 		}
 	}
 
@@ -367,17 +406,17 @@ namespace sfew
 		GLint posAttrib = glGetAttribLocation(_shaderProgram, "position");
 		glEnableVertexAttribArray(posAttrib);
 		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE,
-							   8*sizeof(float), 0);
+							   9*sizeof(float), 0);
 
 		GLint colAttrib = glGetAttribLocation(_shaderProgram, "color");
 		glEnableVertexAttribArray(colAttrib);
-		glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE,
-							   8*sizeof(float), (void*)(3*sizeof(float)));
+		glVertexAttribPointer(colAttrib, 4, GL_FLOAT, GL_FALSE,
+							   9*sizeof(float), (void*)(3*sizeof(float)));
 
-		GLint texAttrib = glGetAttribLocation(_shaderProgram, "texcoord");
+		GLint texAttrib = glGetAttribLocation(_shaderProgram, "uvs");
 		glEnableVertexAttribArray(texAttrib);
 		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE,
-							   8*sizeof(float), (void*)(6*sizeof(float)));
+							   9*sizeof(float), (void*)(7*sizeof(float)));
 
 		// Stop this shader from being the current active
 		Shader::StopUsingShaders();
@@ -405,6 +444,127 @@ namespace sfew
 		}
 
 		return true;
+	}
+
+	// Load the shader that loads by default
+	void Shader::loadBlankShaderPlaceholder()
+	{
+		// Load embedded shaders
+		const std::string embeddedVertShader = GLSL(150,
+			
+			uniform mat4 model;
+			uniform mat4 view;
+			uniform mat4 projection;
+
+			in vec3 position;
+			in vec4 color;
+			in vec2 uvs;
+
+			out vec4 vertexColor;
+			out vec2 vertexUVs;
+
+			void main()
+			{
+				// Send attributes down to fragment shader
+				vertexUVs = uvs;
+				vertexColor = color;
+
+				// Calculate final position on screen
+				mat4 mvp = projection * view * model;
+				gl_Position = mvp * vec4(position, 1.0);
+			}
+
+			// EOF
+		);
+
+		const std::string embeddedFragShader = GLSL(150,
+			
+			uniform vec4 meshColor;
+			uniform sampler2D mainTexture;
+
+			in vec4 vertexColor;
+			in vec2 vertexUVs;
+
+			out vec4 outColor;
+
+			void main()
+			{
+				vec4 texel = texture(mainTexture, vertexUVs);
+				outColor = texel * meshColor * vertexColor;
+			}
+
+			// EOF
+		);
+
+		// Assign them into the shader buffers
+		_vertexCode = embeddedVertShader;
+		_fragmentCode = embeddedFragShader;
+
+		_flaggedVertAsLoaded = true;
+		_flaggedFragAsLoaded = true;
+	}
+
+	// Load the shader that serves as a placeholder to a missing shader
+	void Shader::loadMissingShaderPlaceholder()
+	{
+		// Load embedded shaders
+		const std::string embeddedVertShader = GLSL(150,
+			
+			uniform mat4 model;
+			uniform mat4 view;
+			uniform mat4 projection;
+
+			in vec3 position;
+			in vec4 color;
+			in vec2 uvs;
+
+			out vec4 vertexColor;
+			out vec2 vertexUVs;
+
+			void main()
+			{
+				// Send attributes down to fragment shader
+				vertexUVs = uvs;
+				vertexColor = color;
+
+				// Calculate final position on screen
+				mat4 mvp = projection * view * model;
+				gl_Position = mvp * vec4(position, 1.0);
+			}
+
+			// EOF
+		);
+
+		const std::string embeddedFragShader = GLSL(150,
+			
+			uniform vec4 meshColor;
+			uniform sampler2D mainTexture;
+
+			in vec4 vertexColor;
+			in vec2 vertexUVs;
+
+			out vec4 outColor;
+
+			void main()
+			{
+				vec4 texel = texture(mainTexture, vertexUVs);
+				vec4 mc = meshColor;
+				vec4 vc = vertexColor;
+				vec4 combo = texel * mc * vc;
+
+				// Force magenta pixels only
+				outColor = combo * vec4(1.0, 0.0, 1.0, 1.0) * 5.0;
+			}
+
+			// EOF
+		);
+
+		// Assign them into the shader buffers
+		_vertexCode = embeddedVertShader;
+		_fragmentCode = embeddedFragShader;
+
+		_flaggedVertAsLoaded = true;
+		_flaggedFragAsLoaded = true;
 	}
 
 } // namespace sfew
