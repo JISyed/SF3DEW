@@ -22,7 +22,7 @@
 #include "SystemTime.hpp"
 #include "Timer.hpp"
 #include "Material.hpp"
-
+#include "ObjectRenderer.hpp"
 
 int main()
 {
@@ -194,8 +194,8 @@ int main()
 	};
 
 	std::vector<float> vertexData(vertices, vertices + sizeof(vertices) / sizeof(float));
-	//std::unique_ptr<sfew::Mesh> theMesh(new sfew::Mesh(vertexData));
-	std::unique_ptr<sfew::Mesh> theMesh(new sfew::Mesh() );
+	std::shared_ptr<sfew::Mesh> theMesh(new sfew::Mesh(vertexData));
+	//std::unique_ptr<sfew::Mesh> theMesh(new sfew::Mesh() );
 	theMesh->SetName("Rectangle Mesh");
 
 	// Experiment: Test shader object
@@ -208,7 +208,7 @@ int main()
 	theTexture->SetName("Patches Texture");
 
 	// Experiment: Test Material object
-	std::unique_ptr<sfew::Material> theMaterial(new sfew::Material(theShader, theTexture));
+	std::shared_ptr<sfew::Material> theMaterial(new sfew::Material(theShader, theTexture));
 	//std::unique_ptr<sfew::Material> theMaterial(new sfew::Material() );
 
 	// Experiment: Test transform objects
@@ -217,6 +217,10 @@ int main()
 	std::unique_ptr<sfew::Transform> secondTransform(new sfew::Transform());
 	secondTransform->SetPosition(sfew::Vector3(-2.0f, 0.0f, 0.1f));
 	theMaterial->SetUniform("model", secondTransform->GenerateModelMatrix());
+
+	// Experiment: Test ObjectRenderers
+	std::unique_ptr<sfew::ObjectRenderer> entityOne(new sfew::ObjectRenderer(theMesh, theMaterial));
+	std::unique_ptr<sfew::ObjectRenderer> entityTwo(new sfew::ObjectRenderer(theMesh, theMaterial));
 
 	// Experiment: Test camera object
 	std::unique_ptr<sfew::Camera> theCamera(new sfew::Camera());
@@ -270,6 +274,8 @@ int main()
 	bool isRunning = true;
 	while(isRunning)
 	{
+		// START THE UPDATE LOOP
+
 		// Update the delta time and timer (mandatory)
 		systemTime.Loop();
 		theTimer->Update();
@@ -288,12 +294,16 @@ int main()
 			}
 		}
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		// Update objects
 
 		// Move camera
 		//camStart += 0.0004f;
 		//theCamera->SetPosition(sfew::Vector3(camStart, camStart, camStart));
 		//theMaterial->SetUniform("view", theCamera->GenerateViewMatrix());
+
+		theTransform->Rotate(sfew::Vector3(0.0f, 1.0f, 0.0f));
+		entityOne->UpdateModelMatrix(theTransform->GenerateModelMatrix() );
+		entityTwo->UpdateModelMatrix(secondTransform->GenerateModelMatrix() );
 
 		// Update font renderer
 		float fpsVal = sfew::SystemTime::GetFPS();
@@ -301,18 +311,15 @@ int main()
 		fpsStr << "FPS: " << fpsVal;
 		testLabel->SetTextString(fpsStr.str());
 
+		// START OF DRAW LOOP
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		// Draw objects
+
 		// Draw 3D
-		theMaterial->Use();
-		theMesh->MakeActiveMeshToDraw();
-
-		theTransform->Rotate(sfew::Vector3(0.0f, 1.0f, 0.0f));
-		theMaterial->SetUniform("model", theTransform->GenerateModelMatrix());
-
-		glDrawArrays(GL_TRIANGLES, 0, theMesh->GetNumberOfVertices());
-
-		theMaterial->SetUniform("model", secondTransform->GenerateModelMatrix());
-
-		glDrawArrays(GL_TRIANGLES, 0, theMesh->GetNumberOfVertices());
+		entityOne->Draw();
+		entityTwo->Draw();
 
 		// Draw font
 		testLabel->Draw();

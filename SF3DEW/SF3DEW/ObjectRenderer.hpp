@@ -9,6 +9,7 @@
 #include <memory>
 #include <SFML/System/NonCopyable.hpp>
 
+#include "LinearAlgebraTypes.hpp"
 #include "Mesh.hpp"
 #include "Material.hpp"
 
@@ -28,9 +29,15 @@ namespace sfew
 
 		// Routines =======================
 
-		void Draw();				// Draws the 3D entity
+		void Draw();								// Draws the 3D entity
+		void UpdateModelMatrix(Matrix4 newMatrix);	// Get the latest model matrix from a Transform
 
 		// Properties =====================
+
+		void SetMesh(std::weak_ptr<Mesh> newMesh);
+		std::weak_ptr<Mesh> GetMesh() const;
+		void SetMaterial(std::weak_ptr<Material> newMaterial);
+		std::weak_ptr<Material> GetMaterial() const;
 
 	private:
 
@@ -45,6 +52,7 @@ namespace sfew
 		std::weak_ptr<Material> _material;			// The material being referenced
 		std::shared_ptr<Mesh> _blankMesh;			// Strong reference to a blank mesh
 		std::shared_ptr<Material> _blankMaterial;	// Strong reference to a blank material
+		Matrix4 _modelMatrix;						// Model matrix of this entity
 
 	};
 

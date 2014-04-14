@@ -1,6 +1,9 @@
 #include "ObjectRenderer.hpp"
 
 #include <iostream>
+#include <GL/glew.h>
+
+#define START_AT_FIRST_VERTEX 0
 
 namespace sfew
 {
@@ -44,6 +47,13 @@ namespace sfew
 	// Dtor
 	ObjectRenderer::~ObjectRenderer()
 	{
+		
+	}
+
+	// Routines =========================================
+
+	void ObjectRenderer::Draw()
+	{
 		// Make sure pointers are valid
 		if(!validateMesh()) return;
 		if(!validateMaterial()) return;
@@ -51,11 +61,48 @@ namespace sfew
 		// Make the referenced mesh and material active
 		_mesh._Get()->MakeActiveMeshToDraw();
 		_material._Get()->Use();
+
+		// Send the latest model matrix down the shader
+		_material._Get()->SetUniform("model", _modelMatrix);
+
+		// Draw the object
+		glDrawArrays(GL_TRIANGLES, 
+					 START_AT_FIRST_VERTEX, 
+					 _mesh._Get()->GetNumberOfVertices()
+		);
 	}
 
-	// Routines =========================================
+	// Get the latest model matrix from a Transform
+	void ObjectRenderer::UpdateModelMatrix(Matrix4 newMatrix)
+	{
+		if(!validateMaterial()) return;
+
+		_modelMatrix = newMatrix;
+	}
 
 	// Properties =========================================
+
+	void ObjectRenderer::SetMesh(std::weak_ptr<Mesh> newMesh)
+	{
+		_mesh = newMesh;
+	}
+
+	std::weak_ptr<Mesh> ObjectRenderer::GetMesh() const
+	{
+		return _mesh;
+	}
+
+	void ObjectRenderer::SetMaterial(std::weak_ptr<Material> newMaterial)
+	{
+		_material = newMaterial;
+	}
+
+	std::weak_ptr<Material> ObjectRenderer::GetMaterial() const
+	{
+		return _material;
+	}
+
+	// Helpers =========================================
 
 	// Does mesh pointer still exist?
 	bool ObjectRenderer::validateMesh() const
@@ -80,7 +127,5 @@ namespace sfew
 
 		return true;
 	}
-
-	// Helpers =========================================
 
 } // namespace sfew
