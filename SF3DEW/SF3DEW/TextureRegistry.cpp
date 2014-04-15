@@ -40,10 +40,25 @@ namespace sfew
 	// Load all the resources
 	bool TextureRegistry::Load()
 	{
+		// Load a blank texture
+		std::shared_ptr<Texture> blankTexture(new Texture());
+		blankTexture->SetName("Blank");
+		_resourceList.push_front(blankTexture);
+
+		// Load the Patches Texture
+		std::shared_ptr<Texture> patchesTexture(new Texture("./Textures/texPatches.png"));
+		patchesTexture->SetName("Patches");
+		_resourceList.push_front(patchesTexture);
+
+		// Load the Game Over Texture
+		std::shared_ptr<Texture> gameOverTexture(new Texture("./Textures/texGameOver.png"));
+		gameOverTexture->SetName("GameOver");
+		_resourceList.push_front(gameOverTexture);
+
 		// Assumes that the resources were successfully loaded
 		_resourcesLoaded = true;
 
-		return true;
+		return _resourcesLoaded;
 	}
 
 	// Unload all the resources

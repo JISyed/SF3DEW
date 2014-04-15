@@ -25,6 +25,7 @@
 #include "ObjectRenderer.hpp"
 #include "MeshRegistry.hpp"
 #include "ShaderRegistry.hpp"
+#include "TextureRegistry.hpp"
 
 int main()
 {
@@ -34,6 +35,7 @@ int main()
 	// Construct registries
 	std::unique_ptr<sfew::MeshRegistry> meshRegistry(new sfew::MeshRegistry());
 	std::unique_ptr<sfew::ShaderRegistry> shaderRegistry(new sfew::ShaderRegistry());
+	std::unique_ptr<sfew::TextureRegistry> textureRegistry(new sfew::TextureRegistry());
 
 	// Create SFML window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SF3DEW Test", sf::Style::Close | sf::Style::Titlebar);
@@ -53,28 +55,26 @@ int main()
 
 	// Experiment: Test mesh object
 	meshRegistry->Load();
-	std::weak_ptr<sfew::Mesh> cubeMesh = sfew::MeshRegistry::GetByName("OctohedronMesh");
-	std::weak_ptr<sfew::Mesh> prismMesh = sfew::MeshRegistry::GetByName("CubeMesh");
 
 	// Experiment: Test shader object
 	shaderRegistry->Load();
 	meshRegistry->SetupAllVertexFormats();
 
 	// Experiment: Test texture object
-	std::shared_ptr<sfew::Texture> theTexture(new sfew::Texture("./Textures/texPatches.png"));
-	theTexture->SetName("Patches Texture");
+	textureRegistry->Load();
 
 	// Experiment: Test Material object
-	std::shared_ptr<sfew::Material> theMaterial(new sfew::Material(sfew::ShaderRegistry::GetByName("BasicShader"), theTexture));
+	std::shared_ptr<sfew::Material> theMaterial(new sfew::Material(sfew::ShaderRegistry::GetByName("BasicShader"), 
+																   sfew::TextureRegistry::GetByName("Patches")) );
 
 	// Experiment: Test transform objects
 	std::unique_ptr<sfew::Transform> theTransform(new sfew::Transform());
-	theMaterial->SetUniform("model", theTransform->GenerateModelMatrix());
 	std::unique_ptr<sfew::Transform> secondTransform(new sfew::Transform());
 	secondTransform->SetPosition(sfew::Vector3(-2.0f, 0.0f, 0.1f));
-	theMaterial->SetUniform("model", secondTransform->GenerateModelMatrix());
 
 	// Experiment: Test ObjectRenderers
+	std::weak_ptr<sfew::Mesh> cubeMesh = sfew::MeshRegistry::GetByName("OctohedronMesh");
+	std::weak_ptr<sfew::Mesh> prismMesh = sfew::MeshRegistry::GetByName("CubeMesh");
 	std::unique_ptr<sfew::ObjectRenderer> entityOne(new sfew::ObjectRenderer(cubeMesh, theMaterial));
 	std::unique_ptr<sfew::ObjectRenderer> entityTwo(new sfew::ObjectRenderer(prismMesh, theMaterial));
 
@@ -189,6 +189,8 @@ int main()
 
 	// END OF PROGRAM
 	
+	// Unload all resources from all registries
+	textureRegistry->Unload();
 	shaderRegistry->Unload();
 	meshRegistry->Unload();
 

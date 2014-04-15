@@ -43,14 +43,14 @@ namespace sfew
 	bool ShaderRegistry::Load()
 	{
 		// Load the Basic Shader
-		std::shared_ptr<sfew::Shader> basicShader(new sfew::Shader("./Shaders/basic.vert", 
-																   "./Shaders/basic.frag") );
+		std::shared_ptr<Shader> basicShader(new Shader("./Shaders/basic.vert", 
+													   "./Shaders/basic.frag") );
 		basicShader->SetName("BasicShader");
 		_resourceList.push_front(basicShader);
 
 		// Load the Brightness Shader
-		std::shared_ptr<sfew::Shader> brightnessShader(new sfew::Shader("./Shaders/brightness.vert", 
-																		"./Shaders/brightness.frag") );
+		std::shared_ptr<Shader> brightnessShader(new Shader("./Shaders/brightness.vert", 
+															"./Shaders/brightness.frag") );
 		brightnessShader->SetName("BrightnessShader");
 		_resourceList.push_front(brightnessShader);
 
