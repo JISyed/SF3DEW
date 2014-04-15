@@ -38,6 +38,7 @@ namespace sfew
 		static void EnableVertexAttributes();	// Use vertex attributes to draw 3D
 		static void DisableVertexAttributes();	// Stop using vertex attributes to draw 2D
 		bool HasUniform(const std::string& uniformName);	// Does uniform name exist in shader program?
+		void FormatVertexAttributes();			// Format vertex data for shaders to use
 
 		// Properties =====================
 
@@ -60,7 +61,6 @@ namespace sfew
 		void loadShaderFile(const std::string& filePath, ShaderType type);	// Loads shader from text file
 		void compileShader(ShaderType type);	// Compiles specified shader for OpenGL
 		void linkShaders();						// Link the vertex and fragment shaders together
-		void formatVertexAttributes();			// Format vertex data for shaders to use
 		bool verifyShaderIsLinkedForUniforms();	// Verify shader is linked for uniform assignment
 		bool verifyUniformLegitimacy(const std::string& uniformName);	// Verify that the uniform variable is valid
 		void loadBlankShaderPlaceholder();		// Load the shader that loads by default

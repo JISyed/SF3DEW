@@ -55,12 +55,8 @@ namespace sfew
 	// Unload all the resources
 	void MeshRegistry::Unload()
 	{
-		// Is the Mesh list empty?
-		if(_resourceList.empty())
-		{
-			// Skip
-			return;
-		}
+		// Skip unloading of list if empty
+		if(_resourceList.empty()) return;
 
 		// Empty the list
 		_resourceList.clear();
@@ -77,10 +73,11 @@ namespace sfew
 		// Make sure this registry exists
 		std::weak_ptr<Mesh> empty = std::weak_ptr<Mesh>();
 		if(!MeshRegistry::verifyInstantiation()) return empty;
+		if(MeshRegistry::_instance->_resourceList.empty()) return empty;
 
 		// Search through the list for an object with the same name as queried
 		std::weak_ptr<Mesh> foundObject = std::weak_ptr<Mesh>();
-		for(auto& resource : _instance->_resourceList)
+		for(auto& resource : MeshRegistry::_instance->_resourceList)
 		{
 			// Are the two name string the same?
 			if(resource->GetName().compare(name) == 0)

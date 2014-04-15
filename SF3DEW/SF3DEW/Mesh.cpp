@@ -60,7 +60,11 @@ namespace sfew
 			-0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
 			 0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f
 		};
-		
+
+		// Create a vertex array object for storing the vertex format
+		glGenVertexArrays(1, &_vao);
+		glBindVertexArray(_vao);
+
 		// Create a vertex buffer object to hold vertex data
 		glGenBuffers(1, &_vbo);
 
@@ -75,12 +79,15 @@ namespace sfew
 		// This assumes vertex data is 9 floats long!!!
 		// See Shader::formatVertexAttributes()
 		_numberOfVerts = 324 / 9;
-
 	}
 
 	// Ctor
 	Mesh::Mesh(const std::vector<float>& newVertexDataArray) : INameable("Unnamed Mesh")
 	{
+		// Create a vertex array object for storing the vertex format
+		glGenVertexArrays(1, &_vao);
+		glBindVertexArray(_vao);
+
 		// Create a vertex buffer object to hold vertex data
 		glGenBuffers(1, &_vbo);
 
@@ -95,9 +102,6 @@ namespace sfew
 		// This assumes vertex data is 9 floats long!!!
 		// See Shader::formatVertexAttributes()
 		_numberOfVerts = newVertexDataArray.size() / 9;
-
-		// Make inactive
-		//glBindBuffer(GL_ARRAY_BUFFER, NULL);
 	}
 
 	// Dtor
@@ -105,6 +109,9 @@ namespace sfew
 	{
 		// Delete the vertex buffer object
 		glDeleteBuffers(1, &_vbo);
+
+		// Delete the vertex array object
+		glDeleteVertexArrays(1, &_vao);
 	}
 
 	// Routines =========================================
@@ -112,12 +119,14 @@ namespace sfew
 	// Make active mesh to draw
 	void Mesh::MakeActiveMeshToDraw()
 	{
+		glBindVertexArray(_vao);
 		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
 	}
 
 	// Makes no mesh the active mesh
 	void Mesh::StopUsingMeshes()
 	{
+		glBindVertexArray(NULL);
 		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 	}
 

@@ -14,7 +14,7 @@ namespace sfew
 		_upDirection(Transform::WorldUp()),
 		_fov(75.0f),
 		_aspectRatio(0.75f),
-		_nearClip(1.0f),
+		_nearClip(0.5f),
 		_farClip(50.0f)
 	{
 		

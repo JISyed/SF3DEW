@@ -29,7 +29,7 @@ int main()
 {
 	// Make system time first!
 	sfew::SystemTime systemTime;
-	//std::unique_ptr<sfew::MeshRegistry> meshRegistry(new sfew::MeshRegistry());
+	std::unique_ptr<sfew::MeshRegistry> meshRegistry(new sfew::MeshRegistry());
 
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SF3DEW Test", sf::Style::Close | sf::Style::Titlebar);
 	window.setVerticalSyncEnabled(true);
@@ -48,7 +48,7 @@ int main()
 
 	// Experiment: Test mesh object
 	
-	//meshRegistry->Load();
+	meshRegistry->Load();
 
 	// CUBE
 	/*
@@ -127,7 +127,7 @@ int main()
 
 	// OCTOHEDRON
 	/*
-	GLfloat vertices[] = {
+	GLfloat vertices2[] = {
 		 0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
 		 0.0f,  0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
 		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
@@ -163,6 +163,7 @@ int main()
 	//*/
 
 	// TRIANGLE PRISM
+	/*
 	GLfloat vertices[] = {
 		-0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // LO 
 		 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, // BO
@@ -196,15 +197,31 @@ int main()
 		-0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.2f, // LI
 		-0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f  // LO 
 	};
+	//*/
 
-	std::vector<float> vertexData(vertices, vertices + sizeof(vertices) / sizeof(float));
-	std::shared_ptr<sfew::Mesh> theMesh(new sfew::Mesh(vertexData));
-	theMesh->SetName("Rectangle Mesh");
+	//std::vector<float> vertexData(vertices, vertices + sizeof(vertices) / sizeof(float));
+	//std::shared_ptr<sfew::Mesh> theMesh(new sfew::Mesh(vertexData));
+	//theMesh->SetName("PrismMesh");
+
+	//std::vector<float> vertexData2(vertices2, vertices2 + sizeof(vertices2) / sizeof(float));
+	//std::shared_ptr<sfew::Mesh> theMesh2(new sfew::Mesh(vertexData2));
+	//theMesh->SetName("OctoMesh");
 
 	// Experiment: Test shader object
 	std::shared_ptr<sfew::Shader> theShader(new sfew::Shader("./Shaders/basic.vert", "./Shaders/basic.frag") );
 	//std::shared_ptr<sfew::Shader> theShader(new sfew::Shader() );
 	theShader->SetName("Basic Shader");
+
+	// Get weak pointers for two of the meshes
+	std::weak_ptr<sfew::Mesh> cubeMesh = sfew::MeshRegistry::GetByName("CubeMesh");
+	std::weak_ptr<sfew::Mesh> prismMesh = sfew::MeshRegistry::GetByName("PrismMesh");
+
+	//theMesh->MakeActiveMeshToDraw();
+	cubeMesh._Get()->MakeActiveMeshToDraw();
+	theShader->FormatVertexAttributes();
+	//theMesh2->MakeActiveMeshToDraw();
+	prismMesh._Get()->MakeActiveMeshToDraw();
+	theShader->FormatVertexAttributes();
 
 	// Experiment: Test texture object
 	std::shared_ptr<sfew::Texture> theTexture(new sfew::Texture("./Textures/texPatches.png"));
@@ -222,8 +239,8 @@ int main()
 	theMaterial->SetUniform("model", secondTransform->GenerateModelMatrix());
 
 	// Experiment: Test ObjectRenderers
-	std::unique_ptr<sfew::ObjectRenderer> entityOne(new sfew::ObjectRenderer(theMesh, theMaterial));
-	std::unique_ptr<sfew::ObjectRenderer> entityTwo(new sfew::ObjectRenderer(theMesh, theMaterial));
+	std::unique_ptr<sfew::ObjectRenderer> entityOne(new sfew::ObjectRenderer(cubeMesh, theMaterial));
+	std::unique_ptr<sfew::ObjectRenderer> entityTwo(new sfew::ObjectRenderer(prismMesh, theMaterial));
 
 	// Experiment: Test camera object
 	std::unique_ptr<sfew::Camera> theCamera(new sfew::Camera());

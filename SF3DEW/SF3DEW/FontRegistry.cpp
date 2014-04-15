@@ -49,7 +49,11 @@ namespace sfew
 	// Unload all the resources
 	void FontRegistry::Unload()
 	{
+		// Skip unloading of list if empty
+		if(_resourceList.empty()) return;
 
+		// Empty the list
+		_resourceList.clear();
 
 		// Mark the resources as unloaded
 		_resourcesLoaded = false;
@@ -60,10 +64,26 @@ namespace sfew
 	// STATIC: Returns a weak reference to an object by name
 	std::weak_ptr<sf::Font> FontRegistry::GetByName(const std::string& name)
 	{
+		// Make sure this registry exists
 		std::weak_ptr<sf::Font> empty = std::weak_ptr<sf::Font>();
-
 		if(!FontRegistry::verifyInstantiation()) return empty;
+		if(FontRegistry::_instance->_resourceList.empty()) return empty;
 
+		// Search through the list for an object with the same name as queried
+		std::weak_ptr<sf::Font> foundObject = std::weak_ptr<sf::Font>();
+		for(auto& resource : FontRegistry::_instance->_resourceList)
+		{
+			/*
+			// Are the two name string the same?
+			if(resource->GetName().compare(name) == 0)
+			{
+				foundObject = resource;
+				return foundObject;
+			}
+			//*/
+		}
+
+		// Couldn't find the queried name
 		return empty;
 	}
 

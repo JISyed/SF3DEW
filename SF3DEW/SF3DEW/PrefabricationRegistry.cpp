@@ -49,10 +49,16 @@ namespace sfew
 	// Unload all the resources
 	void PrefabricationRegistry::Unload()
 	{
+		/*
+		// Skip unloading of list if empty
+		if(_resourceList.empty()) return;
 
+		// Empty the list
+		_resourceList.clear();
 
 		// Mark the resources as unloaded
 		_resourcesLoaded = false;
+		//*/
 	}
 
 	// Properties =========================================
@@ -61,10 +67,24 @@ namespace sfew
 	/*
 	std::weak_ptr<Prefabrication> PrefabricationRegistry::GetByName(const std::string& name)
 	{
+		// Make sure this registry exists
 		std::weak_ptr<Prefabrication> empty = std::weak_ptr<Prefabrication>();
-
 		if(!PrefabricationRegistry::verifyInstantiation()) return empty;
+		if(PrefabricationRegistry::_instance->_resourceList.empty()) return empty;
 
+		// Search through the list for an object with the same name as queried
+		std::weak_ptr<Prefabrication> foundObject = std::weak_ptr<Prefabrication>();
+		for(auto& resource : PrefabricationRegistry::_instance->_resourceList)
+		{
+			// Are the two name string the same?
+			if(resource->GetName().compare(name) == 0)
+			{
+				foundObject = resource;
+				return foundObject;
+			}
+		}
+
+		// Couldn't find the queried name
 		return empty;
 	}
 	//*/

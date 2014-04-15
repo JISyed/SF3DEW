@@ -34,7 +34,7 @@ namespace sfew
 		linkShaders();
 
 		// Format the vertex attribute data sent from VBOs
-		formatVertexAttributes();
+		FormatVertexAttributes();
 	}
 
 	// Ctor
@@ -63,7 +63,7 @@ namespace sfew
 		linkShaders();
 
 		// Format the vertex attribute data sent from VBOs
-		formatVertexAttributes();
+		FormatVertexAttributes();
 	}
 
 	// Dtor
@@ -151,6 +151,34 @@ namespace sfew
 
 		// The uniform exists
 		return true;
+	}
+
+	// Format vertex data for shaders to use
+	void Shader::FormatVertexAttributes()
+	{
+		if(!verifyShaderIsLinkedForUniforms()) return;
+
+		// Make current shader the active shader
+		UseShader();
+
+		// Format the vertex attribute data for the shaders to process
+		GLint posAttrib = glGetAttribLocation(_shaderProgram, "position");
+		glEnableVertexAttribArray(posAttrib);
+		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE,
+							   9*sizeof(float), 0);
+
+		GLint colAttrib = glGetAttribLocation(_shaderProgram, "color");
+		glEnableVertexAttribArray(colAttrib);
+		glVertexAttribPointer(colAttrib, 4, GL_FLOAT, GL_FALSE,
+							   9*sizeof(float), (void*)(3*sizeof(float)));
+
+		GLint texAttrib = glGetAttribLocation(_shaderProgram, "uvs");
+		glEnableVertexAttribArray(texAttrib);
+		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE,
+							   9*sizeof(float), (void*)(7*sizeof(float)));
+
+		// Stop this shader from being the current active
+		Shader::StopUsingShaders();
 	}
 
 	// Uniform Setters =======================================
@@ -256,8 +284,6 @@ namespace sfew
 		glUniformMatrix4fv(uniformHandle, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
-
-	// Properties =========================================
 
 	// Helpers =========================================
 
@@ -399,39 +425,14 @@ namespace sfew
 		std::cout << "...success!" << std::endl;
 		_flaggedAsLinked = true;
 	}
-
-	// Format vertex data for shaders to use
-	void Shader::formatVertexAttributes()
-	{
-		// Make current shader the active shader
-		UseShader();
-
-		// Format the vertex attribute data for the shaders to process
-		GLint posAttrib = glGetAttribLocation(_shaderProgram, "position");
-		glEnableVertexAttribArray(posAttrib);
-		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE,
-							   9*sizeof(float), 0);
-
-		GLint colAttrib = glGetAttribLocation(_shaderProgram, "color");
-		glEnableVertexAttribArray(colAttrib);
-		glVertexAttribPointer(colAttrib, 4, GL_FLOAT, GL_FALSE,
-							   9*sizeof(float), (void*)(3*sizeof(float)));
-
-		GLint texAttrib = glGetAttribLocation(_shaderProgram, "uvs");
-		glEnableVertexAttribArray(texAttrib);
-		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE,
-							   9*sizeof(float), (void*)(7*sizeof(float)));
-
-		// Stop this shader from being the current active
-		Shader::StopUsingShaders();
-	}
-
+	
 	// Verify shader is linked for uniform assignment
 	bool Shader::verifyShaderIsLinkedForUniforms()
 	{
 		if(!_flaggedAsLinked)
 		{
-			std::cout << "Warning: Trying to assign a uniform to an unlinked shader!" << std::endl;
+			std::cout << "Warning: Trying to use an unlinked shader!" << std::endl;
+			std::cout << "Either a uniform was being assigned or vertices were being formatted." << std::endl;
 			return false;
 		}
 

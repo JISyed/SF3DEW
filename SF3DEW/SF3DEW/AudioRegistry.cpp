@@ -49,7 +49,11 @@ namespace sfew
 	// Unload all the resources
 	void AudioRegistry::Unload()
 	{
+		// Skip unloading of list if empty
+		if(_resourceList.empty()) return;
 
+		// Empty the list
+		_resourceList.clear();
 
 		// Mark the resources as unloaded
 		_resourcesLoaded = false;
@@ -60,10 +64,24 @@ namespace sfew
 	// STATIC: Returns a weak reference to an object by name
 	std::weak_ptr<AudioSource> AudioRegistry::GetByName(const std::string& name)
 	{
+		// Make sure this registry exists
 		std::weak_ptr<AudioSource> empty = std::weak_ptr<AudioSource>();
-
 		if(!AudioRegistry::verifyInstantiation()) return empty;
+		if(AudioRegistry::_instance->_resourceList.empty()) return empty;
 
+		// Search through the list for an object with the same name as queried
+		std::weak_ptr<AudioSource> foundObject = std::weak_ptr<AudioSource>();
+		for(auto& resource : AudioRegistry::_instance->_resourceList)
+		{
+			// Are the two name string the same?
+			if(resource->GetName().compare(name) == 0)
+			{
+				foundObject = resource;
+				return foundObject;
+			}
+		}
+
+		// Couldn't find the queried name
 		return empty;
 	}
 

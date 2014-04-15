@@ -41,6 +41,7 @@ namespace sfew
 
 		// Data ===========================
 
+		GLuint _vao;		// Handle to vertex format
 		GLuint _vbo;		// Handle to vertex data in shader
 		int _numberOfVerts;	// Total number of vertices in mesh
 
