@@ -59,7 +59,7 @@ namespace sfew
 
 	// STATIC: Returns a weak reference to an object by name
 	/*
-	std::weak_ptr<Prefabrication> PrefabricationRegistry::GetByName()
+	std::weak_ptr<Prefabrication> PrefabricationRegistry::GetByName(const std::string& name)
 	{
 		std::weak_ptr<Prefabrication> empty = std::weak_ptr<Prefabrication>();
 
@@ -71,7 +71,7 @@ namespace sfew
 
 	// Helpers =========================================
 
-	// Was this object instantiated?
+	// STATIC: Was this object instantiated?
 	bool PrefabricationRegistry::verifyInstantiation()
 	{
 		if(PrefabricationRegistry::_instance == NULL)

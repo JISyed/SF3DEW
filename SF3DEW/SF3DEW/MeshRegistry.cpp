@@ -40,16 +40,30 @@ namespace sfew
 	// Load all the resources
 	bool MeshRegistry::Load()
 	{
+		// Load the builtin meshes
+		loadCube();
+		loadTetrahedron();
+		loadOctohedron();
+		loadPrism();
+
 		// Assumes that the resources were successfully loaded
 		_resourcesLoaded = true;
 
-		return true;
+		return _resourcesLoaded;
 	}
 
 	// Unload all the resources
 	void MeshRegistry::Unload()
 	{
+		// Is the Mesh list empty?
+		if(_resourceList.empty())
+		{
+			// Skip
+			return;
+		}
 
+		// Empty the list
+		_resourceList.clear();
 
 		// Mark the resources as unloaded
 		_resourcesLoaded = false;
@@ -58,18 +72,31 @@ namespace sfew
 	// Properties =========================================
 
 	// STATIC: Returns a weak reference to an object by name
-	std::weak_ptr<Mesh> MeshRegistry::GetByName()
+	std::weak_ptr<Mesh> MeshRegistry::GetByName(const std::string& name)
 	{
+		// Make sure this registry exists
 		std::weak_ptr<Mesh> empty = std::weak_ptr<Mesh>();
-
 		if(!MeshRegistry::verifyInstantiation()) return empty;
 
+		// Search through the list for an object with the same name as queried
+		std::weak_ptr<Mesh> foundObject = std::weak_ptr<Mesh>();
+		for(auto& resource : _instance->_resourceList)
+		{
+			// Are the two name string the same?
+			if(resource->GetName().compare(name) == 0)
+			{
+				foundObject = resource;
+				return foundObject;
+			}
+		}
+
+		// Couldn't find the queried name
 		return empty;
 	}
 
 	// Helpers =========================================
 
-	// Was this object instantiated?
+	// STATIC: Was this object instantiated?
 	bool MeshRegistry::verifyInstantiation()
 	{
 		if(MeshRegistry::_instance == NULL)
@@ -80,5 +107,203 @@ namespace sfew
 
 		return true;
 	}
+
+	// Load the cube mesh
+	void MeshRegistry::loadCube()
+	{
+		// Cube Mesh
+		GLfloat vertices[] = {
+			// X     Y      Z     R     G     B     A     U     V
+			// Back
+			 0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // TL 1 1
+			 0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BL 1 0
+			-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // BR 0 0
+			-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // BR 0 0
+			-0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // TR 0 1
+			 0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // TL 1 1
+		
+			// Front
+			-0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BL
+			 0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // BR
+			 0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // TR
+			 0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // TR
+			-0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // TL
+			-0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BL
+
+			// Left
+			-0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // TL 0 1
+			-0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // TR 1 1
+			-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BR 1 0
+			-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BR 1 0
+			-0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // BL 0 0
+			-0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // TL 0 1
+		
+			// Right
+			 0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // BR
+			 0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // TR
+			 0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // TL
+			 0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // TL
+			 0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BL
+			 0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // BR
+
+			// Down
+			-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // M 0 1
+			 0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // K 1 1
+			 0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // J 1 0
+			 0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // J 1 0
+			-0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // L 0 0
+			-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // M 0 1
+
+			// Up
+			 0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+			-0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+			-0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+			 0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f
+		};
+		
+		// Create vertex buffer for mesh
+		std::vector<float> vertexData(vertices, vertices + sizeof(vertices) / sizeof(float));
+
+		// Pass the buffer into a new Mesh object
+		std::shared_ptr<Mesh> newMesh(new Mesh(vertexData));
+		newMesh->SetName("CubeMesh");
+
+		// Add the Mesh to the list
+		_resourceList.push_front(newMesh);
+	}
+
+	// Load the tetrahedrion mesh
+	void MeshRegistry::loadTetrahedron()
+	{
+		// Tetrahedron Mesh
+		GLfloat vertices[] = {
+			-0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,	// L
+			 0.0f,  0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f,	// T
+			 0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,	// R
+
+			-0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,	// L
+			 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,	// F
+			 0.0f,  0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,	// T
+
+			 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,	// F
+			 0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,	// R
+			 0.0f,  0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,	// T
+
+			-0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,	// L
+			 0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,	// R
+			 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 5.0f, 1.0f		// F
+		};
+
+		// Create vertex buffer for mesh
+		std::vector<float> vertexData(vertices, vertices + sizeof(vertices) / sizeof(float));
+
+		// Pass the buffer into a new Mesh object
+		std::shared_ptr<Mesh> newMesh(new Mesh(vertexData));
+		newMesh->SetName("TetrahedronMesh");
+
+		// Add the Mesh to the list
+		_resourceList.push_front(newMesh);
+	}
+
+	// Load the octohedron mesh
+	void MeshRegistry::loadOctohedron()
+	{
+		// Octohedron
+		GLfloat vertices[] = {
+			 0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+			 0.0f,  0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
+			 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+
+			-0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+			 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+			 0.0f,  0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
+
+			 0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+			 0.0f,  0.0f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+			 0.0f,  0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
+
+			-0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+			 0.0f,  0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
+			 0.0f,  0.0f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+
+			 0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+			 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+			 0.0f, -0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
+
+			-0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+			 0.0f, -0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
+			 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+
+			 0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+			 0.0f, -0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
+			 0.0f,  0.0f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+
+			-0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
+			 0.0f,  0.0f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
+			 0.0f, -0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f
+		};
+
+		// Create vertex buffer for mesh
+		std::vector<float> vertexData(vertices, vertices + sizeof(vertices) / sizeof(float));
+
+		// Pass the buffer into a new Mesh object
+		std::shared_ptr<Mesh> newMesh(new Mesh(vertexData));
+		newMesh->SetName("OctohedronMesh");
+
+		// Add the Mesh to the list
+		_resourceList.push_front(newMesh);
+	}
+
+	// Load the triangular prism mesh
+	void MeshRegistry::loadPrism()
+	{
+		// Triangular Prism
+		GLfloat vertices[] = {
+			-0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // LO 
+			 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, // BO
+			 0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // RO
+
+			-0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // LI
+			 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // RI
+			 0.0f, -1.4f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, // BI
+
+			-0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // LO
+			-0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, 1.0f, // LI
+			 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BO
+
+			-0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, 1.0f, // LI
+			 0.0f, -1.4f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, 0.0f, // BI
+			 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BO
+
+			 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BO
+			 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, 1.0f, // RI
+			 0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // RO
+
+			 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BO
+			 0.0f, -1.4f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, 0.0f, // BI
+			 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, 1.0f, // RI
+
+			-0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // LO
+			 0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // RO
+			 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, // RI
+
+			 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, // RI
+			-0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.2f, // LI
+			-0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f  // LO 
+		};
+
+		// Create vertex buffer for mesh
+		std::vector<float> vertexData(vertices, vertices + sizeof(vertices) / sizeof(float));
+
+		// Pass the buffer into a new Mesh object
+		std::shared_ptr<Mesh> newMesh(new Mesh(vertexData));
+		newMesh->SetName("PrismMesh");
+
+		// Add the Mesh to the list
+		_resourceList.push_front(newMesh);
+	}
+
 
 } // namespace sfew

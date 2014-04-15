@@ -58,7 +58,7 @@ namespace sfew
 	// Properties =========================================
 
 	// STATIC: Returns a weak reference to an object by name
-	std::weak_ptr<AudioSource> AudioRegistry::GetByName()
+	std::weak_ptr<AudioSource> AudioRegistry::GetByName(const std::string& name)
 	{
 		std::weak_ptr<AudioSource> empty = std::weak_ptr<AudioSource>();
 
@@ -69,7 +69,7 @@ namespace sfew
 
 	// Helpers =========================================
 
-	// Was this object instantiated?
+	// STATIC: Was this object instantiated?
 	bool AudioRegistry::verifyInstantiation()
 	{
 		if(AudioRegistry::_instance == NULL)

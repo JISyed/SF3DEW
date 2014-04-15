@@ -27,7 +27,7 @@ namespace sfew
 
 		// Properties =====================
 
-		//static std::weak_ptr<Prefabrication> GetByName();		// Returns a weak reference to an object by name
+		//static std::weak_ptr<Prefabrication> GetByName(const std::string& name);		// Returns a weak reference to an object by name
 
 	private:
 

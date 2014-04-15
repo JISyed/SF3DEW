@@ -58,7 +58,7 @@ namespace sfew
 	// Properties =========================================
 
 	// STATIC: Returns a weak reference to an object by name
-	std::weak_ptr<Texture> TextureRegistry::GetByName()
+	std::weak_ptr<Texture> TextureRegistry::GetByName(const std::string& name)
 	{
 		std::weak_ptr<Texture> empty = std::weak_ptr<Texture>();
 
@@ -69,7 +69,7 @@ namespace sfew
 
 	// Helpers =========================================
 
-	// Was this object instantiated?
+	// STATIC: Was this object instantiated?
 	bool TextureRegistry::verifyInstantiation()
 	{
 		if(TextureRegistry::_instance == NULL)

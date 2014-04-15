@@ -9,12 +9,13 @@
 #include <memory>
 #include <string>
 #include <forward_list>
+#include <SFML/System/NonCopyable.hpp>
 
 // PERSONAL HEADERS HERE
 
 namespace sfew
 {
-	class Registry
+	class Registry : sf::NonCopyable
 	{
 	public:
 

@@ -23,11 +23,13 @@
 #include "Timer.hpp"
 #include "Material.hpp"
 #include "ObjectRenderer.hpp"
+#include "MeshRegistry.hpp"
 
 int main()
 {
 	// Make system time first!
 	sfew::SystemTime systemTime;
+	//std::unique_ptr<sfew::MeshRegistry> meshRegistry(new sfew::MeshRegistry());
 
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SF3DEW Test", sf::Style::Close | sf::Style::Titlebar);
 	window.setVerticalSyncEnabled(true);
@@ -46,6 +48,8 @@ int main()
 
 	// Experiment: Test mesh object
 	
+	//meshRegistry->Load();
+
 	// CUBE
 	/*
 	GLfloat vertices[] = {
@@ -195,7 +199,6 @@ int main()
 
 	std::vector<float> vertexData(vertices, vertices + sizeof(vertices) / sizeof(float));
 	std::shared_ptr<sfew::Mesh> theMesh(new sfew::Mesh(vertexData));
-	//std::unique_ptr<sfew::Mesh> theMesh(new sfew::Mesh() );
 	theMesh->SetName("Rectangle Mesh");
 
 	// Experiment: Test shader object
@@ -330,6 +333,10 @@ int main()
 	//sndLaser->Play();
 	//sf::sleep(sndLaser->GetDuration());
 	//sf::sleep(sf::seconds(2.0f));
+
+	// END OF PROGRAM
+	
+	//meshRegistry->Unload();
 
 	return 0;
 }

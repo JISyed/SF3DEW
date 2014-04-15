@@ -58,7 +58,7 @@ namespace sfew
 	// Properties =========================================
 
 	// STATIC: Returns a weak reference to an object by name
-	std::weak_ptr<Shader> ShaderRegistry::GetByName()
+	std::weak_ptr<Shader> ShaderRegistry::GetByName(const std::string& name)
 	{
 		std::weak_ptr<Shader> empty = std::weak_ptr<Shader>();
 
@@ -69,7 +69,7 @@ namespace sfew
 
 	// Helpers =========================================
 
-	// Was this object instantiated?
+	// STATIC: Was this object instantiated?
 	bool ShaderRegistry::verifyInstantiation()
 	{
 		if(ShaderRegistry::_instance == NULL)

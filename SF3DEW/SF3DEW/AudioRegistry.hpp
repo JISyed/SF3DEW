@@ -27,7 +27,7 @@ namespace sfew
 
 		// Properties =====================
 
-		static std::weak_ptr<AudioSource> GetByName();		// Returns a weak reference to an object by name
+		static std::weak_ptr<AudioSource> GetByName(const std::string& name);		// Returns a weak reference to an object by name
 
 	private:
 

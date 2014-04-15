@@ -27,13 +27,17 @@ namespace sfew
 
 		// Properties =====================
 
-		static std::weak_ptr<Mesh> GetByName();		// Returns a weak reference to an object by name
+		static std::weak_ptr<Mesh> GetByName(const std::string& name);		// Returns a weak reference to an object by name
 
 	private:
 
 		// Helpers ========================
 
 		static bool verifyInstantiation();	// Was this object instantiated?
+		void loadCube();					// Load the cube mesh
+		void loadTetrahedron();				// Load the tetrahedrion mesh
+		void loadOctohedron();				// Load the octohedron mesh
+		void loadPrism();					// Load the triangular prism mesh
 
 		// Data ===========================
 

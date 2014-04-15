@@ -95,6 +95,9 @@ namespace sfew
 		// This assumes vertex data is 9 floats long!!!
 		// See Shader::formatVertexAttributes()
 		_numberOfVerts = newVertexDataArray.size() / 9;
+
+		// Make inactive
+		//glBindBuffer(GL_ARRAY_BUFFER, NULL);
 	}
 
 	// Dtor

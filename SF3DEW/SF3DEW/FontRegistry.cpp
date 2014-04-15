@@ -58,7 +58,7 @@ namespace sfew
 	// Properties =========================================
 
 	// STATIC: Returns a weak reference to an object by name
-	std::weak_ptr<sf::Font> FontRegistry::GetByName()
+	std::weak_ptr<sf::Font> FontRegistry::GetByName(const std::string& name)
 	{
 		std::weak_ptr<sf::Font> empty = std::weak_ptr<sf::Font>();
 
@@ -69,7 +69,7 @@ namespace sfew
 
 	// Helpers =========================================
 
-	// Was this object instantiated?
+	// STATIC: Was this object instantiated?
 	bool FontRegistry::verifyInstantiation()
 	{
 		if(FontRegistry::_instance == NULL)

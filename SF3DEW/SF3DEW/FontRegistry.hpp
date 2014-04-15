@@ -28,7 +28,7 @@ namespace sfew
 
 		// Properties =====================
 
-		static std::weak_ptr<sf::Font> GetByName();		// Returns a weak reference to an object by name
+		static std::weak_ptr<sf::Font> GetByName(const std::string& name);		// Returns a weak reference to an object by name
 
 	private:
 
