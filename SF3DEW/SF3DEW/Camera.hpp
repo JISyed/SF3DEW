@@ -7,10 +7,13 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include <memory>
 #include <SFML/System/NonCopyable.hpp>
 
 #include "LinearAlgebraTypes.hpp"
 #include "INameable.hpp"
+
+class ShaderRegistry;
 
 namespace sfew
 {
@@ -25,11 +28,12 @@ namespace sfew
 
 		// Routines =======================
 
-		Matrix4 GenerateViewMatrix() const;			// Make a view matrix representing camera transform data
-		Matrix4 GenerateProjectionMatrix() const;	// Make a projection matrix representing camera lens properties
+		Matrix4 GenerateViewMatrix();				// Make a view matrix representing camera transform data
+		Matrix4 GenerateProjectionMatrix();			// Make a projection matrix representing camera lens properties
 		void LookAtPoint(Vector3 newLookingPoint);	// Change screen's center point
 		Vector3 GetLookAtPoint() const;				// Get screen's center point
 		void RealignUpDirection();					// Resets camera's up direction to world's
+		static std::weak_ptr<Camera> GetInstance();		// Get Singleton
 
 		// Properties =====================
 
@@ -46,6 +50,11 @@ namespace sfew
 		void SetFarClippingPlane(float newFarClip);
 		float GetFarClippingPlane() const;
 
+		bool DidViewMatrixChange() const;
+		bool DidProjectionMatrixChange() const;
+		void DeclareViewMatrixAsUnchanged();
+		void DeclareProjectionMatrixAsUnchanged();
+
 	private:
 		
 		// Helpers ========================
@@ -61,6 +70,12 @@ namespace sfew
 		float _aspectRatio;				// Width-to-height ratio of the rendering canvas
 		float _nearClip;				// Near clipping plane (nearest camera can see)
 		float _farClip;					// Far clipping plane (furthest camera can see)
+		static std::shared_ptr<Camera> _instance;	// Singleton instance
+
+		// Flags ==========================
+
+		bool _flaggedAsViewChanged;			// Did properties of the view matrix change?
+		bool _flaggedAsProjectionChanged;	// Did properties of the projection matrix change?
 
 	};
 	

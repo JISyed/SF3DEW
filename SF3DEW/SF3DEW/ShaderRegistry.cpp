@@ -73,6 +73,35 @@ namespace sfew
 		_resourcesLoaded = false;
 	}
 
+	// Sends down view and projection matrix if changed
+	void ShaderRegistry::UpdateCameraDataInShaders()
+	{
+		// Check if view or projection matrices changed
+		bool viewChanged = Camera::GetInstance()._Get()->DidViewMatrixChange();
+		bool projChanged = Camera::GetInstance()._Get()->DidProjectionMatrixChange();
+		if(!viewChanged && !projChanged) return;
+
+		// For all shaders...
+		for(auto& shader : _resourceList)
+		{
+			// ... update view matrix if changed
+			if(viewChanged)
+			{
+				shader->SetUniform("view", Camera::GetInstance()._Get()->GenerateViewMatrix() );
+			}
+
+			// ... and update projection matrix if changed
+			if(projChanged)
+			{
+				shader->SetUniform("projection", Camera::GetInstance()._Get()->GenerateProjectionMatrix() );
+			}
+		}
+
+		// Flag matrices as unchanged
+		Camera::GetInstance()._Get()->DeclareViewMatrixAsUnchanged();
+		Camera::GetInstance()._Get()->DeclareProjectionMatrixAsUnchanged();
+	}
+
 	// Properties =========================================
 
 	// STATIC: Returns a weak reference to an object by name

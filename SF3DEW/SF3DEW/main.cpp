@@ -26,6 +26,7 @@
 #include "MeshRegistry.hpp"
 #include "ShaderRegistry.hpp"
 #include "TextureRegistry.hpp"
+#include "MaterialRegistry.hpp"
 
 int main()
 {
@@ -36,6 +37,7 @@ int main()
 	std::unique_ptr<sfew::MeshRegistry> meshRegistry(new sfew::MeshRegistry());
 	std::unique_ptr<sfew::ShaderRegistry> shaderRegistry(new sfew::ShaderRegistry());
 	std::unique_ptr<sfew::TextureRegistry> textureRegistry(new sfew::TextureRegistry());
+	std::unique_ptr<sfew::MaterialRegistry> materialRegistry(new sfew::MaterialRegistry());
 
 	// Create SFML window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SF3DEW Test", sf::Style::Close | sf::Style::Titlebar);
@@ -64,8 +66,7 @@ int main()
 	textureRegistry->Load();
 
 	// Experiment: Test Material object
-	std::shared_ptr<sfew::Material> theMaterial(new sfew::Material(sfew::ShaderRegistry::GetByName("BasicShader"), 
-																   sfew::TextureRegistry::GetByName("Patches")) );
+	materialRegistry->Load();
 
 	// Experiment: Test transform objects
 	std::unique_ptr<sfew::Transform> theTransform(new sfew::Transform());
@@ -75,20 +76,20 @@ int main()
 	// Experiment: Test ObjectRenderers
 	std::weak_ptr<sfew::Mesh> cubeMesh = sfew::MeshRegistry::GetByName("OctohedronMesh");
 	std::weak_ptr<sfew::Mesh> prismMesh = sfew::MeshRegistry::GetByName("CubeMesh");
-	std::unique_ptr<sfew::ObjectRenderer> entityOne(new sfew::ObjectRenderer(cubeMesh, theMaterial));
-	std::unique_ptr<sfew::ObjectRenderer> entityTwo(new sfew::ObjectRenderer(prismMesh, theMaterial));
+	std::unique_ptr<sfew::ObjectRenderer> entityOne(new sfew::ObjectRenderer(cubeMesh, sfew::MaterialRegistry::GetByName("OrangePatches") ));
+	std::unique_ptr<sfew::ObjectRenderer> entityTwo(new sfew::ObjectRenderer(prismMesh, sfew::MaterialRegistry::GetByName("GameOver") ));
 
 	// Experiment: Test camera object
-	std::unique_ptr<sfew::Camera> theCamera(new sfew::Camera());
-	theCamera->SetName("Main Camera");
-	theCamera->SetAspectRatio(winSize.x, winSize.y);
+	//std::unique_ptr<sfew::Camera> theCamera(new sfew::Camera());
+	std::weak_ptr<sfew::Camera> theCamera = sfew::Camera::GetInstance();
+	theCamera._Get()->SetName("Main Camera");
+	theCamera._Get()->SetAspectRatio(winSize.x, winSize.y);
 	float camStart = 1.2f;
-	theCamera->SetPosition(sfew::Vector3(camStart, camStart, camStart));
-	theCamera->LookAtPoint(sfew::Vector3(0.0f, 0.0f, 0.0f));
-	theCamera->SetUpDirection(sfew::Transform::WorldUp());
+	theCamera._Get()->SetPosition(sfew::Vector3(camStart, camStart, camStart));
+	theCamera._Get()->LookAtPoint(sfew::Vector3(0.0f, 0.0f, 0.0f));
+	theCamera._Get()->SetUpDirection(sfew::Transform::WorldUp());
 
-	theMaterial->SetUniform("view", theCamera->GenerateViewMatrix());
-	theMaterial->SetUniform("projection", theCamera->GenerateProjectionMatrix());
+	shaderRegistry->UpdateCameraDataInShaders();
 
 	// Experiment: Testing AudioSource
 	std::unique_ptr<sfew::AudioSource> sndLaser(new sfew::AudioSource("./Audio/sndPlayerLaser.wav", sfew::AudioType::Sound));
@@ -110,20 +111,19 @@ int main()
 
 	// Experiment: testing FontRenderer
 	std::unique_ptr<sfew::FontRenderer> testLabel(new sfew::FontRenderer(window, testFont));
-	testLabel->SetTextString("A Video Game!");
+	testLabel->SetTextString("SF3DEW");
 	testLabel->SetFontSize(48);
 	testLabel->SetColor(0.0f, 0.5f, 0.7f, 1.0f);
 	testLabel->SetStyle(sf::Text::Style::Regular);
 	testLabel->SetPosition(10, 10);
 
-	// Experiment: testing SystemTime (delta should be 0 here)
-	std::cout << "Run: " << sfew::SystemTime::GetGameRunTime().asSeconds() << std::endl;
-	std::cout << "Delta: " << sfew::SystemTime::GetDeltaTime().asSeconds() << std::endl;
-
 	// Experiment: tesing Timers
 	// Move the center object up every 5 seconds with lambda!
 	std::unique_ptr<sfew::Timer> theTimer(new sfew::Timer(sf::seconds(5.0f), [&theTransform](){theTransform->Translate(sfew::Vector3(0.0f, 0.5f, 0.0f));} ));
 	theTimer->SetLooping(true);
+
+	// Experiment: testing SystemTime
+	std::cout << "Load: " << sfew::SystemTime::GetGameRunTime().asSeconds() << std::endl;
 
 	// START GAME LOOP
 	std::stringstream fpsStr;
@@ -153,10 +153,10 @@ int main()
 		// Update objects
 
 		// Move camera
-		//camStart += 0.0004f;
-		//theCamera->SetPosition(sfew::Vector3(camStart, camStart, camStart));
-		//theMaterial->SetUniform("view", theCamera->GenerateViewMatrix());
+		camStart += 0.0009f;
+		theCamera._Get()->SetPosition(sfew::Vector3(camStart, camStart, camStart));
 
+		// Update ObjectRenderers
 		theTransform->Rotate(sfew::Vector3(0.0f, 1.0f, 0.0f));
 		entityOne->UpdateModelMatrix(theTransform->GenerateModelMatrix() );
 		entityTwo->UpdateModelMatrix(secondTransform->GenerateModelMatrix() );
@@ -169,6 +169,7 @@ int main()
 
 		// START OF DRAW LOOP
 
+		shaderRegistry->UpdateCameraDataInShaders();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Draw objects
@@ -180,6 +181,7 @@ int main()
 		// Draw font
 		testLabel->Draw();
 
+		// Swap render buffers
 		window.display();
 	}
 
@@ -190,6 +192,7 @@ int main()
 	// END OF PROGRAM
 	
 	// Unload all resources from all registries
+	materialRegistry->Unload();
 	textureRegistry->Unload();
 	shaderRegistry->Unload();
 	meshRegistry->Unload();

@@ -3,6 +3,9 @@
 #include <iostream>
 #include <SFML/System.hpp>
 
+#include "ShaderRegistry.hpp"
+#include "TextureRegistry.hpp"
+
 namespace sfew
 {
 	// Static data ========================================
@@ -40,10 +43,35 @@ namespace sfew
 	// Load all the resources
 	bool MaterialRegistry::Load()
 	{
+		// Load a blank texture
+		std::shared_ptr<Material> blankMaterial(new Material(ShaderRegistry::GetByName("BasicShader"),
+															 TextureRegistry::GetByName("Blank")));
+		blankMaterial->SetName("Blank");
+		_resourceList.push_front(blankMaterial);
+
+		// Load White Patches Material
+		std::shared_ptr<Material> whitePatchesMaterial(new Material(ShaderRegistry::GetByName("BasicShader"),
+																    TextureRegistry::GetByName("Patches")));
+		whitePatchesMaterial->SetName("WhitePatches");
+		_resourceList.push_front(whitePatchesMaterial);
+
+		// Load Orange Patches Material
+		std::shared_ptr<Material> orangePatchesMaterial(new Material(ShaderRegistry::GetByName("BasicShader"),
+																     TextureRegistry::GetByName("Patches")));
+		orangePatchesMaterial->SetName("OrangePatches");
+		orangePatchesMaterial->SetColor(Vector4(1.0f, 0.5f, 0.0f, 1.0f));
+		_resourceList.push_front(orangePatchesMaterial);
+
+		// Load Game Over Material
+		std::shared_ptr<Material> gameOverMaterial(new Material(ShaderRegistry::GetByName("BasicShader"),
+																TextureRegistry::GetByName("GameOver")));
+		gameOverMaterial->SetName("GameOver");
+		_resourceList.push_front(gameOverMaterial);
+
 		// Assumes that the resources were successfully loaded
 		_resourcesLoaded = true;
 
-		return true;
+		return _resourcesLoaded;
 	}
 
 	// Unload all the resources

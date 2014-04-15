@@ -8,6 +8,7 @@
 
 #include "Registry.hpp"
 #include "Shader.hpp"
+#include "Camera.hpp"
 
 class MeshRegistry;
 
@@ -26,7 +27,7 @@ namespace sfew
 
 		virtual bool Load();				// Load all the resources
 		virtual void Unload();				// Unload all the resources
-				
+		void UpdateCameraDataInShaders();	// Sends down view and projection matrix if changed
 
 		// Properties =====================
 
