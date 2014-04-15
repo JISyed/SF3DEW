@@ -242,7 +242,7 @@ int main()
 	//sndLaser->Play();
 	//sndItem->Play();
 
-	musRolling->SetVolume(10.0f);
+	musRolling->SetVolume(1.0f);
 	musRolling->Play();
 
 	// Load a font with SFML
@@ -277,7 +277,7 @@ int main()
 		// START THE UPDATE LOOP
 
 		// Update the delta time and timer (mandatory)
-		systemTime.Loop();
+		systemTime.Update();
 		theTimer->Update();
 
 		sf::Event event;

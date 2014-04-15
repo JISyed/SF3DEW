@@ -1,4 +1,4 @@
-#include "Application.hpp"
+#include "Component.hpp"
 
 #include <iostream>
 
@@ -6,31 +6,17 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	Application::Application()
+	// Ctor
+	Component::Component() : 
+		_componentType(ComponentType::Invalid)
 	{
 		
 	}
 
-	Application::~Application()
+	// Dtor
+	Component::~Component()
 	{
 		
-	}
-
-	// System Routines ====================================
-
-	bool Application::Setup()
-	{
-		return true;
-	}
-
-	bool Application::Update()
-	{
-		return true;
-	}
-
-	bool Application::Cleanup()
-	{
-		return true;
 	}
 
 	// Routines =========================================

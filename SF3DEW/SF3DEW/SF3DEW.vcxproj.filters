@@ -49,6 +49,18 @@
     <Filter Include="Source Files\System">
       <UniqueIdentifier>{e77b98f9-6af7-4ee8-9925-d3930c7d1288}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameObject">
+      <UniqueIdentifier>{10462604-18e4-4256-b9fb-d7214088b3a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObject">
+      <UniqueIdentifier>{cfcfa300-41aa-46d0-9d59-7e5ce4a4d7db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Registries">
+      <UniqueIdentifier>{03ab2a3c-a220-42eb-8a14-2762f1a832b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Registries">
+      <UniqueIdentifier>{399d7849-413a-474a-9e34-80e5e64039d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -92,6 +104,39 @@
     </ClCompile>
     <ClCompile Include="ObjectRenderer.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRegistry.cpp">
+      <Filter>Source Files\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="Registry.cpp">
+      <Filter>Source Files\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderRegistry.cpp">
+      <Filter>Source Files\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="FontRegistry.cpp">
+      <Filter>Source Files\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureRegistry.cpp">
+      <Filter>Source Files\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialRegistry.cpp">
+      <Filter>Source Files\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioRegistry.cpp">
+      <Filter>Source Files\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="PrefabricationRegistry.cpp">
+      <Filter>Source Files\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneRegistry.cpp">
+      <Filter>Source Files\Registries</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +222,39 @@
     </ClInclude>
     <ClInclude Include="Callback.hpp">
       <Filter>Header Files\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.hpp">
+      <Filter>Header Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.hpp">
+      <Filter>Header Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRegistry.hpp">
+      <Filter>Header Files\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="Registry.hpp">
+      <Filter>Header Files\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderRegistry.hpp">
+      <Filter>Header Files\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="FontRegistry.hpp">
+      <Filter>Header Files\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureRegistry.hpp">
+      <Filter>Header Files\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialRegistry.hpp">
+      <Filter>Header Files\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioRegistry.hpp">
+      <Filter>Header Files\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="PrefabricationRegistry.hpp">
+      <Filter>Header Files\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneRegistry.hpp">
+      <Filter>Header Files\Registries</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

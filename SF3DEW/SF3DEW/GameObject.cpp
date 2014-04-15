@@ -1,4 +1,4 @@
-#include "Application.hpp"
+#include "GameObject.hpp"
 
 #include <iostream>
 
@@ -6,31 +6,16 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	Application::Application()
+	// Ctor
+	GameObject::GameObject() : INameable("Unnamed GameObject")
 	{
 		
 	}
 
-	Application::~Application()
+	// Dtor
+	GameObject::~GameObject()
 	{
 		
-	}
-
-	// System Routines ====================================
-
-	bool Application::Setup()
-	{
-		return true;
-	}
-
-	bool Application::Update()
-	{
-		return true;
-	}
-
-	bool Application::Cleanup()
-	{
-		return true;
 	}
 
 	// Routines =========================================

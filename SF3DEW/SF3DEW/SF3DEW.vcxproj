@@ -146,17 +146,28 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="AudioRegistry.cpp" />
     <ClCompile Include="AudioSource.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="FontRegistry.cpp" />
     <ClCompile Include="FontRenderer.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MaterialRegistry.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshRegistry.cpp" />
     <ClCompile Include="ObjectRenderer.cpp" />
+    <ClCompile Include="PrefabricationRegistry.cpp" />
     <ClCompile Include="Random.cpp" />
+    <ClCompile Include="Registry.cpp" />
+    <ClCompile Include="SceneRegistry.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderRegistry.cpp" />
     <ClCompile Include="SystemTime.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureRegistry.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
@@ -174,20 +185,31 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="AudioRegistry.hpp" />
     <ClInclude Include="AudioSource.hpp" />
     <ClInclude Include="Callback.hpp" />
     <ClInclude Include="Camera.hpp" />
+    <ClInclude Include="Component.hpp" />
+    <ClInclude Include="FontRegistry.hpp" />
     <ClInclude Include="FontRenderer.hpp" />
+    <ClInclude Include="GameObject.hpp" />
     <ClInclude Include="INameable.hpp" />
     <ClInclude Include="ISystemObject.hpp" />
     <ClInclude Include="LinearAlgebraTypes.hpp" />
     <ClInclude Include="Material.hpp" />
+    <ClInclude Include="MaterialRegistry.hpp" />
     <ClInclude Include="Mesh.hpp" />
+    <ClInclude Include="MeshRegistry.hpp" />
     <ClInclude Include="ObjectRenderer.hpp" />
+    <ClInclude Include="PrefabricationRegistry.hpp" />
     <ClInclude Include="Random.hpp" />
+    <ClInclude Include="Registry.hpp" />
+    <ClInclude Include="SceneRegistry.hpp" />
     <ClInclude Include="Shader.hpp" />
+    <ClInclude Include="ShaderRegistry.hpp" />
     <ClInclude Include="SystemTime.hpp" />
     <ClInclude Include="Texture.hpp" />
+    <ClInclude Include="TextureRegistry.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Transform.hpp" />
   </ItemGroup>

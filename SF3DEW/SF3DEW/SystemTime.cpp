@@ -43,7 +43,7 @@ namespace sfew
 	}
 
 	// Run every loop
-	bool SystemTime::Loop()
+	bool SystemTime::Update()
 	{
 		// Update the delta time value
 		_deltaTime = _gameFrameTime.restart();

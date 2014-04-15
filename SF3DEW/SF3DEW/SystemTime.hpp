@@ -26,7 +26,7 @@ namespace sfew
 		// System Routines ================
 
 		virtual bool Setup();		// Run at the begining of the program
-		virtual bool Loop();		// Run every loop
+		virtual bool Update();		// Run every loop
 		virtual bool Cleanup();		// Run at the end of the program
 
 		// Routines =======================
