@@ -138,6 +138,9 @@
     <ClCompile Include="SceneRegistry.cpp">
       <Filter>Source Files\Registries</Filter>
     </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\basic.frag">
@@ -255,6 +258,9 @@
     </ClInclude>
     <ClInclude Include="SceneRegistry.hpp">
       <Filter>Header Files\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.hpp">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

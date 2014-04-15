@@ -150,6 +150,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="AudioSource.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontRegistry.cpp" />
     <ClCompile Include="FontRenderer.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -190,6 +191,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClInclude Include="Callback.hpp" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="Component.hpp" />
+    <ClInclude Include="Font.hpp" />
     <ClInclude Include="FontRegistry.hpp" />
     <ClInclude Include="FontRenderer.hpp" />
     <ClInclude Include="GameObject.hpp" />
