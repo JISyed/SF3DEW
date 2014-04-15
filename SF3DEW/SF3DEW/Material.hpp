@@ -71,10 +71,6 @@ namespace sfew
 		std::shared_ptr<Texture> _blankTexture;	// Strong reference to blank texture
 		std::shared_ptr<Shader> _blankShader;	// Strong reference to blank shader
 		Vector4 _color;							// The color tint
-
-		// Flags ==========================
-
-		bool _flaggedAsColorChanged;	// Did the color change from last frame?
 	};
 
 	

@@ -11,8 +11,7 @@ namespace sfew
 	// Default Ctor
 	Material::Material() : 
 		INameable("Blank Material"),
-		_color(1.0f, 1.0f, 1.0f, 1.0f),
-		_flaggedAsColorChanged(true)
+		_color(1.0f, 1.0f, 1.0f, 1.0f)
 	{
 		// Make a blank shader and assign it
 		_blankShader = std::shared_ptr<Shader>(new Shader());
@@ -27,8 +26,7 @@ namespace sfew
 	Material::Material(std::weak_ptr<Texture> texture) : 
 		INameable("Unnamed Material"),
 		_color(1.0f, 1.0f, 1.0f, 1.0f),
-		_texture(texture),
-		_flaggedAsColorChanged(true)
+		_texture(texture)
 	{
 		// Make a blank shader
 		_blankShader = std::shared_ptr<Shader>(new Shader());
@@ -41,8 +39,7 @@ namespace sfew
 	Material::Material(std::weak_ptr<Shader> shader) : 
 		INameable("Unnamed Material"),
 		_color(1.0f, 1.0f, 1.0f, 1.0f),
-		_shader(shader),
-		_flaggedAsColorChanged(true)
+		_shader(shader)
 	{
 		// Make a blank texture
 		_blankTexture = std::shared_ptr<Texture>(new Texture());
@@ -56,8 +53,7 @@ namespace sfew
 		INameable("Unnamed Material"),
 		_color(1.0f, 1.0f, 1.0f, 1.0f),
 		_shader(shader),
-		_texture(texture),
-		_flaggedAsColorChanged(true)
+		_texture(texture)
 	{
 
 	}
@@ -82,11 +78,7 @@ namespace sfew
 		_texture._Get()->UseTexture();
 
 		// Send color into the shader if changed
-		if(_flaggedAsColorChanged)
-		{
-			_flaggedAsColorChanged = false;
-			_shader._Get()->SetUniform("meshColor", _color);
-		}
+		_shader._Get()->SetUniform("meshColor", _color);
 	}
 
 	// Does uniform exist in shader?
@@ -123,7 +115,6 @@ namespace sfew
 	void Material::SetColor(Vector4 newColor)
 	{
 		_color = newColor;
-		_flaggedAsColorChanged = true;
 	}
 
 	Vector4 Material::GetColor() const
