@@ -22,27 +22,33 @@
 #include "SystemTime.hpp"
 #include "Timer.hpp"
 #include "Material.hpp"
+
 #include "ObjectRenderer.hpp"
 #include "MeshRegistry.hpp"
 #include "ShaderRegistry.hpp"
 #include "TextureRegistry.hpp"
 #include "MaterialRegistry.hpp"
+#include "AudioRegistry.hpp"
 
 int main()
 {
 	// Make system time first!
 	sfew::SystemTime systemTime;
 
+
 	// Construct registries
 	std::unique_ptr<sfew::MeshRegistry> meshRegistry(new sfew::MeshRegistry());
 	std::unique_ptr<sfew::ShaderRegistry> shaderRegistry(new sfew::ShaderRegistry());
 	std::unique_ptr<sfew::TextureRegistry> textureRegistry(new sfew::TextureRegistry());
 	std::unique_ptr<sfew::MaterialRegistry> materialRegistry(new sfew::MaterialRegistry());
+	std::unique_ptr<sfew::AudioRegistry> audioRegistry(new sfew::AudioRegistry());
+
 
 	// Create SFML window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SF3DEW Test", sf::Style::Close | sf::Style::Titlebar);
 	window.setVerticalSyncEnabled(true);
 	sf::Vector2u winSize = window.getSize();
+
 
 	// OpenGL setup
 	std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
@@ -55,29 +61,36 @@ int main()
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black background
 
+
 	// Experiment: Test mesh object
 	meshRegistry->Load();
+
 
 	// Experiment: Test shader object
 	shaderRegistry->Load();
 	meshRegistry->SetupAllVertexFormats();
 
+
 	// Experiment: Test texture object
 	textureRegistry->Load();
 
+
 	// Experiment: Test Material object
 	materialRegistry->Load();
+
 
 	// Experiment: Test transform objects
 	std::unique_ptr<sfew::Transform> theTransform(new sfew::Transform());
 	std::unique_ptr<sfew::Transform> secondTransform(new sfew::Transform());
 	secondTransform->SetPosition(sfew::Vector3(-2.0f, 0.0f, 0.1f));
 
+
 	// Experiment: Test ObjectRenderers
 	std::weak_ptr<sfew::Mesh> cubeMesh = sfew::MeshRegistry::GetByName("OctohedronMesh");
 	std::weak_ptr<sfew::Mesh> prismMesh = sfew::MeshRegistry::GetByName("CubeMesh");
 	std::unique_ptr<sfew::ObjectRenderer> entityOne(new sfew::ObjectRenderer(cubeMesh, sfew::MaterialRegistry::GetByName("OrangePatches") ));
 	std::unique_ptr<sfew::ObjectRenderer> entityTwo(new sfew::ObjectRenderer(prismMesh, sfew::MaterialRegistry::GetByName("GameOver") ));
+
 
 	// Experiment: Test camera object
 	//std::unique_ptr<sfew::Camera> theCamera(new sfew::Camera());
@@ -91,16 +104,16 @@ int main()
 
 	shaderRegistry->UpdateCameraDataInShaders();
 
+
 	// Experiment: Testing AudioSource
-	std::unique_ptr<sfew::AudioSource> sndLaser(new sfew::AudioSource("./Audio/sndPlayerLaser.wav", sfew::AudioType::Sound));
-	std::unique_ptr<sfew::AudioSource> sndItem(new sfew::AudioSource("./Audio/sndItemGet.wav", sfew::AudioType::Sound));
-	std::unique_ptr<sfew::AudioSource> musRolling(new sfew::AudioSource("./Audio/rolling_by_madgarden.ogg", sfew::AudioType::Music));
+	audioRegistry->Load();
 
-	//sndLaser->Play();
-	//sndItem->Play();
+	sfew::AudioRegistry::GetByName("PlayerLaserSnd")._Get()->Play();
+	sfew::AudioRegistry::GetByName("ItemGetSnd")._Get()->Play();
 
-	musRolling->SetVolume(1.0f);
-	musRolling->Play();
+	sfew::AudioRegistry::GetByName("RollingMus")._Get()->SetVolume(20.0f);
+	sfew::AudioRegistry::GetByName("RollingMus")._Get()->Play();
+
 
 	// Load a font with SFML
 	sf::Font testFont;
@@ -117,13 +130,16 @@ int main()
 	testLabel->SetStyle(sf::Text::Style::Regular);
 	testLabel->SetPosition(10, 10);
 
+
 	// Experiment: tesing Timers
 	// Move the center object up every 5 seconds with lambda!
 	std::unique_ptr<sfew::Timer> theTimer(new sfew::Timer(sf::seconds(5.0f), [&theTransform](){theTransform->Translate(sfew::Vector3(0.0f, 0.5f, 0.0f));} ));
 	theTimer->SetLooping(true);
 
+
 	// Experiment: testing SystemTime
 	std::cout << "Load: " << sfew::SystemTime::GetGameRunTime().asSeconds() << std::endl;
+
 
 	// START GAME LOOP
 	std::stringstream fpsStr;
@@ -185,13 +201,13 @@ int main()
 		window.display();
 	}
 
-	//sndLaser->Play();
-	//sf::sleep(sndLaser->GetDuration());
-	//sf::sleep(sf::seconds(2.0f));
+	sfew::AudioRegistry::GetByName("PlayerLaserSnd")._Get()->Play();
+	sf::sleep(sfew::AudioRegistry::GetByName("PlayerLaserSnd")._Get()->GetDuration());
 
 	// END OF PROGRAM
 	
 	// Unload all resources from all registries
+	audioRegistry->Unload();
 	materialRegistry->Unload();
 	textureRegistry->Unload();
 	shaderRegistry->Unload();

@@ -40,10 +40,25 @@ namespace sfew
 	// Load all the resources
 	bool AudioRegistry::Load()
 	{
+		// Load the Player Laser Sound
+		std::shared_ptr<AudioSource> playerLaserSound(new AudioSource("./Audio/sndPlayerLaser.wav", AudioType::Sound) );
+		playerLaserSound->SetName("PlayerLaserSnd");
+		_resourceList.push_front(playerLaserSound);
+
+		// Load the Item Get Sound
+		std::shared_ptr<AudioSource> itemGetSound(new AudioSource("./Audio/sndItemGet.wav", AudioType::Sound) );
+		itemGetSound->SetName("ItemGetSnd");
+		_resourceList.push_front(itemGetSound);
+
+		// Load the Rolling Music
+		std::shared_ptr<AudioSource> rollingMus(new AudioSource("./Audio/rolling_by_madgarden.ogg", AudioType::Music) );
+		rollingMus->SetName("RollingMus");
+		_resourceList.push_front(rollingMus);
+
 		// Assumes that the resources were successfully loaded
 		_resourcesLoaded = true;
 
-		return true;
+		return _resourcesLoaded;
 	}
 
 	// Unload all the resources
