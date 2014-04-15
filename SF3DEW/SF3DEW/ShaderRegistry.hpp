@@ -9,6 +9,8 @@
 #include "Registry.hpp"
 #include "Shader.hpp"
 
+class MeshRegistry;
+
 namespace sfew
 {
 	class ShaderRegistry : public Registry
@@ -22,8 +24,9 @@ namespace sfew
 
 		// Routines =======================
 
-		virtual bool Load();						// Load all the resources
-		virtual void Unload();						// Unload all the resources
+		virtual bool Load();				// Load all the resources
+		virtual void Unload();				// Unload all the resources
+				
 
 		// Properties =====================
 
@@ -37,6 +40,7 @@ namespace sfew
 
 		// Data ===========================
 
+		friend class MeshRegistry;			// MeshRegistry needs to loop through the shader resource list
 		static ShaderRegistry* _instance;	// Internal singleton instance
 		std::forward_list<std::shared_ptr<Shader>> _resourceList;		// List of all the resource this registry can handle
 		

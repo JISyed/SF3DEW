@@ -24,6 +24,7 @@ namespace sfew
 
 		virtual bool Load();						// Load all the resources
 		virtual void Unload();						// Unload all the resources
+		void SetupAllVertexFormats();				// Sets up every mesh's VAO with every shader
 
 		// Properties =====================
 

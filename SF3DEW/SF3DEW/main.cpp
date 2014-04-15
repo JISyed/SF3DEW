@@ -24,17 +24,23 @@
 #include "Material.hpp"
 #include "ObjectRenderer.hpp"
 #include "MeshRegistry.hpp"
+#include "ShaderRegistry.hpp"
 
 int main()
 {
 	// Make system time first!
 	sfew::SystemTime systemTime;
-	std::unique_ptr<sfew::MeshRegistry> meshRegistry(new sfew::MeshRegistry());
 
+	// Construct registries
+	std::unique_ptr<sfew::MeshRegistry> meshRegistry(new sfew::MeshRegistry());
+	std::unique_ptr<sfew::ShaderRegistry> shaderRegistry(new sfew::ShaderRegistry());
+
+	// Create SFML window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SF3DEW Test", sf::Style::Close | sf::Style::Titlebar);
 	window.setVerticalSyncEnabled(true);
 	sf::Vector2u winSize = window.getSize();
 
+	// OpenGL setup
 	std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 
 	glewExperimental = GL_TRUE;
@@ -43,193 +49,23 @@ int main()
 	glEnable(GL_CULL_FACE); glCullFace(GL_BACK);
 	glEnable(GL_DEPTH_TEST);
 
-	// Black background
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black background
 
 	// Experiment: Test mesh object
-	
 	meshRegistry->Load();
-
-	// CUBE
-	/*
-	GLfloat vertices[] = {
-		// X     Y      Z     R     G     B     A     U     V
-		// Back
-		 0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // TL 1 1
-		 0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BL 1 0
-		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // BR 0 0
-		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // BR 0 0
-		-0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // TR 0 1
-		 0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // TL 1 1
-		
-		// Front
-		-0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BL
-		 0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // BR
-		 0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // TR
-		 0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // TR
-		-0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // TL
-		-0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BL
-
-		// Left
-		-0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // TL 0 1
-		-0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // TR 1 1
-		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BR 1 0
-		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BR 1 0
-		-0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // BL 0 0
-		-0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // TL 0 1
-		
-		// Right
-		 0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // BR
-		 0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // TR
-		 0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // TL
-		 0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // TL
-		 0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BL
-		 0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // BR
-
-		// Down
-		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // M 0 1
-		 0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // K 1 1
-		 0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // J 1 0
-		 0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, // J 1 0
-		-0.5f, -0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // L 0 0
-		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // M 0 1
-
-		// Up
-		 0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-		 0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f
-	};
-	//*/
-
-	// TETRAHEDRON
-	/*
-	GLfloat vertices[] = {
-		-0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,	// L
-		 0.0f,  0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f,	// T
-		 0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,	// R
-
-		-0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,	// L
-		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,	// F
-		 0.0f,  0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,	// T
-
-		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,	// F
-		 0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,	// R
-		 0.0f,  0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,	// T
-
-		-0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,	// L
-		 0.5f, -0.3f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,	// R
-		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 5.0f, 1.0f		// F
-	};
-	//*/
-
-	// OCTOHEDRON
-	/*
-	GLfloat vertices2[] = {
-		 0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
-		 0.0f,  0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
-		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
-
-		-0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
-		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
-		 0.0f,  0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
-
-		 0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
-		 0.0f,  0.0f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
-		 0.0f,  0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
-
-		-0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
-		 0.0f,  0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
-		 0.0f,  0.0f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
-
-		 0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
-		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
-		 0.0f, -0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
-
-		-0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
-		 0.0f, -0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
-		 0.0f,  0.0f,  0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
-
-		 0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
-		 0.0f, -0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f,
-		 0.0f,  0.0f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
-
-		-0.5f,  0.0f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,  0.0f,
-		 0.0f,  0.0f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f,  0.0f,
-		 0.0f, -0.8f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.25f, 1.0f
-	};
-	//*/
-
-	// TRIANGLE PRISM
-	/*
-	GLfloat vertices[] = {
-		-0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // LO 
-		 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, // BO
-		 0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // RO
-
-		-0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // LI
-		 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // RI
-		 0.0f, -1.4f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, // BI
-
-		-0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // LO
-		-0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, 1.0f, // LI
-		 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BO
-
-		-0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, 1.0f, // LI
-		 0.0f, -1.4f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, 0.0f, // BI
-		 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BO
-
-		 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BO
-		 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, 1.0f, // RI
-		 0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, // RO
-
-		 0.0f, -1.4f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // BO
-		 0.0f, -1.4f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, 0.0f, // BI
-		 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, 1.0f, // RI
-
-		-0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // LO
-		 0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, // RO
-		 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, // RI
-
-		 0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.2f, // RI
-		-0.5f,  0.5f, -0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.2f, // LI
-		-0.5f,  0.5f,  0.1f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f  // LO 
-	};
-	//*/
-
-	//std::vector<float> vertexData(vertices, vertices + sizeof(vertices) / sizeof(float));
-	//std::shared_ptr<sfew::Mesh> theMesh(new sfew::Mesh(vertexData));
-	//theMesh->SetName("PrismMesh");
-
-	//std::vector<float> vertexData2(vertices2, vertices2 + sizeof(vertices2) / sizeof(float));
-	//std::shared_ptr<sfew::Mesh> theMesh2(new sfew::Mesh(vertexData2));
-	//theMesh->SetName("OctoMesh");
+	std::weak_ptr<sfew::Mesh> cubeMesh = sfew::MeshRegistry::GetByName("OctohedronMesh");
+	std::weak_ptr<sfew::Mesh> prismMesh = sfew::MeshRegistry::GetByName("CubeMesh");
 
 	// Experiment: Test shader object
-	std::shared_ptr<sfew::Shader> theShader(new sfew::Shader("./Shaders/basic.vert", "./Shaders/basic.frag") );
-	//std::shared_ptr<sfew::Shader> theShader(new sfew::Shader() );
-	theShader->SetName("Basic Shader");
-
-	// Get weak pointers for two of the meshes
-	std::weak_ptr<sfew::Mesh> cubeMesh = sfew::MeshRegistry::GetByName("CubeMesh");
-	std::weak_ptr<sfew::Mesh> prismMesh = sfew::MeshRegistry::GetByName("PrismMesh");
-
-	//theMesh->MakeActiveMeshToDraw();
-	cubeMesh._Get()->MakeActiveMeshToDraw();
-	theShader->FormatVertexAttributes();
-	//theMesh2->MakeActiveMeshToDraw();
-	prismMesh._Get()->MakeActiveMeshToDraw();
-	theShader->FormatVertexAttributes();
+	shaderRegistry->Load();
+	meshRegistry->SetupAllVertexFormats();
 
 	// Experiment: Test texture object
 	std::shared_ptr<sfew::Texture> theTexture(new sfew::Texture("./Textures/texPatches.png"));
 	theTexture->SetName("Patches Texture");
 
 	// Experiment: Test Material object
-	std::shared_ptr<sfew::Material> theMaterial(new sfew::Material(theShader, theTexture));
-	//std::unique_ptr<sfew::Material> theMaterial(new sfew::Material() );
+	std::shared_ptr<sfew::Material> theMaterial(new sfew::Material(sfew::ShaderRegistry::GetByName("BasicShader"), theTexture));
 
 	// Experiment: Test transform objects
 	std::unique_ptr<sfew::Transform> theTransform(new sfew::Transform());
@@ -353,7 +189,8 @@ int main()
 
 	// END OF PROGRAM
 	
-	//meshRegistry->Unload();
+	shaderRegistry->Unload();
+	meshRegistry->Unload();
 
 	return 0;
 }

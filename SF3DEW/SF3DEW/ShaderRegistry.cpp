@@ -3,6 +3,8 @@
 #include <iostream>
 #include <SFML/System.hpp>
 
+#include "MeshRegistry.hpp"
+
 namespace sfew
 {
 	// Static data ========================================
@@ -40,10 +42,22 @@ namespace sfew
 	// Load all the resources
 	bool ShaderRegistry::Load()
 	{
+		// Load the Basic Shader
+		std::shared_ptr<sfew::Shader> basicShader(new sfew::Shader("./Shaders/basic.vert", 
+																   "./Shaders/basic.frag") );
+		basicShader->SetName("BasicShader");
+		_resourceList.push_front(basicShader);
+
+		// Load the Brightness Shader
+		std::shared_ptr<sfew::Shader> brightnessShader(new sfew::Shader("./Shaders/brightness.vert", 
+																		"./Shaders/brightness.frag") );
+		brightnessShader->SetName("BrightnessShader");
+		_resourceList.push_front(brightnessShader);
+
 		// Assumes that the resources were successfully loaded
 		_resourcesLoaded = true;
 
-		return true;
+		return _resourcesLoaded;
 	}
 
 	// Unload all the resources

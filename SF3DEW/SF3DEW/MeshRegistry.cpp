@@ -3,6 +3,8 @@
 #include <iostream>
 #include <SFML/System.hpp>
 
+#include "ShaderRegistry.hpp"
+
 namespace sfew
 {
 	// Static data ========================================
@@ -63,6 +65,31 @@ namespace sfew
 
 		// Mark the resources as unloaded
 		_resourcesLoaded = false;
+	}
+
+	// Sets up every mesh's VAO with every shader
+	void MeshRegistry::SetupAllVertexFormats()
+	{
+		// Make sure the ShaderRegistry exists
+		// Everything afterward requires MeshRegistry to be ShaderRegistry's friend
+		if(ShaderRegistry::_instance == NULL) return;
+
+		// For every shader...
+		for(const auto& shader : ShaderRegistry::_instance->_resourceList)
+		{
+			// ... Make it active.
+			shader->UseShader();
+
+			// Then for every mesh ...
+			for(const auto& mesh : _resourceList)
+			{
+				// ... Make it active as well ...
+				mesh->MakeActiveMeshToDraw();
+
+				// And set up the shader's vertex format with the mesh's VAO.
+				shader->FormatVertexAttributes();
+			}
+		}
 	}
 
 	// Properties =========================================
