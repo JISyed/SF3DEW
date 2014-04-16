@@ -1,22 +1,17 @@
-#include "Component.hpp"
+#include "ObjectRendererComponent.hpp"
 
 #include <iostream>
-
-#include "GameObject.hpp"
 
 namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	// Ctor
-	Component::Component() : 
-		_componentType(ComponentType::Invalid)
+	ObjectRendererComponent::ObjectRendererComponent()
 	{
-		
+		_componentType = ComponentType::ObjectRenderer;
 	}
 
-	// Dtor
-	Component::~Component()
+	ObjectRendererComponent::~ObjectRendererComponent()
 	{
 		
 	}

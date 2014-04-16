@@ -1,22 +1,17 @@
-#include "Component.hpp"
+#include "AudioComponent.hpp"
 
 #include <iostream>
-
-#include "GameObject.hpp"
 
 namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	// Ctor
-	Component::Component() : 
-		_componentType(ComponentType::Invalid)
+	AudioComponent::AudioComponent()
 	{
-		
+		_componentType = ComponentType::Audio;
 	}
 
-	// Dtor
-	Component::~Component()
+	AudioComponent::~AudioComponent()
 	{
 		
 	}

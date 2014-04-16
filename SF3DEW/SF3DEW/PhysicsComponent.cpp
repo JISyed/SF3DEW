@@ -1,22 +1,17 @@
-#include "Component.hpp"
+#include "PhysicsComponent.hpp"
 
 #include <iostream>
-
-#include "GameObject.hpp"
 
 namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	// Ctor
-	Component::Component() : 
-		_componentType(ComponentType::Invalid)
+	PhysicsComponent::PhysicsComponent()
 	{
 		
 	}
 
-	// Dtor
-	Component::~Component()
+	PhysicsComponent::~PhysicsComponent()
 	{
 		
 	}

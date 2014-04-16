@@ -1,22 +1,17 @@
-#include "Component.hpp"
+#include "CustomComponent.hpp"
 
 #include <iostream>
-
-#include "GameObject.hpp"
 
 namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	// Ctor
-	Component::Component() : 
-		_componentType(ComponentType::Invalid)
+	CustomComponent::CustomComponent()
 	{
-		
+		_componentType = ComponentType::Custom;
 	}
 
-	// Dtor
-	Component::~Component()
+	CustomComponent::~CustomComponent()
 	{
 		
 	}

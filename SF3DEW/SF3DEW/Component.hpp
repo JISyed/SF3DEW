@@ -6,6 +6,8 @@
 #ifndef SFEW_COMPONENT_H
 #define SFEW_COMPONENT_H
 
+#include <memory>
+
 namespace sfew
 {
 	// Enum for component types
@@ -15,8 +17,8 @@ namespace sfew
 		Audio,
 		ObjectRenderer,
 		FontRenderer,
-		Transform,
-		Physics
+		Physics,
+		Custom
 	};
 
 	class Component
@@ -39,6 +41,8 @@ namespace sfew
 		// Inhertiable Data ===============
 
 		ComponentType _componentType;			// What type of component is this?
+		class GameObject;
+		std::weak_ptr<GameObject> _gameObject;	// Back reference to GameObject
 
 	private:
 
