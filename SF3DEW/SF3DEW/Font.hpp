@@ -29,6 +29,8 @@ namespace sfew
 
 		// Properties =====================
 
+		sf::Font& GetReference();
+
 	private:
 
 		// Helpers ========================

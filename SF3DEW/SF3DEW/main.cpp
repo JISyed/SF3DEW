@@ -17,6 +17,7 @@
 #include "Texture.hpp"
 #include "Transform.hpp"
 #include "AudioSource.hpp"
+#include "Font.hpp"
 #include "FontRenderer.hpp"
 #include "Random.hpp"
 #include "SystemTime.hpp"
@@ -29,6 +30,7 @@
 #include "TextureRegistry.hpp"
 #include "MaterialRegistry.hpp"
 #include "AudioRegistry.hpp"
+#include "FontRegistry.hpp"
 
 int main()
 {
@@ -42,6 +44,7 @@ int main()
 	std::unique_ptr<sfew::TextureRegistry> textureRegistry(new sfew::TextureRegistry());
 	std::unique_ptr<sfew::MaterialRegistry> materialRegistry(new sfew::MaterialRegistry());
 	std::unique_ptr<sfew::AudioRegistry> audioRegistry(new sfew::AudioRegistry());
+	std::unique_ptr<sfew::FontRegistry> fontRegistry(new sfew::FontRegistry());
 
 
 	// Create SFML window
@@ -115,15 +118,12 @@ int main()
 	sfew::AudioRegistry::GetByName("RollingMus")._Get()->Play();
 
 
-	// Load a font with SFML
-	sf::Font testFont;
-	if(!testFont.loadFromFile("./Fonts/Mars_1_0_0_6.otf"))
-	{
-		std::cout << "Warning! Font not found!" << std::endl;
-	}
+	// Testing Font object
+	fontRegistry->Load();
 
 	// Experiment: testing FontRenderer
-	std::unique_ptr<sfew::FontRenderer> testLabel(new sfew::FontRenderer(window, testFont));
+	std::unique_ptr<sfew::FontRenderer> testLabel(new sfew::FontRenderer(window, 
+				sfew::FontRegistry::GetByName("Mars")._Get()->GetReference() ));
 	testLabel->SetTextString("SF3DEW");
 	testLabel->SetFontSize(48);
 	testLabel->SetColor(0.0f, 0.5f, 0.7f, 1.0f);
@@ -207,6 +207,7 @@ int main()
 	// END OF PROGRAM
 	
 	// Unload all resources from all registries
+	fontRegistry->Unload();
 	audioRegistry->Unload();
 	materialRegistry->Unload();
 	textureRegistry->Unload();

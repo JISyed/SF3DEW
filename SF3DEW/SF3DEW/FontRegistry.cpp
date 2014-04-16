@@ -40,10 +40,15 @@ namespace sfew
 	// Load all the resources
 	bool FontRegistry::Load()
 	{
+		// Load the Player Laser Sound
+		std::shared_ptr<Font> marsFont(new Font("./Fonts/Mars_1_0_0_6.otf") );
+		marsFont->SetName("Mars");
+		_resourceList.push_front(marsFont);
+
 		// Assumes that the resources were successfully loaded
 		_resourcesLoaded = true;
 
-		return true;
+		return _resourcesLoaded;
 	}
 
 	// Unload all the resources
@@ -62,25 +67,23 @@ namespace sfew
 	// Properties =========================================
 
 	// STATIC: Returns a weak reference to an object by name
-	std::weak_ptr<sf::Font> FontRegistry::GetByName(const std::string& name)
+	std::weak_ptr<Font> FontRegistry::GetByName(const std::string& name)
 	{
 		// Make sure this registry exists
-		std::weak_ptr<sf::Font> empty = std::weak_ptr<sf::Font>();
+		std::weak_ptr<Font> empty = std::weak_ptr<Font>();
 		if(!FontRegistry::verifyInstantiation()) return empty;
 		if(FontRegistry::_instance->_resourceList.empty()) return empty;
 
 		// Search through the list for an object with the same name as queried
-		std::weak_ptr<sf::Font> foundObject = std::weak_ptr<sf::Font>();
+		std::weak_ptr<Font> foundObject = std::weak_ptr<Font>();
 		for(auto& resource : FontRegistry::_instance->_resourceList)
 		{
-			/*
 			// Are the two name string the same?
 			if(resource->GetName().compare(name) == 0)
 			{
 				foundObject = resource;
 				return foundObject;
 			}
-			//*/
 		}
 
 		// Couldn't find the queried name
