@@ -160,9 +160,11 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshRegistry.cpp" />
     <ClCompile Include="ObjectRenderer.cpp" />
+    <ClCompile Include="Prefabrication.cpp" />
     <ClCompile Include="PrefabricationRegistry.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Registry.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneRegistry.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderRegistry.cpp" />
@@ -203,9 +205,11 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="MeshRegistry.hpp" />
     <ClInclude Include="ObjectRenderer.hpp" />
+    <ClInclude Include="Prefabrication.hpp" />
     <ClInclude Include="PrefabricationRegistry.hpp" />
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="Registry.hpp" />
+    <ClInclude Include="Scene.hpp" />
     <ClInclude Include="SceneRegistry.hpp" />
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="ShaderRegistry.hpp" />

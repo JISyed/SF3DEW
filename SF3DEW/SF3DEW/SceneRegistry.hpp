@@ -7,7 +7,7 @@
 #define SFEW_SCENE_REGISTRY_H
 
 #include "Registry.hpp"
-//#include "Scene.hpp"
+#include "Scene.hpp"
 
 namespace sfew
 {
@@ -27,7 +27,7 @@ namespace sfew
 
 		// Properties =====================
 
-		//static std::weak_ptr<Scene> GetByName(const std::string& name);		// Returns a weak reference to an object by name
+		static std::weak_ptr<Scene> GetByName(const std::string& name);		// Returns a weak reference to an object by name
 
 	private:
 
@@ -38,7 +38,7 @@ namespace sfew
 		// Data ===========================
 
 		static SceneRegistry* _instance;	// Internal singleton instance
-		//std::forward_list<std::shared_ptr<Scene>> _resourceList;		// List of all the resource this registry can handle
+		std::forward_list<std::shared_ptr<Scene>> _resourceList;		// List of all the resource this registry can handle
 		
 	};
 

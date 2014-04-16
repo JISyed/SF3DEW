@@ -7,7 +7,7 @@
 #define SFEW_PREFABRICATION_REGISTRY_H
 
 #include "Registry.hpp"
-//#include "Prefabrication.hpp"
+#include "Prefabrication.hpp"
 
 namespace sfew
 {
@@ -27,7 +27,7 @@ namespace sfew
 
 		// Properties =====================
 
-		//static std::weak_ptr<Prefabrication> GetByName(const std::string& name);		// Returns a weak reference to an object by name
+		static std::weak_ptr<Prefabrication> GetByName(const std::string& name);		// Returns a weak reference to an object by name
 
 	private:
 
@@ -38,7 +38,7 @@ namespace sfew
 		// Data ===========================
 
 		static PrefabricationRegistry* _instance;	// Internal singleton instance
-		//std::forward_list<std::shared_ptr<Prefabrication>> _resourceList;		// List of all the resource this registry can handle
+		std::forward_list<std::shared_ptr<Prefabrication>> _resourceList;		// List of all the resource this registry can handle
 		
 	};
 

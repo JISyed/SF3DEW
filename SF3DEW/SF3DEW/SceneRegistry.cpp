@@ -49,7 +49,6 @@ namespace sfew
 	// Unload all the resources
 	void SceneRegistry::Unload()
 	{
-		/*
 		// Skip unloading of list if empty
 		if(_resourceList.empty()) return;
 
@@ -58,13 +57,11 @@ namespace sfew
 
 		// Mark the resources as unloaded
 		_resourcesLoaded = false;
-		//*/
 	}
 
 	// Properties =========================================
 
 	// STATIC: Returns a weak reference to an object by name
-	/*
 	std::weak_ptr<Scene> SceneRegistry::GetByName(const std::string& name)
 	{
 		// Make sure this registry exists
@@ -87,7 +84,6 @@ namespace sfew
 		// Couldn't find the queried name
 		return empty;
 	}
-	//*/
 
 	// Helpers =========================================
 
