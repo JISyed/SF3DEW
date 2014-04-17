@@ -13,7 +13,6 @@ namespace sfew
 	// Enum for component types
 	enum class ComponentType
 	{
-		Invalid,
 		Audio,
 		ObjectRenderer,
 		FontRenderer,
@@ -39,7 +38,7 @@ namespace sfew
 		// Properties =====================
 
 		std::weak_ptr<GameObject> GetGameObject() const;
-		virtual ComponentType GetType() const;
+		//virtual ComponentType GetType() const = 0;
 
 	private:
 

@@ -30,11 +30,6 @@ namespace sfew
 		return _gameObject;
 	}
 
-	ComponentType Component::GetType() const
-	{
-		return ComponentType::Invalid;
-	}
-
 	// Helpers =========================================
 
 } // namespace sfew

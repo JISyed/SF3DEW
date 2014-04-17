@@ -41,6 +41,10 @@ namespace sfew
 		std::weak_ptr<Component> GetComponent(ComponentType type) const;
 		std::weak_ptr<CustomComponent> GetCustomComponent(const std::string& name) const;
 
+		//TEST
+
+		std::weak_ptr<Component> GetTestComponent() const;
+
 	private:
 
 		// Helpers ========================
@@ -49,7 +53,11 @@ namespace sfew
 
 		// Data ===========================
 
-		//std::weak_ptr<GameObject> _self;										// Weak reference to itself
+		//TEST
+		std::shared_ptr<Component> _testComponent;
+
+		std::shared_ptr<GameObject> _self;		// A weak reference to this (using custom deleter)
+
 		std::shared_ptr<Transform> _transform;									// The object's transform
 		std::shared_ptr<AudioComponent> _audio;									// The object's audio
 		std::shared_ptr<ObjectRendererComponent> _renderer;						// The object's 3D renderer

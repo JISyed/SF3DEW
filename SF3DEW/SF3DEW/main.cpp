@@ -22,6 +22,7 @@
 #include "SystemTime.hpp"
 #include "Timer.hpp"
 #include "Material.hpp"
+#include "GameObject.hpp"
 
 #include "ObjectRenderer.hpp"
 #include "MeshRegistry.hpp"
@@ -139,11 +140,13 @@ int main()
 	// Experiment: testing SystemTime
 	std::cout << "Load: " << sfew::SystemTime::GetGameRunTime().asSeconds() << std::endl;
 	
-	sfew::Transform testing123 = sfew::Transform();
-	sfew::Transform* thatPtr = &testing123;
-	sfew::Transform*& thatRef = thatPtr;
 
-	delete thatRef;
+	// TESTING GROUNDS
+	std::unique_ptr<sfew::GameObject> go(new sfew::GameObject());
+	go->AddComponent(sfew::ComponentType::Audio);
+	auto aComponent = go->GetTestComponent();
+	auto newGo = aComponent._Get()->GetGameObject();
+	newGo._Get()->SetName("Bleh");
 	
 
 	// START GAME LOOP
