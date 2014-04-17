@@ -138,7 +138,13 @@ int main()
 
 	// Experiment: testing SystemTime
 	std::cout << "Load: " << sfew::SystemTime::GetGameRunTime().asSeconds() << std::endl;
+	
+	sfew::Transform testing123 = sfew::Transform();
+	sfew::Transform* thatPtr = &testing123;
+	sfew::Transform*& thatRef = thatPtr;
 
+	delete thatRef;
+	
 
 	// START GAME LOOP
 	std::stringstream fpsStr;

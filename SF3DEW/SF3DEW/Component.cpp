@@ -9,8 +9,8 @@ namespace sfew
 	// Ctor/Dtor ========================================
 
 	// Ctor
-	Component::Component() : 
-		_componentType(ComponentType::Invalid)
+	Component::Component(std::weak_ptr<GameObject> owningGameObject) : 
+		_gameObject(owningGameObject)
 	{
 		
 	}
@@ -24,6 +24,16 @@ namespace sfew
 	// Routines =========================================
 
 	// Properties =========================================
+
+	std::weak_ptr<GameObject> Component::GetGameObject() const
+	{
+		return _gameObject;
+	}
+
+	ComponentType Component::GetType() const
+	{
+		return ComponentType::Invalid;
+	}
 
 	// Helpers =========================================
 

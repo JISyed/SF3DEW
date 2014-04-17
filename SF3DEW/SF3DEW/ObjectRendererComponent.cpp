@@ -2,13 +2,16 @@
 
 #include <iostream>
 
+#include "GameObject.hpp"
+
 namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	ObjectRendererComponent::ObjectRendererComponent()
+	ObjectRendererComponent::ObjectRendererComponent(std::weak_ptr<GameObject> owningGameObject) :
+		Component(owningGameObject)
 	{
-		_componentType = ComponentType::ObjectRenderer;
+		
 	}
 
 	ObjectRendererComponent::~ObjectRendererComponent()
@@ -19,6 +22,11 @@ namespace sfew
 	// Routines =========================================
 
 	// Properties =========================================
+
+	ComponentType ObjectRendererComponent::GetType() const
+	{
+		return ComponentType::ObjectRenderer;
+	}
 
 	// Helpers =========================================
 

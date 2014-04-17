@@ -6,8 +6,7 @@
 #ifndef SFEW_OBJECT_RENDERER_COMPONENT
 #define SFEW_OBJECT_RENDERER_COMPONENT
 
-// SYSTEM HEADERS HERE
-
+#include <memory>
 #include "Component.hpp"
 
 namespace sfew
@@ -18,14 +17,16 @@ namespace sfew
 
 		// Ctor/Dtor ======================
 
-		ObjectRendererComponent();
-		~ObjectRendererComponent();
+		ObjectRendererComponent(std::weak_ptr<GameObject> owningGameObject);
+		virtual ~ObjectRendererComponent();
 
 		// Routines =======================
 
 		
 
 		// Properties =====================
+
+		virtual ComponentType GetType() const;
 
 	private:
 
@@ -34,8 +35,6 @@ namespace sfew
 		
 
 		// Data ===========================
-
-		
 		
 	};
 

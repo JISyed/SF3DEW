@@ -6,7 +6,7 @@
 #ifndef SFEW_AUDIO_COMPONENT_H
 #define SFEW_AUDIO_COMPONENT_H
 
-// SYSTEM HEADERS HERE
+#include <memory>
 
 #include "Component.hpp"
 
@@ -18,14 +18,16 @@ namespace sfew
 
 		// Ctor/Dtor ======================
 
-		AudioComponent();
-		~AudioComponent();
+		AudioComponent(std::weak_ptr<GameObject> owningGameObject);
+		virtual ~AudioComponent();
 
 		// Routines =======================
 
 		
 
 		// Properties =====================
+
+		virtual ComponentType GetType() const;
 
 	private:
 
@@ -35,7 +37,7 @@ namespace sfew
 
 		// Data ===========================
 
-		
+
 		
 	};
 

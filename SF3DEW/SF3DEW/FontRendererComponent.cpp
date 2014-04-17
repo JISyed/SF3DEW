@@ -2,13 +2,16 @@
 
 #include <iostream>
 
+#include "GameObject.hpp"
+
 namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	FontRendererComponent::FontRendererComponent()
+	FontRendererComponent::FontRendererComponent(std::weak_ptr<GameObject> owningGameObject) :
+		Component(owningGameObject)
 	{
-		_componentType = ComponentType::FontRenderer;
+		
 	}
 
 	FontRendererComponent::~FontRendererComponent()
@@ -19,6 +22,11 @@ namespace sfew
 	// Routines =========================================
 
 	// Properties =========================================
+
+	ComponentType FontRendererComponent::GetType() const
+	{
+		return ComponentType::FontRenderer;
+	}
 
 	// Helpers =========================================
 

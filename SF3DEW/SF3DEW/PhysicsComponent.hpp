@@ -6,7 +6,7 @@
 #ifndef SFEW_PHYSICS_COMPONENT_H
 #define SFEW_PHYSICS_COMPONENT_H
 
-// SYSTEM HEADERS HERE
+#include <memory>
 
 #include "Component.hpp"
 
@@ -19,13 +19,15 @@ namespace sfew
 		// Ctor/Dtor ======================
 
 		PhysicsComponent();
-		~PhysicsComponent();
+		virtual ~PhysicsComponent();
 
 		// Routines =======================
 
 		
 
 		// Properties =====================
+
+		virtual ComponentType GetType() const;
 
 	private:
 
@@ -34,8 +36,6 @@ namespace sfew
 		
 
 		// Data ===========================
-
-		
 		
 	};
 

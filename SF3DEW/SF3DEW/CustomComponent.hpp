@@ -7,18 +7,19 @@
 #ifndef SFEW_CUSTOM_COMPONENT
 #define SFEW_CUSTOM_COMPONENT
 
+#include "INameable.hpp"
 #include "Component.hpp"
 
 namespace sfew
 {
-	class CustomComponent : public Component
+	class CustomComponent : public Component, public INameable
 	{
 	public:
 
 		// Ctor/Dtor ======================
 
-		CustomComponent();
-		~CustomComponent();
+		CustomComponent(std::weak_ptr<GameObject> owningGameObject);
+		virtual ~CustomComponent();
 
 		// Routines =======================
 
@@ -26,6 +27,8 @@ namespace sfew
 		virtual void Update() = 0;
 
 		// Properties =====================
+
+		virtual ComponentType GetType() const;
 
 	private:
 
@@ -35,7 +38,7 @@ namespace sfew
 
 		// Data ===========================
 
-		
+
 		
 	};
 

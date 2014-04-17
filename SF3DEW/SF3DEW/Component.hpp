@@ -21,14 +21,16 @@ namespace sfew
 		Custom
 	};
 
+	class GameObject;
+
 	class Component
 	{
 	public:
 
 		// Ctor/Dtor ======================
 
-		Component();
-		~Component();
+		Component(std::weak_ptr<GameObject> owningGameObject);
+		virtual ~Component();
 
 		// Routines =======================
 
@@ -36,13 +38,8 @@ namespace sfew
 
 		// Properties =====================
 
-	protected:
-
-		// Inhertiable Data ===============
-
-		ComponentType _componentType;			// What type of component is this?
-		class GameObject;
-		std::weak_ptr<GameObject> _gameObject;	// Back reference to GameObject
+		std::weak_ptr<GameObject> GetGameObject() const;
+		virtual ComponentType GetType() const;
 
 	private:
 
@@ -52,7 +49,7 @@ namespace sfew
 
 		// Data ===========================
 
-		
+		std::weak_ptr<GameObject> _gameObject;	// Back reference to GameObject
 		
 	};
 

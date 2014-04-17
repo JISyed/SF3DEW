@@ -6,7 +6,7 @@
 #ifndef SFEW_FONT_RENDERER_COMPONENT
 #define SFEW_FONT_RENDERER_COMPONENT
 
-// SYSTEM HEADERS HERE
+#include <memory>
 
 #include "Component.hpp"
 
@@ -18,14 +18,16 @@ namespace sfew
 
 		// Ctor/Dtor ======================
 
-		FontRendererComponent();
-		~FontRendererComponent();
+		FontRendererComponent(std::weak_ptr<GameObject> owningGameObject);
+		virtual ~FontRendererComponent();
 
 		// Routines =======================
 
 		
 
 		// Properties =====================
+
+		virtual ComponentType GetType() const;
 
 	private:
 
@@ -34,8 +36,6 @@ namespace sfew
 		
 
 		// Data ===========================
-
-		
 		
 	};
 

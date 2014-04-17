@@ -2,13 +2,17 @@
 
 #include <iostream>
 
+#include "GameObject.hpp"
+
 namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	CustomComponent::CustomComponent()
+	CustomComponent::CustomComponent(std::weak_ptr<GameObject> owningGameObject) : 
+		INameable("Unnamed Custom Component"),
+		Component(owningGameObject)
 	{
-		_componentType = ComponentType::Custom;
+		
 	}
 
 	CustomComponent::~CustomComponent()
@@ -19,6 +23,11 @@ namespace sfew
 	// Routines =========================================
 
 	// Properties =========================================
+
+	ComponentType CustomComponent::GetType() const
+	{
+		return ComponentType::Custom;
+	}
 
 	// Helpers =========================================
 

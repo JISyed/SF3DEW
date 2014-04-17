@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "GameObject.hpp"
+
 namespace sfew
 {
 	// Ctor/Dtor ========================================
@@ -19,6 +21,11 @@ namespace sfew
 	// Routines =========================================
 
 	// Properties =========================================
+
+	ComponentType PhysicsComponent::GetType() const
+	{
+		return ComponentType::Physics;
+	}
 
 	// Helpers =========================================
 

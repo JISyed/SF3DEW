@@ -2,13 +2,16 @@
 
 #include <iostream>
 
+#include "GameObject.hpp"
+
 namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	AudioComponent::AudioComponent()
+	AudioComponent::AudioComponent(std::weak_ptr<GameObject> owningGameObject) :
+		Component(owningGameObject)
 	{
-		_componentType = ComponentType::Audio;
+		
 	}
 
 	AudioComponent::~AudioComponent()
@@ -19,6 +22,11 @@ namespace sfew
 	// Routines =========================================
 
 	// Properties =========================================
+
+	ComponentType AudioComponent::GetType() const
+	{
+		return ComponentType::Audio;
+	}
 
 	// Helpers =========================================
 

@@ -7,7 +7,10 @@ namespace sfew
 	// Ctor/Dtor ========================================
 
 	// Ctor
-	GameObject::GameObject() : INameable("Unnamed GameObject")
+	GameObject::GameObject() : 
+		INameable("Unnamed GameObject"),
+		//_self(this),
+		_flaggedForDestruction(false)
 	{
 		
 	}
