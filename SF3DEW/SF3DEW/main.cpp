@@ -163,7 +163,9 @@ int main()
 
 	// Second Game Object
 	std::unique_ptr<sfew::GameObject> fontGo(new sfew::GameObject());
-	fontGo->AddComponent(sfew::ComponentType::FontRenderer);
+	bool st3 = fontGo->AddComponent(sfew::ComponentType::FontRenderer);
+	auto fontDrawer = stdext::dynamic_pointer_cast<sfew::FontRendererComponent>( fontGo->GetComponent(sfew::ComponentType::FontRenderer) );
+	fontDrawer._Get()->GetRenderer()._Get()->SetPosition(400, 10);
 
 	// START GAME LOOP
 	std::stringstream fpsStr;
@@ -223,6 +225,7 @@ int main()
 		entityOne->Draw();
 		entityTwo->Draw();
 		rend._Get()->GetRenderer()._Get()->Draw();
+		fontDrawer._Get()->GetRenderer()._Get()->Draw();
 
 		// Draw font
 		testLabel->Draw();

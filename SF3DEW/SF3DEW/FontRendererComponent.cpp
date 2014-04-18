@@ -12,8 +12,12 @@ namespace sfew
 	FontRendererComponent::FontRendererComponent(std::weak_ptr<GameObject> owningGameObject) :
 		Component(owningGameObject)
 	{
-		// Make the font renderer
-		//_renderer = std::shared_ptr<FontRenderer>(new FontRenderer(
+		// Make the font renderer with defaults
+		_renderer = std::shared_ptr<FontRenderer>(
+			new FontRenderer(
+				FontRegistry::GetByName("Mars")._Get()->GetReference()
+			)
+		);
 
 		// Run Start
 		Start();
@@ -28,12 +32,12 @@ namespace sfew
 
 	void FontRendererComponent::Start()
 	{
-
+		_renderer->SetTextString("Example Text");
 	}
 
 	void FontRendererComponent::Update()
 	{
-
+		// Does nothing
 	}
 
 	// Properties =========================================

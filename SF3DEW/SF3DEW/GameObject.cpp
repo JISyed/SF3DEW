@@ -42,10 +42,10 @@ namespace sfew
 
 
 		// Update the builtin components if they exist
-		//if(_audio) _audio->Update(); // Audio's Update() does nothing
+		//if(_audio) _audio->Update(); // Does nothing
 		if(_physics) _physics->Update();
 		if(_renderer) _renderer->Update();
-		if(_fontRenderer) _fontRenderer->Update();
+		//if(_fontRenderer) _fontRenderer->Update(); // Does nothing
 	}
 
 	// Marks the GameObject for deletion

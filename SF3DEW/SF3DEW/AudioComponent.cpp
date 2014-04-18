@@ -12,6 +12,10 @@ namespace sfew
 	AudioComponent::AudioComponent(std::weak_ptr<GameObject> owningGameObject) :
 		Component(owningGameObject)
 	{
+		// Set up defaults
+		_audioSource = AudioRegistry::GetByName("ItemGetSnd");
+
+		// Run start
 		Start();
 	}
 
@@ -24,8 +28,7 @@ namespace sfew
 
 	void AudioComponent::Start()
 	{
-		// Default it to the ItemGetSound
-		_audioSource = AudioRegistry::GetByName("ItemGetSnd");
+		// Does nothing
 	}
 
 	void AudioComponent::Update()
