@@ -27,7 +27,10 @@ namespace sfew
 	// Dtor
 	GameObject::~GameObject()
 	{
-		
+		if(!_customComponents.empty())
+		{
+			_customComponents.clear();
+		}
 	}
 
 	// Routines =========================================

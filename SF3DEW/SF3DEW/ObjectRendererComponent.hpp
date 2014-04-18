@@ -8,6 +8,7 @@
 
 #include <memory>
 #include "Component.hpp"
+#include "ObjectRenderer.hpp"
 
 namespace sfew
 {
@@ -28,6 +29,7 @@ namespace sfew
 		// Properties =====================
 
 		virtual ComponentType GetType() const;
+		std::weak_ptr<ObjectRenderer> GetRenderer() const;
 
 	private:
 
@@ -37,6 +39,8 @@ namespace sfew
 
 		// Data ===========================
 		
+		std::shared_ptr<ObjectRenderer> _renderer;		// The renderer itself
+
 	};
 
 	

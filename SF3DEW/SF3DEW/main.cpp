@@ -146,6 +146,10 @@ int main()
 	go->AddComponent(sfew::ComponentType::Audio);
 	std::weak_ptr<sfew::AudioComponent> audioComp = stdext::dynamic_pointer_cast<sfew::AudioComponent>( go->GetComponent(sfew::ComponentType::Audio) );
 	audioComp._Get()->GetAudioSource()._Get()->Play();
+	go->AddComponent(sfew::ComponentType::ObjectRenderer);
+	std::weak_ptr<sfew::ObjectRendererComponent> rend = stdext::dynamic_pointer_cast<sfew::ObjectRendererComponent>( go->GetComponent(sfew::ComponentType::ObjectRenderer) );
+	go->GetTransform()._Get()->SetPosition(sfew::Vector3(-3.0f, 0.0f, -3.0f));
+	rend._Get()->GetRenderer()._Get()->GetMaterial()._Get()->SetColor(sfew::Vector4(236/255.0f, 157/255.0f, 162/255.0f, 1.0f));
 
 	// START GAME LOOP
 	std::stringstream fpsStr;
@@ -178,6 +182,9 @@ int main()
 		camStart += 0.0009f;
 		theCamera._Get()->SetPosition(sfew::Vector3(camStart, camStart, camStart));
 
+		go->GetTransform()._Get()->Rotate(sfew::Vector3(0.0f, 10.0f, 0.0f));
+		go->Update();
+
 		// Update ObjectRenderers
 		theTransform->Rotate(sfew::Vector3(0.0f, 1.0f, 0.0f));
 		entityOne->UpdateModelMatrix(theTransform->GenerateModelMatrix() );
@@ -199,6 +206,7 @@ int main()
 		// Draw 3D
 		entityOne->Draw();
 		entityTwo->Draw();
+		rend._Get()->GetRenderer()._Get()->Draw();
 
 		// Draw font
 		testLabel->Draw();
