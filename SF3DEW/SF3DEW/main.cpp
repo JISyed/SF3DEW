@@ -24,6 +24,7 @@
 #include "Material.hpp"
 #include "GameObject.hpp"
 
+#include "Application.hpp"
 #include "ObjectRenderer.hpp"
 #include "MeshRegistry.hpp"
 #include "ShaderRegistry.hpp"
@@ -36,7 +37,10 @@ int main()
 {
 	// Make system time first!
 	sfew::SystemTime systemTime;
-
+	
+	// Make the application
+	std::unique_ptr<sfew::Application> app(new sfew::Application());
+	app->Setup();
 
 	// Construct registries
 	std::unique_ptr<sfew::MeshRegistry> meshRegistry(new sfew::MeshRegistry());
@@ -48,9 +52,9 @@ int main()
 
 
 	// Create SFML window
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SF3DEW Test", sf::Style::Close | sf::Style::Titlebar);
-	window.setVerticalSyncEnabled(true);
-	sf::Vector2u winSize = window.getSize();
+	//sf::RenderWindow window(sf::VideoMode(800, 600), "SF3DEW Test", sf::Style::Close | sf::Style::Titlebar);
+	//window.setVerticalSyncEnabled(true);
+	//sf::Vector2u winSize = window.getSize();
 
 
 	// OpenGL setup
@@ -99,7 +103,10 @@ int main()
 	//std::unique_ptr<sfew::Camera> theCamera(new sfew::Camera());
 	std::weak_ptr<sfew::Camera> theCamera = sfew::Camera::GetInstance();
 	theCamera._Get()->SetName("Main Camera");
-	theCamera._Get()->SetAspectRatio(winSize.x, winSize.y);
+	theCamera._Get()->SetAspectRatio(
+		sfew::Application::GetWindowSize().x,
+		sfew::Application::GetWindowSize().y
+	);
 	float camStart = 1.2f;
 	theCamera._Get()->SetPosition(sfew::Vector3(camStart, camStart, camStart));
 	theCamera._Get()->LookAtPoint(sfew::Vector3(0.0f, 0.0f, 0.0f));
@@ -122,8 +129,11 @@ int main()
 	fontRegistry->Load();
 
 	// Experiment: testing FontRenderer
-	std::unique_ptr<sfew::FontRenderer> testLabel(new sfew::FontRenderer(window, 
-				sfew::FontRegistry::GetByName("Mars")._Get()->GetReference() ));
+	std::unique_ptr<sfew::FontRenderer> testLabel(
+		new sfew::FontRenderer(
+			sfew::FontRegistry::GetByName("Mars")._Get()->GetReference() 
+		)
+	);
 	testLabel->SetTextString("SF3DEW");
 	testLabel->SetFontSize(48);
 	testLabel->SetColor(0.0f, 0.5f, 0.7f, 1.0f);
@@ -151,9 +161,14 @@ int main()
 	go->GetTransform()._Get()->SetPosition(sfew::Vector3(-3.0f, 0.0f, -3.0f));
 	rend._Get()->GetRenderer()._Get()->GetMaterial()._Get()->SetColor(sfew::Vector4(236/255.0f, 157/255.0f, 162/255.0f, 1.0f));
 
+	// Second Game Object
+	std::unique_ptr<sfew::GameObject> fontGo(new sfew::GameObject());
+	fontGo->AddComponent(sfew::ComponentType::FontRenderer);
+
 	// START GAME LOOP
 	std::stringstream fpsStr;
 	bool isRunning = true;
+	std::weak_ptr<sf::RenderWindow> theWindow = sfew::Application::GetWindow();
 	while(isRunning)
 	{
 		// START THE UPDATE LOOP
@@ -163,7 +178,7 @@ int main()
 		theTimer->Update();
 
 		sf::Event event;
-		while(window.pollEvent(event))
+		while(theWindow._Get()->pollEvent(event))
 		{
 			switch(event.type)
 			{
@@ -182,6 +197,7 @@ int main()
 		camStart += 0.0009f;
 		theCamera._Get()->SetPosition(sfew::Vector3(camStart, camStart, camStart));
 
+		// Update GameObject
 		go->GetTransform()._Get()->Rotate(sfew::Vector3(0.0f, 10.0f, 0.0f));
 		go->Update();
 
@@ -212,7 +228,7 @@ int main()
 		testLabel->Draw();
 
 		// Swap render buffers
-		window.display();
+		theWindow._Get()->display();
 	}
 
 	sfew::AudioRegistry::GetByName("PlayerLaserSnd")._Get()->Play();
@@ -227,6 +243,8 @@ int main()
 	textureRegistry->Unload();
 	shaderRegistry->Unload();
 	meshRegistry->Unload();
+
+	app->Cleanup();
 
 	return 0;
 }

@@ -21,7 +21,7 @@ namespace sfew
 
 		// Ctor/Dtor ======================
 
-		FontRenderer(sf::RenderWindow& window, const sf::Font& font);
+		FontRenderer(const sf::Font& font);
 		~FontRenderer();
 
 		// Routines =======================
@@ -70,7 +70,6 @@ namespace sfew
 		// Data ===========================
 
 		sf::Text _textLabel;		// Container to font rendering properties
-		sf::RenderWindow& _window;		// Unchanged reference to window
 		
 	};
 

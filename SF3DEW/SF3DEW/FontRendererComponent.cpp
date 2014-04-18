@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "GameObject.hpp"
+#include "FontRegistry.hpp"
 
 namespace sfew
 {
@@ -11,7 +12,11 @@ namespace sfew
 	FontRendererComponent::FontRendererComponent(std::weak_ptr<GameObject> owningGameObject) :
 		Component(owningGameObject)
 	{
-		
+		// Make the font renderer
+		//_renderer = std::shared_ptr<FontRenderer>(new FontRenderer(
+
+		// Run Start
+		Start();
 	}
 
 	FontRendererComponent::~FontRendererComponent()
@@ -36,6 +41,11 @@ namespace sfew
 	ComponentType FontRendererComponent::GetType() const
 	{
 		return ComponentType::FontRenderer;
+	}
+
+	std::weak_ptr<FontRenderer> FontRendererComponent::GetRenderer() const
+	{
+		return _renderer;
 	}
 
 	// Helpers =========================================

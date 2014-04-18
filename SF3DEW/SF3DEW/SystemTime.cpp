@@ -66,7 +66,7 @@ namespace sfew
 
 	// Routines =========================================
 
-	// Get the time since program launched
+	// STATIC: Get the time since program launched
 	sf::Time SystemTime::GetGameRunTime()
 	{
 		if(!SystemTime::verifyInstantiation())
@@ -77,7 +77,7 @@ namespace sfew
 		return SystemTime::_instance->_gameRunTime.getElapsedTime();
 	}
 
-	// Get the time between frames
+	// STATIC: Get the time between frames
 	sf::Time SystemTime::GetDeltaTime()
 	{
 		if(!SystemTime::verifyInstantiation())
@@ -88,7 +88,7 @@ namespace sfew
 		return SystemTime::_instance->_deltaTime;
 	}
 
-	// Get number of frames since game started
+	// STATIC: Get number of frames since game started
 	unsigned long SystemTime::GetFrameCount()
 	{
 		if(!SystemTime::verifyInstantiation())
@@ -99,7 +99,7 @@ namespace sfew
 		return SystemTime::_instance->_frameCount;
 	}
 
-	// Get the frames per second
+	// STATIC: Get the frames per second
 	float SystemTime::GetFPS()
 	{
 		if(!SystemTime::verifyInstantiation())
@@ -112,7 +112,7 @@ namespace sfew
 
 	// Helpers =========================================
 
-	// Was this object instantiated?
+	// STATIC: Was this object instantiated?
 	bool SystemTime::verifyInstantiation()
 	{
 		if(SystemTime::_instance == NULL)

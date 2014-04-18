@@ -1,6 +1,7 @@
 #include "FontRenderer.hpp"
 
 #include <iostream>
+#include "Application.hpp"
 #include "Shader.hpp"
 #include "Mesh.hpp"
 #include "Texture.hpp"
@@ -11,8 +12,7 @@ namespace sfew
 	// Ctor/Dtor ========================================
 
 	// Ctor
-	FontRenderer::FontRenderer(sf::RenderWindow& window, const sf::Font& font) :
-		_window(window)
+	FontRenderer::FontRenderer(const sf::Font& font)
 	{
 		_textLabel.setFont(font);
 		_textLabel.setString("Example Text");
@@ -34,9 +34,10 @@ namespace sfew
 		Texture::StopUsingTextures();
 		Shader::DisableVertexAttributes();
 
-		_window.pushGLStates();
-		_window.draw(_textLabel);
-		_window.popGLStates();
+		auto window = Application::GetWindow();
+		window._Get()->pushGLStates();
+		window._Get()->draw(_textLabel);
+		window._Get()->popGLStates();
 		
 		Shader::EnableVertexAttributes();
 	}
