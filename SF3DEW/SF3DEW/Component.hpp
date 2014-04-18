@@ -33,12 +33,13 @@ namespace sfew
 
 		// Routines =======================
 
-		
+		virtual void Start() = 0;
+		virtual void Update() = 0;
 
 		// Properties =====================
 
 		std::weak_ptr<GameObject> GetGameObject() const;
-		//virtual ComponentType GetType() const = 0;
+		virtual ComponentType GetType() const = 0;
 
 	private:
 

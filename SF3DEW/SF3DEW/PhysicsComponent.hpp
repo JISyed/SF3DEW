@@ -12,18 +12,19 @@
 
 namespace sfew
 {
-	class PhysicsComponent
+	class PhysicsComponent : public Component
 	{
 	public:
 
 		// Ctor/Dtor ======================
 
-		PhysicsComponent();
+		PhysicsComponent(std::weak_ptr<GameObject> owningGameObject);
 		virtual ~PhysicsComponent();
 
 		// Routines =======================
 
-		
+		virtual void Start();
+		virtual void Update();
 
 		// Properties =====================
 

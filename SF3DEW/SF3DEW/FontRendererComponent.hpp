@@ -23,7 +23,8 @@ namespace sfew
 
 		// Routines =======================
 
-		
+		virtual void Start();
+		virtual void Update();
 
 		// Properties =====================
 

@@ -11,7 +11,7 @@ namespace sfew
 	ObjectRendererComponent::ObjectRendererComponent(std::weak_ptr<GameObject> owningGameObject) :
 		Component(owningGameObject)
 	{
-		
+		Start();
 	}
 
 	ObjectRendererComponent::~ObjectRendererComponent()
@@ -20,6 +20,16 @@ namespace sfew
 	}
 
 	// Routines =========================================
+
+	void ObjectRendererComponent::Start()
+	{
+
+	}
+
+	void ObjectRendererComponent::Update()
+	{
+
+	}
 
 	// Properties =========================================
 

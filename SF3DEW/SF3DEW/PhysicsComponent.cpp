@@ -8,7 +8,8 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	PhysicsComponent::PhysicsComponent()
+	PhysicsComponent::PhysicsComponent(std::weak_ptr<GameObject> owningGameObject) :
+		Component(owningGameObject)
 	{
 		
 	}
@@ -19,6 +20,16 @@ namespace sfew
 	}
 
 	// Routines =========================================
+
+	void PhysicsComponent::Start()
+	{
+
+	}
+	
+	void PhysicsComponent::Update()
+	{
+
+	}
 
 	// Properties =========================================
 

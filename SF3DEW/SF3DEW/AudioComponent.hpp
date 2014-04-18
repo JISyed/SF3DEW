@@ -9,6 +9,7 @@
 #include <memory>
 
 #include "Component.hpp"
+#include "AudioSource.hpp"
 
 namespace sfew
 {
@@ -23,11 +24,14 @@ namespace sfew
 
 		// Routines =======================
 
-		
+		virtual void Start();
+		virtual void Update();
 
 		// Properties =====================
 
 		virtual ComponentType GetType() const;
+		std::weak_ptr<AudioSource> GetAudioSource() const;
+		void GetAudioSource(std::weak_ptr<AudioSource> newAudioSource);
 
 	private:
 
@@ -37,7 +41,7 @@ namespace sfew
 
 		// Data ===========================
 
-
+		std::weak_ptr<AudioSource> _audioSource;	// The audio source
 		
 	};
 

@@ -111,8 +111,8 @@ int main()
 	// Experiment: Testing AudioSource
 	audioRegistry->Load();
 
-	sfew::AudioRegistry::GetByName("PlayerLaserSnd")._Get()->Play();
-	sfew::AudioRegistry::GetByName("ItemGetSnd")._Get()->Play();
+	//sfew::AudioRegistry::GetByName("PlayerLaserSnd")._Get()->Play();
+	//sfew::AudioRegistry::GetByName("ItemGetSnd")._Get()->Play();
 
 	sfew::AudioRegistry::GetByName("RollingMus")._Get()->SetVolume(20.0f);
 	sfew::AudioRegistry::GetByName("RollingMus")._Get()->Play();
@@ -144,10 +144,8 @@ int main()
 	// TESTING GROUNDS
 	std::unique_ptr<sfew::GameObject> go(new sfew::GameObject());
 	go->AddComponent(sfew::ComponentType::Audio);
-	auto aComponent = go->GetTestComponent();
-	auto newGo = aComponent._Get()->GetGameObject();
-	newGo._Get()->SetName("Bleh");
-	
+	std::weak_ptr<sfew::AudioComponent> audioComp = stdext::dynamic_pointer_cast<sfew::AudioComponent>( go->GetComponent(sfew::ComponentType::Audio) );
+	audioComp._Get()->GetAudioSource()._Get()->Play();
 
 	// START GAME LOOP
 	std::stringstream fpsStr;

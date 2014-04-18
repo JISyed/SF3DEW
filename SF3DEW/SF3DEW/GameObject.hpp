@@ -17,6 +17,22 @@
 #include "FontRendererComponent.hpp"
 #include "PhysicsComponent.hpp"
 #include "CustomComponent.hpp"
+#include "AllCustomComponentHeaders.hpp"
+
+namespace stdext
+{
+	// Provides casting functions for weak_ptr
+	template<class T, class U>
+	std::weak_ptr<T> static_pointer_cast(std::weak_ptr<U> const & r)
+	{
+		return std::static_pointer_cast<T>(r.lock());
+	}
+	template<class T, class U>
+	std::weak_ptr<T> dynamic_pointer_cast(std::weak_ptr<U> const & r)
+	{
+		return std::dynamic_pointer_cast<T>(r.lock());
+	}
+}
 
 namespace sfew
 {
@@ -41,22 +57,16 @@ namespace sfew
 		std::weak_ptr<Component> GetComponent(ComponentType type) const;
 		std::weak_ptr<CustomComponent> GetCustomComponent(const std::string& name) const;
 
-		//TEST
-
-		std::weak_ptr<Component> GetTestComponent() const;
 
 	private:
 
 		// Helpers ========================
 
-		
+		std::weak_ptr<GameObject> getSelf() const;
 
 		// Data ===========================
 
-		//TEST
-		std::shared_ptr<Component> _testComponent;
-
-		std::shared_ptr<GameObject> _self;		// A weak reference to this (using custom deleter)
+		std::shared_ptr<GameObject> _self;		// A weak internal reference to this (using custom deleter)
 
 		std::shared_ptr<Transform> _transform;									// The object's transform
 		std::shared_ptr<AudioComponent> _audio;									// The object's audio

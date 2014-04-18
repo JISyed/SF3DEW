@@ -67,6 +67,9 @@
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{b986b95c-41c8-49bf-bf1c-7f254afa89d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\CustomComponents">
+      <UniqueIdentifier>{d91f316e-6312-4189-957a-2e9b9b8b919a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -309,6 +312,9 @@
     </ClInclude>
     <ClInclude Include="PhysicsComponent.hpp">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AllCustomComponentHeaders.hpp">
+      <Filter>Header Files\CustomComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

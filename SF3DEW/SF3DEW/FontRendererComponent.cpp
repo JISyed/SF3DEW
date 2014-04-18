@@ -21,6 +21,16 @@ namespace sfew
 
 	// Routines =========================================
 
+	void FontRendererComponent::Start()
+	{
+
+	}
+
+	void FontRendererComponent::Update()
+	{
+
+	}
+
 	// Properties =========================================
 
 	ComponentType FontRendererComponent::GetType() const
