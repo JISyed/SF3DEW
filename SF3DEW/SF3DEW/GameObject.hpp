@@ -47,8 +47,9 @@ namespace sfew
 
 		// Routines =======================
 
-		bool AddComponent(ComponentType type);	// Add a new component of the given type
+		void Update();							// Updates the GameObject's states
 		void Destroy();							// Marks the GameObject for deletion
+		bool AddComponent(ComponentType type);	// Add a new component of the given type
 
 		// Properties =====================
 

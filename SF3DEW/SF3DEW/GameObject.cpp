@@ -4,7 +4,7 @@
 
 namespace sfew
 {
-	// Custom shared_ptr deleter that does nothing
+	// Custom shared_ptr deleter that does nothing =====
 	struct shared_un_deleter
 	{
 		void operator()(void const*) const{}
@@ -31,6 +31,25 @@ namespace sfew
 	}
 
 	// Routines =========================================
+
+	// Updates the GameObject's states
+	void GameObject::Update()
+	{
+		// Update all custom components if they exist
+
+
+		// Update the builtin components if they exist
+		//if(_audio) _audio->Update(); // Audio's Update() does nothing
+		if(_physics) _physics->Update();
+		if(_renderer) _renderer->Update();
+		if(_fontRenderer) _fontRenderer->Update();
+	}
+
+	// Marks the GameObject for deletion
+	void GameObject::Destroy()
+	{
+		_flaggedForDestruction = true;
+	}
 
 	// Add a new component of the given type
 	bool GameObject::AddComponent(ComponentType type)
