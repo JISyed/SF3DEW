@@ -23,7 +23,7 @@ namespace sfew
 
 		// Routines =======================
 
-		
+		void Update();
 
 		// Properties =====================
 

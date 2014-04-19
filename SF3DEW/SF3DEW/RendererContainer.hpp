@@ -29,8 +29,12 @@ namespace sfew
 		static void Add(std::weak_ptr<ObjectRenderer> newObjectRenderer);
 		static void Add(std::weak_ptr<FontRenderer> newFontRenderer);
 		bool Draw();
+		static void PrintOpenGLVersion();
 
 		// Properties =====================
+
+		static void SetClearColor(Vector4 newClearColor);
+		static Vector4 GetClearColor();
 
 	private:
 
@@ -43,6 +47,7 @@ namespace sfew
 		static RendererContainer* _instance;	// Internal singleton reference
 		std::forward_list<std::weak_ptr<ObjectRenderer>> _listOfObjectRenderers;
 		std::forward_list<std::weak_ptr<FontRenderer>> _listOfFontRenderers;
+		Vector4 _clearColor;					// Render buffer background color
 
 	};
 

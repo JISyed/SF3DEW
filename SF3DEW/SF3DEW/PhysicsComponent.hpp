@@ -9,6 +9,7 @@
 #include <memory>
 
 #include "Component.hpp"
+#include "PhysicsEntity.hpp"
 
 namespace sfew
 {
@@ -29,6 +30,7 @@ namespace sfew
 		// Properties =====================
 
 		virtual ComponentType GetType() const;
+		std::weak_ptr<PhysicsEntity> GetPhysicsEntity() const;
 
 	private:
 
@@ -38,6 +40,8 @@ namespace sfew
 
 		// Data ===========================
 		
+		std::shared_ptr<PhysicsEntity> _physicsData;	// The physics entity
+
 	};
 
 	

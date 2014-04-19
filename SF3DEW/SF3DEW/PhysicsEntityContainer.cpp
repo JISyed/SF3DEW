@@ -44,6 +44,29 @@ namespace sfew
 
 	bool PhysicsEntityContainer::Update()
 	{
+		// Check if the list is empty
+		if(_listOfContainedObjects.empty()) return true;
+
+		// Loop through all objects in list
+		auto back_itr = _listOfContainedObjects.before_begin();
+		auto front_itr = _listOfContainedObjects.begin();
+		while(front_itr != _listOfContainedObjects.end())
+		{
+			// Check for null ptr
+			if(front_itr->expired())
+			{
+				// Delete the pointer at front_itr
+				front_itr = _listOfContainedObjects.erase_after(back_itr);
+			}
+			// Update and iterate
+			else
+			{
+				(*front_itr)._Get()->Update();
+				front_itr++;
+				back_itr++;
+			}
+		}
+
 		return true;
 	}
 

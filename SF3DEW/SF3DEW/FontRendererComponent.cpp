@@ -4,6 +4,7 @@
 
 #include "GameObject.hpp"
 #include "FontRegistry.hpp"
+#include "RendererContainer.hpp"
 
 namespace sfew
 {
@@ -18,6 +19,9 @@ namespace sfew
 				FontRegistry::GetByName("Mars")._Get()->GetReference()
 			)
 		);
+
+		// Add it to the renderer container
+		RendererContainer::Add(_renderer);
 
 		// Run Start
 		Start();

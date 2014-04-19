@@ -48,6 +48,8 @@ int main()
 	std::unique_ptr<sfew::Application> app(new sfew::Application());
 	app->Setup();
 
+	// Print the OpenGL version
+	sfew::RendererContainer::PrintOpenGLVersion();
 
 	// Construct registries
 	std::unique_ptr<sfew::MeshRegistry> meshRegistry(new sfew::MeshRegistry());
@@ -67,18 +69,6 @@ int main()
 	physicsEntityContainer->Setup();
 	rendererContainer->Setup();
 	gameObjectContainer->Setup();
-
-
-	// OpenGL setup
-	std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
-
-	glewExperimental = GL_TRUE;
-	glewInit();
-
-	glEnable(GL_CULL_FACE); glCullFace(GL_BACK);
-	glEnable(GL_DEPTH_TEST);
-
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black background
 
 
 	// Experiment: Test mesh object
@@ -224,8 +214,6 @@ int main()
 		// Update the delta time and timer (mandatory)
 		systemTime.Update();
 		timerContainer->Update();
-		//theTimer->Update();
-		//deleteTimeCountdown->Update();
 
 		sf::Event event;
 		while(theWindow._Get()->pollEvent(event))
@@ -264,31 +252,9 @@ int main()
 		// START OF DRAW LOOP
 
 		shaderRegistry->UpdateCameraDataInShaders();
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		// Draw objects
-
-		// Draw 3D
-		if(!octoRenderer.expired())
-			octoRenderer._Get()->GetRenderer()._Get()->Draw();
-		if(!cubeRenderer.expired())
-			cubeRenderer._Get()->GetRenderer()._Get()->Draw();
-
-		if(!rend.expired())
-			rend._Get()->GetRenderer()._Get()->Draw();
-		if(!fontDrawer.expired())
-			fontDrawer._Get()->GetRenderer()._Get()->Draw();
-
-		// Draw font
-		if(!fpsLabel.expired())
-			fpsLabel._Get()->Draw();
-
-		// ACTUAL DRAW:
 		rendererContainer->Draw();
 
-		// Swap render buffers
-		theWindow._Get()->display();
-	}
+	} // END OF GAME LOOP
 
 	sfew::AudioRegistry::GetByName("PlayerLaserSnd")._Get()->Play();
 	sf::sleep(sfew::AudioRegistry::GetByName("PlayerLaserSnd")._Get()->GetDuration());

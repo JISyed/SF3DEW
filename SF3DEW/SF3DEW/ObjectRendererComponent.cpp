@@ -5,6 +5,7 @@
 #include "GameObject.hpp"
 #include "MeshRegistry.hpp"
 #include "MaterialRegistry.hpp"
+#include "RendererContainer.hpp"
 
 namespace sfew
 {
@@ -20,6 +21,9 @@ namespace sfew
 				MaterialRegistry::GetByName("Blank")
 			)
 		);
+
+		// Add it to the render container
+		RendererContainer::Add(_renderer);
 
 		// Run Start
 		Start();
