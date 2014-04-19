@@ -87,17 +87,21 @@ namespace sfew
 		return true;
 	}
 
-	// STATIC:
-	void GameObjectContainer::Add(std::shared_ptr<GameObject> newObject)
+	// STATIC: Factory method for GameObjects
+	std::weak_ptr<GameObject> GameObjectContainer::Create()
 	{
-		// Was this initalized
-		if(!GameObjectContainer::verifyInstantiation()) return;
-		
-		// Check if the pointer is empty
-		if(newObject._Expired()) return;
+		// Was this initalized?
+		std::weak_ptr<GameObject> empty;
+		if(!GameObjectContainer::verifyInstantiation()) return empty;
 
-		// Add it
-		GameObjectContainer::_instance->_listOfContainedObjects.push_front(newObject);
+		// Create new GameObject
+		std::shared_ptr<GameObject> newObject(new GameObject());
+
+		// Pass it into GameObjectContainer
+		GameObjectContainer::add(newObject);
+
+		// Return weak pointer
+		return newObject;
 	}
 
 	// Properties =========================================
@@ -131,6 +135,19 @@ namespace sfew
 	}
 
 	// Helpers =========================================
+
+	// STATIC:
+	void GameObjectContainer::add(std::shared_ptr<GameObject> newObject)
+	{
+		// Was this initalized
+		if(!GameObjectContainer::verifyInstantiation()) return;
+		
+		// Check if the pointer is empty
+		if(newObject._Expired()) return;
+
+		// Add it
+		GameObjectContainer::_instance->_listOfContainedObjects.push_front(newObject);
+	}
 
 	// STATIC: Was this object instantiated?
 	bool GameObjectContainer::verifyInstantiation()

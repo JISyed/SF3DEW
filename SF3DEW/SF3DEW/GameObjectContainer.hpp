@@ -27,7 +27,8 @@ namespace sfew
 		virtual bool Setup();
 		virtual bool Update();
 		virtual bool Cleanup();
-		static void Add(std::shared_ptr<GameObject> newObject);
+		
+		static std::weak_ptr<GameObject> Create();	// Factory method for GameObjects
 
 		// Properties =====================
 
@@ -37,6 +38,7 @@ namespace sfew
 
 		// Helpers ========================
 
+		static void add(std::shared_ptr<GameObject> newObject);
 		static bool verifyInstantiation();	// Was this object instantiated?
 
 		// Data ===========================

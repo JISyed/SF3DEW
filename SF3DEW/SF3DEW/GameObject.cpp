@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "GameObjectContainer.hpp"
+
 namespace sfew
 {
 	// Custom shared_ptr deleter that does nothing =====

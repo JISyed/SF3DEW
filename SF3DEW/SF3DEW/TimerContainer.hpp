@@ -25,7 +25,8 @@ namespace sfew
 		virtual bool Setup();
 		virtual bool Update();
 		virtual bool Cleanup();
-		static void Add(std::shared_ptr<Timer> newObject);
+		
+		static std::weak_ptr<Timer> Create(sf::Time setTime, Callback function); // Factory method for Timers
 
 		// Properties =====================
 
@@ -33,6 +34,7 @@ namespace sfew
 
 		// Helpers ========================
 
+		static void add(std::shared_ptr<Timer> newObject);
 		static bool verifyInstantiation();	// Was this object instantiated?
 
 		// Data ===========================

@@ -193,7 +193,7 @@
       <Filter>Source Files\Containers</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsEntity.cpp">
-      <Filter>Source Files\GameObject</Filter>
+      <Filter>Source Files\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -356,7 +356,7 @@
       <Filter>Header Files\Containers</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsEntity.hpp">
-      <Filter>Header Files\GameObject</Filter>
+      <Filter>Header Files\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
