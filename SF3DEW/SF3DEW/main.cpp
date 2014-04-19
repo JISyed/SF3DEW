@@ -125,8 +125,10 @@ int main()
 
 
 	// GAMEOBJECT TESTING GROUNDS
+
 	// White sound cube object
-	std::unique_ptr<sfew::GameObject> go(new sfew::GameObject());
+	std::shared_ptr<sfew::GameObject> go(new sfew::GameObject());
+	go->SetName("SoundCube");
 	go->AddComponent(sfew::ComponentType::Audio);
 	auto audioComp = stdext::dynamic_pointer_cast<sfew::AudioComponent>( go->GetComponent(sfew::ComponentType::Audio) );
 	audioComp._Get()->GetAudioSource()._Get()->Play();
@@ -136,13 +138,24 @@ int main()
 	rend._Get()->GetRenderer()._Get()->GetMaterial()._Get()->SetColor(sfew::Vector4(236/255.0f, 157/255.0f, 162/255.0f, 1.0f));
 
 	// Font Game Object
-	std::unique_ptr<sfew::GameObject> fontGo(new sfew::GameObject());
+	std::shared_ptr<sfew::GameObject> fontGo(new sfew::GameObject());
+	fontGo->SetName("Font");
 	fontGo->AddComponent(sfew::ComponentType::FontRenderer);
 	auto fontDrawer = stdext::dynamic_pointer_cast<sfew::FontRendererComponent>( fontGo->GetComponent(sfew::ComponentType::FontRenderer) );
 	fontDrawer._Get()->GetRenderer()._Get()->SetPosition(400, 10);
 
+	// Cube object
+	std::shared_ptr<sfew::GameObject> cubeObj(new sfew::GameObject());
+	cubeObj->SetName("Cube");
+	cubeObj->AddComponent(sfew::ComponentType::ObjectRenderer);
+	auto cubeRenderer = stdext::dynamic_pointer_cast<sfew::ObjectRendererComponent>( cubeObj->GetComponent(sfew::ComponentType::ObjectRenderer) );
+	cubeRenderer._Get()->GetRenderer()._Get()->SetMesh(sfew::MeshRegistry::GetByName("CubeMesh"));
+	cubeRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("GameOver"));
+	cubeObj->GetTransform()._Get()->SetPosition(sfew::Vector3(-2.0f, 0.0f, 0.1f));
+
 	// FPS Text display object
-	std::unique_ptr<sfew::GameObject> fpsDisplayer(new sfew::GameObject());
+	std::shared_ptr<sfew::GameObject> fpsDisplayer(new sfew::GameObject());
+	fpsDisplayer->SetName("FPS");
 	fpsDisplayer->AddComponent(sfew::ComponentType::FontRenderer);
 	auto fpsRenderer = stdext::dynamic_pointer_cast<sfew::FontRendererComponent>( fpsDisplayer->GetComponent(sfew::ComponentType::FontRenderer) );
 	auto fpsLabel = fpsRenderer._Get()->GetRenderer();
@@ -152,25 +165,32 @@ int main()
 	fpsLabel._Get()->SetPosition(10, 10);
 
 	// Octohedron object
-	std::unique_ptr<sfew::GameObject> octoObj(new sfew::GameObject());
+	std::shared_ptr<sfew::GameObject> octoObj(new sfew::GameObject());
+	octoObj->SetName("Octo");
 	octoObj->AddComponent(sfew::ComponentType::ObjectRenderer);
 	auto octoRenderer = stdext::dynamic_pointer_cast<sfew::ObjectRendererComponent>( octoObj->GetComponent(sfew::ComponentType::ObjectRenderer) );
 	octoRenderer._Get()->GetRenderer()._Get()->SetMesh(sfew::MeshRegistry::GetByName("OctohedronMesh"));
 	octoRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("OrangePatches"));
 
-	// Cube object
-	std::unique_ptr<sfew::GameObject> cubeObj(new sfew::GameObject());
-	cubeObj->AddComponent(sfew::ComponentType::ObjectRenderer);
-	auto cubeRenderer = stdext::dynamic_pointer_cast<sfew::ObjectRendererComponent>( cubeObj->GetComponent(sfew::ComponentType::ObjectRenderer) );
-	cubeRenderer._Get()->GetRenderer()._Get()->SetMesh(sfew::MeshRegistry::GetByName("CubeMesh"));
-	cubeRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("GameOver"));
-	cubeObj->GetTransform()._Get()->SetPosition(sfew::Vector3(-2.0f, 0.0f, 0.1f));
+	
 
+	// Add the GameObjects
+	sfew::GameObjectContainer::Add(go);
+	sfew::GameObjectContainer::Add(fontGo);
+	sfew::GameObjectContainer::Add(fpsDisplayer);
+	sfew::GameObjectContainer::Add(octoObj);
+	sfew::GameObjectContainer::Add(cubeObj);
+
+	go.reset();
+	fontGo.reset();
+	fpsDisplayer.reset();
+	octoObj.reset();
+	cubeObj.reset();
 
 
 	// Experiment: tesing Timers
 	// Move the center object up every 5 seconds with lambda!
-	auto octoTransform = octoObj->GetTransform();
+	auto octoTransform = sfew::GameObjectContainer::GetByName("Octo")._Get()->GetTransform();
 	std::unique_ptr<sfew::Timer> theTimer(
 		new sfew::Timer(
 			sf::seconds(5.0f), 
@@ -182,6 +202,20 @@ int main()
 	);
 	theTimer->SetLooping(true);
 
+	// Yet another timer for deleting something
+	std::unique_ptr<sfew::Timer> deleteTimeCountdown(
+		new sfew::Timer(
+			sf::seconds(10.0f), 
+			[]()
+			{
+				auto aGameObject = sfew::GameObjectContainer::GetByName("Cube");
+				if(!aGameObject.expired())
+				{
+					aGameObject._Get()->Destroy();
+				}
+			} 
+		)
+	);
 
 	// Experiment: testing SystemTime
 	std::cout << "Load: " << sfew::SystemTime::GetGameRunTime().asSeconds() << std::endl;
@@ -198,6 +232,7 @@ int main()
 		// Update the delta time and timer (mandatory)
 		systemTime.Update();
 		theTimer->Update();
+		deleteTimeCountdown->Update();
 
 		sf::Event event;
 		while(theWindow._Get()->pollEvent(event))
@@ -220,13 +255,13 @@ int main()
 		theCamera._Get()->SetPosition(sfew::Vector3(camStart, camStart, camStart));
 
 		// Update GameObject
-		go->GetTransform()._Get()->Rotate(sfew::Vector3(0.0f, 10.0f, 0.0f));
-		go->Update();
+		sfew::GameObjectContainer::GetByName("SoundCube")._Get()->GetTransform()._Get()->Rotate(sfew::Vector3(0.0f, 10.0f, 0.0f));
+		//go->Update();
 
-		octoObj->GetTransform()._Get()->Rotate(sfew::Vector3(0.0f, 1.0f, 0.0f));
-		octoObj->Update();
+		sfew::GameObjectContainer::GetByName("Octo")._Get()->GetTransform()._Get()->Rotate(sfew::Vector3(0.0f, 1.0f, 0.0f));
+		//octoObj->Update();
 
-		cubeObj->Update();
+		//cubeObj->Update();
 
 		// Update font renderer
 		float fpsVal = sfew::SystemTime::GetFPS();
@@ -247,14 +282,19 @@ int main()
 		// Draw objects
 
 		// Draw 3D
-		octoRenderer._Get()->GetRenderer()._Get()->Draw();
-		cubeRenderer._Get()->GetRenderer()._Get()->Draw();
+		if(!octoRenderer.expired())
+			octoRenderer._Get()->GetRenderer()._Get()->Draw();
+		if(!cubeRenderer.expired())
+			cubeRenderer._Get()->GetRenderer()._Get()->Draw();
 
-		rend._Get()->GetRenderer()._Get()->Draw();
-		fontDrawer._Get()->GetRenderer()._Get()->Draw();
+		if(!rend.expired())
+			rend._Get()->GetRenderer()._Get()->Draw();
+		if(!fontDrawer.expired())
+			fontDrawer._Get()->GetRenderer()._Get()->Draw();
 
 		// Draw font
-		fpsLabel._Get()->Draw();
+		if(!fpsLabel.expired())
+			fpsLabel._Get()->Draw();
 
 		// ACTUAL DRAW:
 		rendererContainer->Draw();

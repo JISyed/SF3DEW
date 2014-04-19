@@ -44,6 +44,35 @@ namespace sfew
 
 	bool GameObjectContainer::Update()
 	{
+		// Check if the list is empty
+		if(_listOfContainedObjects.empty()) return true;
+
+		// Loop through all objects in list
+		auto back_itr = _listOfContainedObjects.before_begin();
+		auto front_itr = _listOfContainedObjects.begin();
+		while(front_itr != _listOfContainedObjects.end())
+		{
+			// Check for null ptr
+			if(front_itr->_Expired())
+			{
+				// Delete the pointer at front_itr
+				front_itr = _listOfContainedObjects.erase_after(back_itr);
+			}
+			// Check for marked deletion
+			else if((*front_itr)->IsToBeDestroyed())
+			{
+				// Delete the pointer at front_itr
+				front_itr = _listOfContainedObjects.erase_after(back_itr);
+			}
+			// Update and iterate
+			else
+			{
+				(*front_itr)->Update();
+				front_itr++;
+				back_itr++;
+			}
+		}
+
 		return true;
 	}
 
@@ -72,6 +101,34 @@ namespace sfew
 	}
 
 	// Properties =========================================
+
+	// STATIC:
+	std::weak_ptr<GameObject> GameObjectContainer::GetByName(const std::string& name)
+	{
+		auto empty = std::weak_ptr<GameObject>();
+
+		// Was this initalized
+		if(!GameObjectContainer::verifyInstantiation()) return empty;
+		
+		// Check if the list is empty
+		if(GameObjectContainer::_instance->_listOfContainedObjects.empty()) return empty;
+
+		// Loop through all GameObjects
+		for (auto& go : GameObjectContainer::_instance->_listOfContainedObjects)
+		{
+			// Make sure GameObject is not null
+			if(go._Expired()) continue;
+
+			// Compare GameObject's name with queried name
+			if(go->GetName().compare(name) == 0)
+			{
+				return go;
+			}
+		}
+
+		// Couldn't find with the queried name
+		return empty;
+	}
 
 	// Helpers =========================================
 

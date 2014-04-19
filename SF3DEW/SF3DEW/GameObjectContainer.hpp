@@ -6,6 +6,8 @@
 #ifndef SFEW_GAMEOBJECT_CONTAINER_H
 #define SFEW_GAMEOBJECT_CONTAINER_H
 
+#include <string>
+
 #include "Container.hpp"
 #include "GameObject.hpp"
 
@@ -28,6 +30,8 @@ namespace sfew
 		static void Add(std::shared_ptr<GameObject> newObject);
 
 		// Properties =====================
+
+		static std::weak_ptr<GameObject> GetByName(const std::string& name);
 
 	private:
 
