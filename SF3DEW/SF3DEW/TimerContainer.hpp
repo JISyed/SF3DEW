@@ -6,24 +6,26 @@
 #ifndef SFEW_TIMER_CONTAINER_H
 #define SFEW_TIMER_CONTAINER_H
 
-// SYSTEM HEADERS HERE
-
 #include "Container.hpp"
+#include "Timer.hpp"
 
 namespace sfew
 {
-	class TimerContainer
+	class TimerContainer : public Container
 	{
 	public:
 
 		// Ctor/Dtor ======================
 
 		TimerContainer();
-		~TimerContainer();
+		virtual ~TimerContainer();
 
 		// Routines =======================
 
-		
+		virtual bool Start();
+		virtual bool Update();
+		virtual bool Cleanup();
+		static void Add(std::shared_ptr<Timer> newObject);
 
 		// Properties =====================
 
@@ -31,11 +33,12 @@ namespace sfew
 
 		// Helpers ========================
 
-		
+		static bool verifyInstantiation();	// Was this object instantiated?
 
 		// Data ===========================
 
-		
+		static TimerContainer* _instance;	// Internal singleton reference
+		std::forward_list<std::shared_ptr<Timer>> _listOfContainedObjects;
 		
 	};
 

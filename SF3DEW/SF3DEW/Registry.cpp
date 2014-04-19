@@ -1,7 +1,5 @@
 #include "Registry.hpp"
 
-// SYSTEM INCLUDES HERE
-
 namespace sfew
 {
 	// Ctor/Dtor ========================================

@@ -31,6 +31,7 @@ namespace sfew
 		void AddTime(float addedSeconds);	// Adds time to make timer trigger later
 		void AddTime(sf::Time addedTime);	// Adds time to make timer trigger later
 		void Reset();						// Resets the clock to countdown the trigger
+		void Destroy();						// Mark the timer to be destoryed by TimerContainer
 
 		// Properties =====================
 
@@ -43,6 +44,7 @@ namespace sfew
 		bool AlreadyTriggered() const;
 		sf::Time GetTimeElapsed() const;
 		sf::Time GetTimeRemaining() const;
+		bool IsToBeDestroyed() const;
 
 	private:
 
@@ -57,6 +59,7 @@ namespace sfew
 		sf::Time _triggerTime;		// Total amount of time to elapse since creation
 		Callback _triggerEvent;		// Function to call when timer has triggered
 		bool _alreadyTriggered;		// Did the timer already trigger?
+		bool _flaggedForDestruction;// It this to be destroyed?
 
 	};
 

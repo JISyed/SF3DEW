@@ -11,7 +11,8 @@ namespace sfew
 		_triggerTime(setTime),
 		_triggerEvent(function),
 		_loops(false),
-		_alreadyTriggered(false)
+		_alreadyTriggered(false),
+		_flaggedForDestruction(false)
 	{
 		
 	}
@@ -62,6 +63,12 @@ namespace sfew
 	{
 		_alreadyTriggered = false;
 		_countdown.restart();
+	}
+
+	// Mark the timer to be destoryed by TimerContainer
+	void Timer::Destroy()
+	{
+		_flaggedForDestruction = true;
 	}
 
 	// Properties =========================================
@@ -127,6 +134,11 @@ namespace sfew
 		}
 
 		return remaining;
+	}
+
+	bool Timer::IsToBeDestroyed() const
+	{
+		return _flaggedForDestruction;
 	}
 
 	// Helpers =========================================
