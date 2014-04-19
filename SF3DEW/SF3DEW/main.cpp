@@ -33,14 +33,21 @@
 #include "AudioRegistry.hpp"
 #include "FontRegistry.hpp"
 
+#include "GameObjectContainer.hpp"
+#include "PhysicsEntityContainer.hpp"
+#include "RendererContainer.hpp"
+#include "TimerContainer.hpp"
+
 int main()
 {
 	// Make system time first!
 	sfew::SystemTime systemTime;
 	
+
 	// Make the application
 	std::unique_ptr<sfew::Application> app(new sfew::Application());
 	app->Setup();
+
 
 	// Construct registries
 	std::unique_ptr<sfew::MeshRegistry> meshRegistry(new sfew::MeshRegistry());
@@ -49,6 +56,17 @@ int main()
 	std::unique_ptr<sfew::MaterialRegistry> materialRegistry(new sfew::MaterialRegistry());
 	std::unique_ptr<sfew::AudioRegistry> audioRegistry(new sfew::AudioRegistry());
 	std::unique_ptr<sfew::FontRegistry> fontRegistry(new sfew::FontRegistry());
+
+
+	// Constuct the containers
+	std::unique_ptr<sfew::TimerContainer> timerContainer(new sfew::TimerContainer());
+	std::unique_ptr<sfew::PhysicsEntityContainer> physicsEntityContainer(new sfew::PhysicsEntityContainer());
+	std::unique_ptr<sfew::RendererContainer> rendererContainer(new sfew::RendererContainer());
+	std::unique_ptr<sfew::GameObjectContainer> gameObjectContainer(new sfew::GameObjectContainer());
+	timerContainer->Setup();
+	physicsEntityContainer->Setup();
+	rendererContainer->Setup();
+	gameObjectContainer->Setup();
 
 
 	// OpenGL setup
@@ -216,6 +234,11 @@ int main()
 		fpsStr << "FPS: " << fpsVal;
 		fpsLabel._Get()->SetTextString(fpsStr.str());
 
+		// ACTUAL UPDATE:
+		timerContainer->Update();
+		physicsEntityContainer->Update();
+		gameObjectContainer->Update();
+
 		// START OF DRAW LOOP
 
 		shaderRegistry->UpdateCameraDataInShaders();
@@ -233,6 +256,9 @@ int main()
 		// Draw font
 		fpsLabel._Get()->Draw();
 
+		// ACTUAL DRAW:
+		rendererContainer->Draw();
+
 		// Swap render buffers
 		theWindow._Get()->display();
 	}
@@ -242,6 +268,12 @@ int main()
 
 	// END OF PROGRAM
 	
+	// Unload all the objects from the containers
+	gameObjectContainer->Cleanup();
+	rendererContainer->Cleanup();
+	physicsEntityContainer->Cleanup();
+	timerContainer->Cleanup();
+
 	// Unload all resources from all registries
 	fontRegistry->Unload();
 	audioRegistry->Unload();

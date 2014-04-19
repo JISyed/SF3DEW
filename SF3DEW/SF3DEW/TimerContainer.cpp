@@ -37,7 +37,7 @@ namespace sfew
 
 	// Routines =========================================
 
-	bool TimerContainer::Start()
+	bool TimerContainer::Setup()
 	{
 		return true;
 	}

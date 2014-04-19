@@ -22,7 +22,7 @@ namespace sfew
 
 		// Routines =======================
 
-		virtual bool Start();
+		virtual bool Setup();
 		virtual bool Update();
 		virtual bool Cleanup();
 		static void Add(std::shared_ptr<GameObject> newObject);

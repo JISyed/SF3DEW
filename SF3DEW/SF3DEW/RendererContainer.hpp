@@ -23,11 +23,12 @@ namespace sfew
 
 		// Routines =======================
 
-		virtual bool Start();
+		virtual bool Setup();
 		virtual bool Update();
 		virtual bool Cleanup();
 		static void Add(std::weak_ptr<ObjectRenderer> newObjectRenderer);
 		static void Add(std::weak_ptr<FontRenderer> newFontRenderer);
+		bool Draw();
 
 		// Properties =====================
 

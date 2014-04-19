@@ -37,7 +37,7 @@ namespace sfew
 
 	// Routines =========================================
 
-	bool PhysicsEntityContainer::Start()
+	bool PhysicsEntityContainer::Setup()
 	{
 		return true;
 	}

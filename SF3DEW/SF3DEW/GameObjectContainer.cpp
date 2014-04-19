@@ -37,7 +37,7 @@ namespace sfew
 
 	// Routines =========================================
 
-	bool GameObjectContainer::Start()
+	bool GameObjectContainer::Setup()
 	{
 		return true;
 	}

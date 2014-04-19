@@ -37,7 +37,7 @@ namespace sfew
 
 	// Routines =========================================
 
-	bool RendererContainer::Start()
+	bool RendererContainer::Setup()
 	{
 		return true;
 	}
@@ -87,6 +87,11 @@ namespace sfew
 
 		// Add it
 		RendererContainer::_instance->_listOfFontRenderers.push_front(newFontRenderer);
+	}
+
+	bool RendererContainer::Draw()
+	{
+		return Update();
 	}
 
 	// Properties =========================================
