@@ -151,12 +151,14 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="AudioSource.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Container.cpp" />
     <ClCompile Include="CustomComponent.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontRegistry.cpp" />
     <ClCompile Include="FontRenderer.cpp" />
     <ClCompile Include="FontRendererComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectContainer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialRegistry.cpp" />
@@ -165,10 +167,13 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="ObjectRenderer.cpp" />
     <ClCompile Include="ObjectRendererComponent.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
+    <ClCompile Include="PhysicsEntity.cpp" />
+    <ClCompile Include="PhysicsEntityContainer.cpp" />
     <ClCompile Include="Prefabrication.cpp" />
     <ClCompile Include="PrefabricationRegistry.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Registry.cpp" />
+    <ClCompile Include="RendererContainer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneRegistry.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -177,6 +182,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureRegistry.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TimerContainer.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -200,12 +206,14 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClInclude Include="Callback.hpp" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="Component.hpp" />
+    <ClInclude Include="Container.hpp" />
     <ClInclude Include="CustomComponent.hpp" />
     <ClInclude Include="Font.hpp" />
     <ClInclude Include="FontRegistry.hpp" />
     <ClInclude Include="FontRenderer.hpp" />
     <ClInclude Include="FontRendererComponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="GameObjectContainer.hpp" />
     <ClInclude Include="INameable.hpp" />
     <ClInclude Include="ISystemObject.hpp" />
     <ClInclude Include="LinearAlgebraTypes.hpp" />
@@ -216,10 +224,13 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClInclude Include="ObjectRenderer.hpp" />
     <ClInclude Include="ObjectRendererComponent.hpp" />
     <ClInclude Include="PhysicsComponent.hpp" />
+    <ClInclude Include="PhysicsEntity.hpp" />
+    <ClInclude Include="PhysicsEntityContainer.hpp" />
     <ClInclude Include="Prefabrication.hpp" />
     <ClInclude Include="PrefabricationRegistry.hpp" />
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="Registry.hpp" />
+    <ClInclude Include="RendererContainer.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="SceneRegistry.hpp" />
     <ClInclude Include="Shader.hpp" />
@@ -228,6 +239,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClInclude Include="Texture.hpp" />
     <ClInclude Include="TextureRegistry.hpp" />
     <ClInclude Include="Timer.hpp" />
+    <ClInclude Include="TimerContainer.hpp" />
     <ClInclude Include="Transform.hpp" />
   </ItemGroup>
   <ItemGroup>
