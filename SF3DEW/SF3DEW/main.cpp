@@ -51,12 +51,6 @@ int main()
 	std::unique_ptr<sfew::FontRegistry> fontRegistry(new sfew::FontRegistry());
 
 
-	// Create SFML window
-	//sf::RenderWindow window(sf::VideoMode(800, 600), "SF3DEW Test", sf::Style::Close | sf::Style::Titlebar);
-	//window.setVerticalSyncEnabled(true);
-	//sf::Vector2u winSize = window.getSize();
-
-
 	// OpenGL setup
 	std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 
@@ -86,21 +80,7 @@ int main()
 	materialRegistry->Load();
 
 
-	// Experiment: Test transform objects
-	std::unique_ptr<sfew::Transform> theTransform(new sfew::Transform());
-	std::unique_ptr<sfew::Transform> secondTransform(new sfew::Transform());
-	secondTransform->SetPosition(sfew::Vector3(-2.0f, 0.0f, 0.1f));
-
-
-	// Experiment: Test ObjectRenderers
-	std::weak_ptr<sfew::Mesh> cubeMesh = sfew::MeshRegistry::GetByName("OctohedronMesh");
-	std::weak_ptr<sfew::Mesh> prismMesh = sfew::MeshRegistry::GetByName("CubeMesh");
-	std::unique_ptr<sfew::ObjectRenderer> entityOne(new sfew::ObjectRenderer(cubeMesh, sfew::MaterialRegistry::GetByName("OrangePatches") ));
-	std::unique_ptr<sfew::ObjectRenderer> entityTwo(new sfew::ObjectRenderer(prismMesh, sfew::MaterialRegistry::GetByName("GameOver") ));
-
-
 	// Experiment: Test camera object
-	//std::unique_ptr<sfew::Camera> theCamera(new sfew::Camera());
 	std::weak_ptr<sfew::Camera> theCamera = sfew::Camera::GetInstance();
 	theCamera._Get()->SetName("Main Camera");
 	theCamera._Get()->SetAspectRatio(
@@ -111,15 +91,11 @@ int main()
 	theCamera._Get()->SetPosition(sfew::Vector3(camStart, camStart, camStart));
 	theCamera._Get()->LookAtPoint(sfew::Vector3(0.0f, 0.0f, 0.0f));
 	theCamera._Get()->SetUpDirection(sfew::Transform::WorldUp());
-
 	shaderRegistry->UpdateCameraDataInShaders();
 
 
 	// Experiment: Testing AudioSource
 	audioRegistry->Load();
-
-	//sfew::AudioRegistry::GetByName("PlayerLaserSnd")._Get()->Play();
-	//sfew::AudioRegistry::GetByName("ItemGetSnd")._Get()->Play();
 
 	sfew::AudioRegistry::GetByName("RollingMus")._Get()->SetVolume(20.0f);
 	sfew::AudioRegistry::GetByName("RollingMus")._Get()->Play();
@@ -128,44 +104,70 @@ int main()
 	// Testing Font object
 	fontRegistry->Load();
 
-	// Experiment: testing FontRenderer
-	std::unique_ptr<sfew::FontRenderer> testLabel(
-		new sfew::FontRenderer(
-			sfew::FontRegistry::GetByName("Mars")._Get()->GetReference() 
-		)
-	);
-	testLabel->SetTextString("SF3DEW");
-	testLabel->SetFontSize(48);
-	testLabel->SetColor(0.0f, 0.5f, 0.7f, 1.0f);
-	testLabel->SetStyle(sf::Text::Style::Regular);
-	testLabel->SetPosition(10, 10);
+
+
+	// GAMEOBJECT TESTING GROUNDS
+	// White sound cube object
+	std::unique_ptr<sfew::GameObject> go(new sfew::GameObject());
+	go->AddComponent(sfew::ComponentType::Audio);
+	auto audioComp = stdext::dynamic_pointer_cast<sfew::AudioComponent>( go->GetComponent(sfew::ComponentType::Audio) );
+	audioComp._Get()->GetAudioSource()._Get()->Play();
+	go->AddComponent(sfew::ComponentType::ObjectRenderer);
+	auto rend = stdext::dynamic_pointer_cast<sfew::ObjectRendererComponent>( go->GetComponent(sfew::ComponentType::ObjectRenderer) );
+	go->GetTransform()._Get()->SetPosition(sfew::Vector3(-3.0f, 0.0f, -3.0f));
+	rend._Get()->GetRenderer()._Get()->GetMaterial()._Get()->SetColor(sfew::Vector4(236/255.0f, 157/255.0f, 162/255.0f, 1.0f));
+
+	// Font Game Object
+	std::unique_ptr<sfew::GameObject> fontGo(new sfew::GameObject());
+	fontGo->AddComponent(sfew::ComponentType::FontRenderer);
+	auto fontDrawer = stdext::dynamic_pointer_cast<sfew::FontRendererComponent>( fontGo->GetComponent(sfew::ComponentType::FontRenderer) );
+	fontDrawer._Get()->GetRenderer()._Get()->SetPosition(400, 10);
+
+	// FPS Text display object
+	std::unique_ptr<sfew::GameObject> fpsDisplayer(new sfew::GameObject());
+	fpsDisplayer->AddComponent(sfew::ComponentType::FontRenderer);
+	auto fpsRenderer = stdext::dynamic_pointer_cast<sfew::FontRendererComponent>( fpsDisplayer->GetComponent(sfew::ComponentType::FontRenderer) );
+	auto fpsLabel = fpsRenderer._Get()->GetRenderer();
+	fpsLabel._Get()->SetFontSize(48);
+	fpsLabel._Get()->SetColor(0.0f, 0.5f, 0.7f, 1.0f);
+	fpsLabel._Get()->SetStyle(sf::Text::Style::Regular);
+	fpsLabel._Get()->SetPosition(10, 10);
+
+	// Octohedron object
+	std::unique_ptr<sfew::GameObject> octoObj(new sfew::GameObject());
+	octoObj->AddComponent(sfew::ComponentType::ObjectRenderer);
+	auto octoRenderer = stdext::dynamic_pointer_cast<sfew::ObjectRendererComponent>( octoObj->GetComponent(sfew::ComponentType::ObjectRenderer) );
+	octoRenderer._Get()->GetRenderer()._Get()->SetMesh(sfew::MeshRegistry::GetByName("OctohedronMesh"));
+	octoRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("OrangePatches"));
+
+	// Cube object
+	std::unique_ptr<sfew::GameObject> cubeObj(new sfew::GameObject());
+	cubeObj->AddComponent(sfew::ComponentType::ObjectRenderer);
+	auto cubeRenderer = stdext::dynamic_pointer_cast<sfew::ObjectRendererComponent>( cubeObj->GetComponent(sfew::ComponentType::ObjectRenderer) );
+	cubeRenderer._Get()->GetRenderer()._Get()->SetMesh(sfew::MeshRegistry::GetByName("CubeMesh"));
+	cubeRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("GameOver"));
+	cubeObj->GetTransform()._Get()->SetPosition(sfew::Vector3(-2.0f, 0.0f, 0.1f));
+
 
 
 	// Experiment: tesing Timers
 	// Move the center object up every 5 seconds with lambda!
-	std::unique_ptr<sfew::Timer> theTimer(new sfew::Timer(sf::seconds(5.0f), [&theTransform](){theTransform->Translate(sfew::Vector3(0.0f, 0.5f, 0.0f));} ));
+	auto octoTransform = octoObj->GetTransform();
+	std::unique_ptr<sfew::Timer> theTimer(
+		new sfew::Timer(
+			sf::seconds(5.0f), 
+			[octoTransform]()
+			{
+				octoTransform._Get()->Translate(sfew::Vector3(0.0f, 0.5f, 0.0f));
+			} 
+		)
+	);
 	theTimer->SetLooping(true);
 
 
 	// Experiment: testing SystemTime
 	std::cout << "Load: " << sfew::SystemTime::GetGameRunTime().asSeconds() << std::endl;
-	
 
-	// TESTING GROUNDS
-	std::unique_ptr<sfew::GameObject> go(new sfew::GameObject());
-	go->AddComponent(sfew::ComponentType::Audio);
-	std::weak_ptr<sfew::AudioComponent> audioComp = stdext::dynamic_pointer_cast<sfew::AudioComponent>( go->GetComponent(sfew::ComponentType::Audio) );
-	audioComp._Get()->GetAudioSource()._Get()->Play();
-	go->AddComponent(sfew::ComponentType::ObjectRenderer);
-	std::weak_ptr<sfew::ObjectRendererComponent> rend = stdext::dynamic_pointer_cast<sfew::ObjectRendererComponent>( go->GetComponent(sfew::ComponentType::ObjectRenderer) );
-	go->GetTransform()._Get()->SetPosition(sfew::Vector3(-3.0f, 0.0f, -3.0f));
-	rend._Get()->GetRenderer()._Get()->GetMaterial()._Get()->SetColor(sfew::Vector4(236/255.0f, 157/255.0f, 162/255.0f, 1.0f));
-
-	// Second Game Object
-	std::unique_ptr<sfew::GameObject> fontGo(new sfew::GameObject());
-	bool st3 = fontGo->AddComponent(sfew::ComponentType::FontRenderer);
-	auto fontDrawer = stdext::dynamic_pointer_cast<sfew::FontRendererComponent>( fontGo->GetComponent(sfew::ComponentType::FontRenderer) );
-	fontDrawer._Get()->GetRenderer()._Get()->SetPosition(400, 10);
 
 	// START GAME LOOP
 	std::stringstream fpsStr;
@@ -203,16 +205,16 @@ int main()
 		go->GetTransform()._Get()->Rotate(sfew::Vector3(0.0f, 10.0f, 0.0f));
 		go->Update();
 
-		// Update ObjectRenderers
-		theTransform->Rotate(sfew::Vector3(0.0f, 1.0f, 0.0f));
-		entityOne->UpdateModelMatrix(theTransform->GenerateModelMatrix() );
-		entityTwo->UpdateModelMatrix(secondTransform->GenerateModelMatrix() );
+		octoObj->GetTransform()._Get()->Rotate(sfew::Vector3(0.0f, 1.0f, 0.0f));
+		octoObj->Update();
+
+		cubeObj->Update();
 
 		// Update font renderer
 		float fpsVal = sfew::SystemTime::GetFPS();
 		fpsStr.str(std::string());
 		fpsStr << "FPS: " << fpsVal;
-		testLabel->SetTextString(fpsStr.str());
+		fpsLabel._Get()->SetTextString(fpsStr.str());
 
 		// START OF DRAW LOOP
 
@@ -222,13 +224,14 @@ int main()
 		// Draw objects
 
 		// Draw 3D
-		entityOne->Draw();
-		entityTwo->Draw();
+		octoRenderer._Get()->GetRenderer()._Get()->Draw();
+		cubeRenderer._Get()->GetRenderer()._Get()->Draw();
+
 		rend._Get()->GetRenderer()._Get()->Draw();
 		fontDrawer._Get()->GetRenderer()._Get()->Draw();
 
 		// Draw font
-		testLabel->Draw();
+		fpsLabel._Get()->Draw();
 
 		// Swap render buffers
 		theWindow._Get()->display();
