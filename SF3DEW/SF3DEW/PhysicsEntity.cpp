@@ -4,6 +4,7 @@
 
 #include "GameObject.hpp"
 #include "Transform.hpp"
+#include "SystemTime.hpp"
 
 namespace sfew
 {
@@ -38,6 +39,12 @@ namespace sfew
 	{
 		// Update transform based on motion properties
 
+		// Position integration
+		Vector3 oldPosition = _transform._Get()->GetPosition();
+		float dt = SystemTime::GetDeltaTime().asSeconds();
+		_velocity = _velocity + (_acceleration * dt);
+		Vector3 newPosition = oldPosition + (_velocity * dt);
+		_transform._Get()->SetPosition(newPosition);
 	}
 
 	void PhysicsEntity::OnCollision(PhysicsCollisionGroups otherGroup, 

@@ -95,6 +95,8 @@ namespace sfew
 				// If you're here, there was a collision
 				else
 				{
+					std::cout << "BAM!" << std::endl;
+
 					// Message first entity of collision
 					firstEntity._Get()->OnCollision(secondGroup, secondEntity);
 

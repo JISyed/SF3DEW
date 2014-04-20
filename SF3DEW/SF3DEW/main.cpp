@@ -116,7 +116,7 @@ int main()
 
 	// GAMEOBJECT TESTING GROUNDS
 
-	// White sound cube object
+	// Pink sound cube object
 	auto go = sfew::GameObjectContainer::Create();
 	go._Get()->SetName("SoundCube");
 	go._Get()->AddComponent(sfew::ComponentType::Audio);
@@ -162,13 +162,41 @@ int main()
 	octoRenderer._Get()->GetRenderer()._Get()->SetMesh(sfew::MeshRegistry::GetByName("OctohedronMesh"));
 	octoRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("OrangePatches"));
 
-	// Surrender pointers
+	// Physics Object1
+	auto physicsObj1 = sfew::GameObjectContainer::Create();
+	physicsObj1._Get()->SetName("Physics1");
+	physicsObj1._Get()->AddComponent(sfew::ComponentType::ObjectRenderer);
+	physicsObj1._Get()->GetTransform()._Get()->SetPosition(sfew::Vector3(0.0f, 0.0f, 0.0f));
+	physicsObj1._Get()->AddComponent(sfew::ComponentType::Physics);
+	auto physicsComp1 = physicsObj1._Get()->GetPhysicsComponent();
+	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetVelocity(sfew::Vector3(0.0f, 0.0f, 0.0f));
+	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetCollisionGroup(sfew::PhysicsCollisionGroups::GroupA);
+	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetRadius(0.5);
+
+	// Physics Object2
+	auto physicsObj2 = sfew::GameObjectContainer::Create();
+	physicsObj2._Get()->SetName("Physics2");
+	physicsObj2._Get()->AddComponent(sfew::ComponentType::ObjectRenderer);
+	physicsObj2._Get()->GetTransform()._Get()->SetPosition(sfew::Vector3(0.0f, 0.0f, -10.0f));
+	physicsObj2._Get()->AddComponent(sfew::ComponentType::Physics);
+	auto physicsComp2 = physicsObj2._Get()->GetPhysicsComponent();
+	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetVelocity(sfew::Vector3(0.0f, 0.0f, 1.0f));
+	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetCollisionGroup(sfew::PhysicsCollisionGroups::GroupB);
+	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetRadius(0.5);
+
+	// Surrender pointers (only needed if everything is in main() )
 	go.reset();
 	fontGo.reset();
 	fpsDisplayer.reset();
 	octoObj.reset();
 	cubeObj.reset();
-
+	rend.reset();
+	fpsRenderer.reset();
+	fontDrawer.reset();
+	audioComp.reset();
+	octoRenderer.reset();
+	physicsComp1.reset();
+	physicsObj1.reset();
 
 	// Experiment: tesing Timers
 	// Move the center object up every 5 seconds with lambda!
