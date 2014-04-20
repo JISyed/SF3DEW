@@ -13,7 +13,8 @@ namespace sfew
 		Component(owningGameObject)
 	{
 		// Make physics entity with defaults
-		_physicsData = std::shared_ptr<PhysicsEntity>(new PhysicsEntity());
+		_physicsData = std::shared_ptr<PhysicsEntity>(new PhysicsEntity(owningGameObject));
+		_physicsData->SetCollisionGroup(PhysicsCollisionGroups::GroupA);
 
 		// Add the entity to the PhysicsEntityContainer
 		PhysicsEntityContainer::Add(_physicsData);

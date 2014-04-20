@@ -101,9 +101,16 @@ namespace sfew
 		return true;
 	}
 
+	// Message for when collision occurs
+	void GameObject::OnCollision(PhysicsCollisionGroups otherGroup, 
+								 std::weak_ptr<PhysicsEntity> otherEntity)
+	{
+
+	}
+
 	// Properties =========================================
 
-	bool GameObject::IsToBeDestroyed()
+	bool GameObject::IsToBeDestroyed() const
 	{
 		return _flaggedForDestruction;
 	}
@@ -139,6 +146,17 @@ namespace sfew
 		return std::weak_ptr<Component>();
 	}
 
+	bool GameObject::HasPhysics() const
+	{
+		if(_physics) return true;
+
+		return false;
+	}
+
+	std::weak_ptr<PhysicsComponent> GameObject::GetPhysicsComponent() const
+	{
+		return _physics;
+	}
 
 	// Helpers =========================================
 

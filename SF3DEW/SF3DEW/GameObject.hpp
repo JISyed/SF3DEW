@@ -50,14 +50,17 @@ namespace sfew
 		void Update();							// Updates the GameObject's states
 		void Destroy();							// Marks the GameObject for deletion
 		bool AddComponent(ComponentType type);	// Add a new component of the given type
+		void OnCollision(PhysicsCollisionGroups otherGroup, 
+						 std::weak_ptr<PhysicsEntity> otherEntity); // Message for when collision occurs
 
 		// Properties =====================
 
-		bool IsToBeDestroyed();
+		bool IsToBeDestroyed() const;
 		std::weak_ptr<Transform> GetTransform() const;
 		std::weak_ptr<Component> GetComponent(ComponentType type) const;
 		std::weak_ptr<CustomComponent> GetCustomComponent(const std::string& name) const;
-
+		bool HasPhysics() const;
+		std::weak_ptr<PhysicsComponent> GetPhysicsComponent() const;
 
 	private:
 
