@@ -34,6 +34,8 @@ namespace sfew
 		// Helpers ========================
 
 		static bool verifyInstantiation();	// Was this object instantiated?
+		static float getSquaredDistance(std::weak_ptr<PhysicsEntity> e1, std::weak_ptr<PhysicsEntity> e2);
+		static bool doEntitiesOverlap(std::weak_ptr<PhysicsEntity> e1, std::weak_ptr<PhysicsEntity> e2);
 
 		// Data ===========================
 

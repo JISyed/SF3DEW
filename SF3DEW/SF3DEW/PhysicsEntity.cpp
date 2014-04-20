@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "GameObject.hpp"
+#include "Transform.hpp"
 
 namespace sfew
 {
@@ -19,7 +20,9 @@ namespace sfew
 		_rotationalVelocity(0.0f, 0.0f, 0.0f),
 		_rotationalAcceleration(0.0f, 0.0f, 0.0f),
 		_linearDrag(0.0f),
-		_angularDrag(0.0f)
+		_angularDrag(0.0f),
+		_gameObject(gameObject),
+		_transform(gameObject._Get()->GetTransform())
 	{
 		_uniqueID = _idSource++;
 	}
@@ -59,6 +62,11 @@ namespace sfew
 	std::weak_ptr<GameObject> PhysicsEntity::GetGameObject() const
 	{
 		return _gameObject;
+	}
+
+	std::weak_ptr<Transform> PhysicsEntity::GetTransform() const
+	{
+		return _transform;
 	}
 
 	unsigned int PhysicsEntity::GetID() const

@@ -3,6 +3,9 @@
 #include <iostream>
 #include <SFML/System.hpp>
 
+#include "GameObject.hpp"
+#include "Transform.hpp"
+
 namespace sfew
 {
 	// Static Data =======================================
@@ -70,19 +73,34 @@ namespace sfew
 		// Loop again for collision detection
 		for(auto& firstEntity : _listOfContainedObjects)
 		{
+			PhysicsCollisionGroups firstGroup = firstEntity._Get()->GetCollisionGroup();
 			for(auto& secondEntity : _listOfContainedObjects)
 			{
+				PhysicsCollisionGroups secondGroup = secondEntity._Get()->GetCollisionGroup();
 				// Skip if they are the same entity
 				if(firstEntity._Get()->GetID() == secondEntity._Get()->GetID())
 				{
 					continue;
 				}
 				// Skip if they are the same collision group
-				if(firstEntity._Get()->GetCollisionGroup() == secondEntity._Get()->GetCollisionGroup())
+				else if(firstGroup == secondGroup)
 				{
 					continue;
 				}
+				// Skip if not colliding
+				else if(!PhysicsEntityContainer::doEntitiesOverlap(firstEntity, secondEntity))
+				{
+					continue;
+				}
+				// If you're here, there was a collision
+				else
+				{
+					// Message first entity of collision
+					firstEntity._Get()->OnCollision(secondGroup, secondEntity);
 
+					// Message second entity of collision
+					secondEntity._Get()->OnCollision(firstGroup, firstEntity);
+				}
 			}
 		}
 
@@ -127,6 +145,36 @@ namespace sfew
 		}
 
 		return true;
+	}
+
+	// STATIC:
+	float PhysicsEntityContainer::getSquaredDistance(std::weak_ptr<PhysicsEntity> e1, 
+													 std::weak_ptr<PhysicsEntity> e2)
+	{
+		// Abort if null pointers
+		if(e1.expired() || e2.expired()) return 0;
+
+		// Set the difference between positions in each dimension
+		float deltaX = e1._Get()->GetTransform()._Get()->GetPosition().x
+			- e2._Get()->GetTransform()._Get()->GetPosition().x;
+		float deltaY = e1._Get()->GetTransform()._Get()->GetPosition().y
+			- e2._Get()->GetTransform()._Get()->GetPosition().y;
+		float deltaZ = e1._Get()->GetTransform()._Get()->GetPosition().z
+			- e2._Get()->GetTransform()._Get()->GetPosition().z;
+
+		// Squared distance formula (doesn't use square root)
+		return deltaX*deltaX + deltaY*deltaY + deltaZ*deltaZ;
+	}
+
+	// STATIC:
+	bool PhysicsEntityContainer::doEntitiesOverlap(std::weak_ptr<PhysicsEntity> e1, 
+												   std::weak_ptr<PhysicsEntity> e2)
+	{
+		float bothRadiiCombined = e1._Get()->GetRadius() + e2._Get()->GetRadius();
+		float squaredDistance = PhysicsEntityContainer::getSquaredDistance(e1, e2);
+
+		// Compare distance^2 with bothRadii^2
+		return squaredDistance < (bothRadiiCombined*bothRadiiCombined);
 	}
 
 } // namespace sfew

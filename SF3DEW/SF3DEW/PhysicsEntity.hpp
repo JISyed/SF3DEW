@@ -12,8 +12,9 @@
 
 namespace sfew
 {
-	// GameObject forward declare
+	// GameObject and Transform forward declare
 	class GameObject;
+	class Transform;
 
 	// Enumeration for different generic collision groups
 	// These groups are defined how ever you want.
@@ -51,6 +52,7 @@ namespace sfew
 		void SetCollisionGroup(PhysicsCollisionGroups newGroup);
 		PhysicsCollisionGroups GetCollisionGroup() const;
 		std::weak_ptr<GameObject> GetGameObject() const;
+		std::weak_ptr<Transform> GetTransform() const;
 		unsigned int GetID() const;
 		void SetRadius(float newRadius);
 		float GetRadius() const;
@@ -77,6 +79,7 @@ namespace sfew
 
 		PhysicsCollisionGroups _collisionGroup;	// The entity's collision group
 		std::weak_ptr<GameObject> _gameObject;	// Owner GameObject
+		std::weak_ptr<Transform> _transform;	// Owner Transform
 		unsigned int _uniqueID;					// Identify the entity with a number
 		float _radius;							// Radius of the collision sphere
 		Vector3 _velocity;						// Change in position of entity
