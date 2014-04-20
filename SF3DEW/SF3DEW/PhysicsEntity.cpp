@@ -6,11 +6,22 @@
 
 namespace sfew
 {
+	// Static data
+
+	unsigned int PhysicsEntity::_idSource = 0;
+
 	// Ctor/Dtor ========================================
 
-	PhysicsEntity::PhysicsEntity(std::weak_ptr<GameObject> gameObject)
+	PhysicsEntity::PhysicsEntity(std::weak_ptr<GameObject> gameObject) :
+		_radius(1.0f),
+		_velocity(0.0f, 0.0f, 0.0f),
+		_acceleration(0.0f, 0.0f, 0.0f),
+		_rotationalVelocity(0.0f, 0.0f, 0.0f),
+		_rotationalAcceleration(0.0f, 0.0f, 0.0f),
+		_linearDrag(0.0f),
+		_angularDrag(0.0f)
 	{
-		
+		_uniqueID = _idSource++;
 	}
 
 	PhysicsEntity::~PhysicsEntity()
@@ -22,12 +33,14 @@ namespace sfew
 
 	void PhysicsEntity::Update()
 	{
+		// Update transform based on motion properties
 
 	}
 
 	void PhysicsEntity::OnCollision(PhysicsCollisionGroups otherGroup, 
 									std::weak_ptr<PhysicsEntity> otherEntity)
 	{
+		// Relay to GameObject that a collision occured
 		_gameObject._Get()->OnCollision(otherGroup, otherEntity);
 	}
 
@@ -47,6 +60,82 @@ namespace sfew
 	{
 		return _gameObject;
 	}
+
+	unsigned int PhysicsEntity::GetID() const
+	{
+		return _uniqueID;
+	}
+
+	void PhysicsEntity::SetRadius(float newRadius)
+	{
+		_radius = newRadius;
+	}
+
+	float PhysicsEntity::GetRadius() const
+	{
+		return _radius;
+	}
+
+	void PhysicsEntity::SetVelocity(Vector3 newVelocity)
+	{
+		_velocity = newVelocity;
+	}
+
+	Vector3 PhysicsEntity::GetVelocity() const
+	{
+		return _velocity;
+	}
+
+	void PhysicsEntity::SetAcceleration(Vector3 newAcceleration)
+	{
+		_acceleration = newAcceleration;
+	}
+
+	Vector3 PhysicsEntity::GetAcceleration() const
+	{
+		return _acceleration;
+	}
+
+	void PhysicsEntity::SetRotationalVelocity(Vector3 newOmega)
+	{
+		_rotationalVelocity = newOmega;
+	}
+
+	Vector3 PhysicsEntity::GetRotationalVelocity() const
+	{
+		return _rotationalVelocity;
+	}
+
+	void PhysicsEntity::SetRotationalAcceleration(Vector3 newAlpha)
+	{
+		_rotationalAcceleration = newAlpha;
+	}
+
+	Vector3 PhysicsEntity::GetRotationalAcceleration() const
+	{
+		return _rotationalAcceleration;
+	}
+
+	void PhysicsEntity::SetLinearDrag(float newDrag)
+	{
+		_linearDrag = newDrag;
+	}
+
+	float PhysicsEntity::GetLinearDrag() const
+	{
+		return _linearDrag;
+	}
+
+	void PhysicsEntity::SetAngularDrag(float newDrag)
+	{
+		_angularDrag = newDrag;
+	}
+
+	float PhysicsEntity::GetAngularDrag() const
+	{
+		return _angularDrag;
+	}
+
 
 	// Helpers =========================================
 

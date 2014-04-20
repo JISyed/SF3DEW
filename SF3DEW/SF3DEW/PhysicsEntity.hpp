@@ -8,14 +8,16 @@
 
 #include <memory>
 
-// PERSONAL HEADERS HERE
+#include "LinearAlgebraTypes.hpp"
 
 namespace sfew
 {
 	// GameObject forward declare
 	class GameObject;
 
-	// Enumeration for different collision groups
+	// Enumeration for different generic collision groups
+	// These groups are defined how ever you want.
+	// Define the types of objects that belong in these groups.
 	enum PhysicsCollisionGroups
 	{
 		GroupA,		// Define the type of object that belong in this group
@@ -49,6 +51,21 @@ namespace sfew
 		void SetCollisionGroup(PhysicsCollisionGroups newGroup);
 		PhysicsCollisionGroups GetCollisionGroup() const;
 		std::weak_ptr<GameObject> GetGameObject() const;
+		unsigned int GetID() const;
+		void SetRadius(float newRadius);
+		float GetRadius() const;
+		void SetVelocity(Vector3 newVelocity);
+		Vector3 GetVelocity() const;
+		void SetAcceleration(Vector3 newAcceleration);
+		Vector3 GetAcceleration() const;
+		void SetRotationalVelocity(Vector3 newOmega);
+		Vector3 GetRotationalVelocity() const;
+		void SetRotationalAcceleration(Vector3 newAlpha);
+		Vector3 GetRotationalAcceleration() const;
+		void SetLinearDrag(float newDrag);
+		float GetLinearDrag() const;
+		void SetAngularDrag(float newDrag);
+		float GetAngularDrag() const;
 
 	private:
 
@@ -60,6 +77,18 @@ namespace sfew
 
 		PhysicsCollisionGroups _collisionGroup;	// The entity's collision group
 		std::weak_ptr<GameObject> _gameObject;	// Owner GameObject
+		unsigned int _uniqueID;					// Identify the entity with a number
+		float _radius;							// Radius of the collision sphere
+		Vector3 _velocity;						// Change in position of entity
+		Vector3 _acceleration;					// Change in velocity of entity
+		Vector3 _rotationalVelocity;			// Change in angular orientation
+		Vector3 _rotationalAcceleration;		// Change in rotational velocity
+		float _linearDrag;						// Friction against linear motion
+		float _angularDrag;						// Friction against angular motion
+
+		// Static Data ====================
+
+		static unsigned int _idSource;			// Where IDs get generated from
 
 	};
 

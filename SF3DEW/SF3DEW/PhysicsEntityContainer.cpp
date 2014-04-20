@@ -47,7 +47,7 @@ namespace sfew
 		// Check if the list is empty
 		if(_listOfContainedObjects.empty()) return true;
 
-		// Loop through all objects in list
+		// Loop through all objects in list for motion updating
 		auto back_itr = _listOfContainedObjects.before_begin();
 		auto front_itr = _listOfContainedObjects.begin();
 		while(front_itr != _listOfContainedObjects.end())
@@ -64,6 +64,25 @@ namespace sfew
 				(*front_itr)._Get()->Update();
 				front_itr++;
 				back_itr++;
+			}
+		}
+
+		// Loop again for collision detection
+		for(auto& firstEntity : _listOfContainedObjects)
+		{
+			for(auto& secondEntity : _listOfContainedObjects)
+			{
+				// Skip if they are the same entity
+				if(firstEntity._Get()->GetID() == secondEntity._Get()->GetID())
+				{
+					continue;
+				}
+				// Skip if they are the same collision group
+				if(firstEntity._Get()->GetCollisionGroup() == secondEntity._Get()->GetCollisionGroup())
+				{
+					continue;
+				}
+
 			}
 		}
 
