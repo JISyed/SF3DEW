@@ -172,6 +172,9 @@ int main()
 	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetVelocity(sfew::Vector3(0.0f, 0.0f, 0.0f));
 	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetCollisionGroup(sfew::PhysicsCollisionGroups::GroupA);
 	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetRadius(0.5);
+	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetRotationalVelocity(sfew::Vector3(0.0f, 20.0f, 0.0f));
+	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetRotationalAcceleration(sfew::Vector3(0.0f, 20.0f, 0.0f));
+	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetAngularDrag(1.0f);
 
 	// Physics Object2
 	auto physicsObj2 = sfew::GameObjectContainer::Create();

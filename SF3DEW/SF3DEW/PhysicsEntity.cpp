@@ -42,17 +42,29 @@ namespace sfew
 	{
 		// Update transform based on motion properties
 
-		// Linear integration values
+		// Linear values
 		Vector3 oldPosition = _transform._Get()->GetPosition();
 		float dt = SystemTime::GetDeltaTime().asSeconds();
 		
 		// Linear integration
 		Vector3 newPosition = oldPosition + (_velocity * dt);
 		_transform._Get()->SetPosition(newPosition);
-		_velocity = _velocity + (0.5f * _acceleration * dt);
+		_velocity += 0.5f * _acceleration * dt;
 		if(fabs( glm::length(_velocity) ) > 0.001f)
 		{
 			_velocity += (_velocity*dt) * -_linearDrag;
+		}
+
+		// Angular values
+		Vector3 oldRotation = _transform._Get()->GetEulerAngles();
+
+		// Angular integration
+		Vector3 newRotation = oldRotation + (_rotationalVelocity * dt);
+		_transform._Get()->SetEulerAngles(newRotation);
+		_rotationalVelocity += 0.5f * _rotationalAcceleration * dt;
+		if(fabs( glm::length(_rotationalVelocity) ) > 0.01f)
+		{
+			_rotationalVelocity += (_rotationalVelocity*dt) * -_angularDrag;
 		}
 	}
 

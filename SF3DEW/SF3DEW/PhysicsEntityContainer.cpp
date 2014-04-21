@@ -97,11 +97,9 @@ namespace sfew
 				{
 					std::cout << "BAM!" << std::endl;
 
-					// Message first entity of collision
+					// Message first entity of collision only
+					// A future loop will message the second entity about this collision.
 					firstEntity._Get()->OnCollision(secondGroup, secondEntity);
-
-					// Message second entity of collision
-					secondEntity._Get()->OnCollision(firstGroup, firstEntity);
 				}
 			}
 		}
