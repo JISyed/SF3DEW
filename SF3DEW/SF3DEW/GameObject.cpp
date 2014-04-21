@@ -1,7 +1,7 @@
 #include "GameObject.hpp"
 
 #include <iostream>
-#include <type_traits>
+//#include <type_traits>
 
 #include "GameObjectContainer.hpp"
 
@@ -12,6 +12,17 @@ namespace sfew
 	{
 		void operator()(void const*) const{}
 	};
+
+	// Static Data ======================================
+
+	std::type_index GameObject::_audioComponentType = 
+		std::type_index( typeid(AudioComponent) );
+	std::type_index GameObject::_physicsComponentType = 
+		std::type_index( typeid(PhysicsComponent) );
+	std::type_index GameObject::_rendererComponentType = 
+		std::type_index( typeid(ObjectRendererComponent) );
+	std::type_index GameObject::_fontRendererComponentType = 
+		std::type_index( typeid(FontRendererComponent) );
 
 	// Ctor/Dtor ========================================
 
@@ -145,18 +156,6 @@ namespace sfew
 
 		// To stop warning C4715
 		return std::weak_ptr<Component>();
-	}
-
-	bool GameObject::HasPhysics() const
-	{
-		if(_physics) return true;
-
-		return false;
-	}
-
-	std::weak_ptr<PhysicsComponent> GameObject::GetPhysicsComponent() const
-	{
-		return _physics;
 	}
 
 	// Helpers =========================================

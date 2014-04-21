@@ -7,9 +7,7 @@
 #define SFEW_GAME_OBJECT_H
 
 #include <string>
-//#include <forward_list>
 #include <unordered_map>
-#include <typeinfo>
 #include <typeindex>
 
 #include "INameable.hpp"
@@ -21,21 +19,6 @@
 #include "PhysicsComponent.hpp"
 #include "CustomComponent.hpp"
 #include "AllCustomComponentHeaders.hpp"
-
-namespace stdext
-{
-	// Provides casting functions for weak_ptr
-	template<class T, class U>
-	std::weak_ptr<T> static_pointer_cast(std::weak_ptr<U> const & r)
-	{
-		return std::static_pointer_cast<T>(r.lock());
-	}
-	template<class T, class U>
-	std::weak_ptr<T> dynamic_pointer_cast(std::weak_ptr<U> const & r)
-	{
-		return std::dynamic_pointer_cast<T>(r.lock());
-	}
-}
 
 namespace sfew
 {
@@ -62,8 +45,6 @@ namespace sfew
 		std::weak_ptr<Transform> GetTransform() const;
 		std::weak_ptr<Component> GetComponentByType(ComponentType type) const;
 		std::weak_ptr<CustomComponent> GetCustomComponent(const std::string& name) const;
-		bool HasPhysics() const;
-		std::weak_ptr<PhysicsComponent> GetPhysicsComponent() const;
 
 		// Templated Methods ==============
 
@@ -84,10 +65,16 @@ namespace sfew
 		std::shared_ptr<ObjectRendererComponent> _renderer;						// The object's 3D renderer
 		std::shared_ptr<FontRendererComponent> _fontRenderer;					// The object's font renderer
 		std::shared_ptr<PhysicsComponent> _physics;								// The object's physics properties
-		//std::forward_list<std::shared_ptr<CustomComponent>> _customComponents;	// List of custom components
 
 		// Hash table of custom components stored by type
 		std::unordered_map<std::type_index, std::shared_ptr<CustomComponent>> _customComponents;
+
+		// Type IDs =======================
+
+		static std::type_index _audioComponentType;
+		static std::type_index _physicsComponentType;
+		static std::type_index _rendererComponentType;
+		static std::type_index _fontRendererComponentType;
 
 		// Flags ==========================
 
@@ -103,18 +90,27 @@ namespace sfew
 		// Get the Component's type
 		std::type_index componentClass(typeid(T));
 
-		if(std::type_index( typeid( decltype(*_audio) ) ) == componentClass)
+		if(GameObject::_audioComponentType == componentClass)
 		{
 			return std::dynamic_pointer_cast<T>(_audio);
 		}
-		else if(std::type_index( typeid( decltype(*_physics) ) ) == componentClass)
+		else if(GameObject::_physicsComponentType == componentClass)
 		{
 			return std::dynamic_pointer_cast<T>(_physics);
+		}
+		else if(GameObject::_rendererComponentType == componentClass)
+		{
+			return std::dynamic_pointer_cast<T>(_renderer);
+		}
+		else if(GameObject::_fontRendererComponentType == componentClass)
+		{
+			return std::dynamic_pointer_cast<T>(_fontRenderer);
 		}
 		else
 		{
 			std::cout << "Warning: Could not find component of type \"" << 
 				componentClass.name() << "\"." << std::endl;
+			std::cout << "Check for NULL before doing anything.\n";
 			return std::dynamic_pointer_cast<T>(std::shared_ptr<Component>());
 		}
 	}
