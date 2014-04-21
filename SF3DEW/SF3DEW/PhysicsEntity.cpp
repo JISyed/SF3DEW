@@ -1,10 +1,13 @@
 #include "PhysicsEntity.hpp"
 
 #include <iostream>
+#include <math.h>
+#include <glm/gtx/norm.hpp>
 
 #include "GameObject.hpp"
 #include "Transform.hpp"
 #include "SystemTime.hpp"
+
 
 namespace sfew
 {
@@ -39,12 +42,18 @@ namespace sfew
 	{
 		// Update transform based on motion properties
 
-		// Position integration
+		// Linear integration values
 		Vector3 oldPosition = _transform._Get()->GetPosition();
 		float dt = SystemTime::GetDeltaTime().asSeconds();
-		_velocity = _velocity + (_acceleration * dt);
+		
+		// Linear integration
 		Vector3 newPosition = oldPosition + (_velocity * dt);
 		_transform._Get()->SetPosition(newPosition);
+		_velocity = _velocity + (0.5f * _acceleration * dt);
+		if(fabs( glm::length(_velocity) ) > 0.001f)
+		{
+			_velocity += (_velocity*dt) * -_linearDrag;
+		}
 	}
 
 	void PhysicsEntity::OnCollision(PhysicsCollisionGroups otherGroup, 

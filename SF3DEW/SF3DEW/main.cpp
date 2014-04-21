@@ -180,7 +180,9 @@ int main()
 	physicsObj2._Get()->GetTransform()._Get()->SetPosition(sfew::Vector3(0.0f, 0.0f, -10.0f));
 	physicsObj2._Get()->AddComponent(sfew::ComponentType::Physics);
 	auto physicsComp2 = physicsObj2._Get()->GetPhysicsComponent();
-	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetVelocity(sfew::Vector3(0.0f, 0.0f, 1.0f));
+	//physicsComp2._Get()->GetPhysicsEntity()._Get()->SetVelocity(sfew::Vector3(0.0f, 0.0f, 1.0f));
+	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetVelocity(sfew::Vector3(0.0f, 0.0f, 0.0f));
+	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetAcceleration(sfew::Vector3(0.0f, 0.0f, 2.0f));
 	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetCollisionGroup(sfew::PhysicsCollisionGroups::GroupB);
 	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetRadius(0.5);
 
@@ -197,6 +199,8 @@ int main()
 	octoRenderer.reset();
 	physicsComp1.reset();
 	physicsObj1.reset();
+	physicsObj2.reset();
+	physicsComp2.reset();
 
 	// Experiment: tesing Timers
 	// Move the center object up every 5 seconds with lambda!
