@@ -7,7 +7,10 @@
 #define SFEW_GAME_OBJECT_H
 
 #include <string>
-#include <forward_list>
+//#include <forward_list>
+#include <unordered_map>
+#include <typeinfo>
+#include <typeindex>
 
 #include "INameable.hpp"
 #include "Transform.hpp"
@@ -57,10 +60,14 @@ namespace sfew
 
 		bool IsToBeDestroyed() const;
 		std::weak_ptr<Transform> GetTransform() const;
-		std::weak_ptr<Component> GetComponent(ComponentType type) const;
+		std::weak_ptr<Component> GetComponentByType(ComponentType type) const;
 		std::weak_ptr<CustomComponent> GetCustomComponent(const std::string& name) const;
 		bool HasPhysics() const;
 		std::weak_ptr<PhysicsComponent> GetPhysicsComponent() const;
+
+		// Templated Methods ==============
+
+		template <typename T> std::weak_ptr<T> GetComponent() const;
 
 	private:
 
@@ -77,7 +84,10 @@ namespace sfew
 		std::shared_ptr<ObjectRendererComponent> _renderer;						// The object's 3D renderer
 		std::shared_ptr<FontRendererComponent> _fontRenderer;					// The object's font renderer
 		std::shared_ptr<PhysicsComponent> _physics;								// The object's physics properties
-		std::forward_list<std::shared_ptr<CustomComponent>> _customComponents;	// List of custom components
+		//std::forward_list<std::shared_ptr<CustomComponent>> _customComponents;	// List of custom components
+
+		// Hash table of custom components stored by type
+		std::unordered_map<std::type_index, std::shared_ptr<CustomComponent>> _customComponents;
 
 		// Flags ==========================
 
@@ -85,7 +95,23 @@ namespace sfew
 
 	};
 
-	
+	// Template Implementations ============================================
+	template <typename T> std::weak_ptr<T> GameObject::GetComponent() const
+	{
+		// Get the Component's type
+		std::type_index componentClass(typeid(T));
+
+		if(std::type_index(typeid(*_audio)) == componentClass)
+		{
+			return std::static_pointer_cast<T>(_audio);
+		}
+		else
+		{
+			return std::static_pointer_cast<T>(std::shared_ptr<Component>());
+		}
+	}
+
+
 } // namespace sfew
 
 #endif

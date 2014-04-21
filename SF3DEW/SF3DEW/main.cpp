@@ -120,10 +120,11 @@ int main()
 	auto go = sfew::GameObjectContainer::Create();
 	go._Get()->SetName("SoundCube");
 	go._Get()->AddComponent(sfew::ComponentType::Audio);
-	auto audioComp = stdext::dynamic_pointer_cast<sfew::AudioComponent>( go._Get()->GetComponent(sfew::ComponentType::Audio) );
+	//auto audioComp = stdext::static_pointer_cast<sfew::AudioComponent>( go._Get()->GetComponentByType(sfew::ComponentType::Audio) );
+	std::weak_ptr<sfew::AudioComponent> audioComp = go._Get()->GetComponent<sfew::AudioComponent>();
 	audioComp._Get()->GetAudioSource()._Get()->Play();
 	go._Get()->AddComponent(sfew::ComponentType::ObjectRenderer);
-	auto rend = stdext::dynamic_pointer_cast<sfew::ObjectRendererComponent>( go._Get()->GetComponent(sfew::ComponentType::ObjectRenderer) );
+	auto rend = stdext::static_pointer_cast<sfew::ObjectRendererComponent>( go._Get()->GetComponentByType(sfew::ComponentType::ObjectRenderer) );
 	go._Get()->GetTransform()._Get()->SetPosition(sfew::Vector3(-3.0f, 0.0f, -3.0f));
 	rend._Get()->GetRenderer()._Get()->GetMaterial()._Get()->SetColor(sfew::Vector4(236/255.0f, 157/255.0f, 162/255.0f, 1.0f));
 
@@ -131,14 +132,14 @@ int main()
 	auto fontGo = sfew::GameObjectContainer::Create();
 	fontGo._Get()->SetName("Font");
 	fontGo._Get()->AddComponent(sfew::ComponentType::FontRenderer);
-	auto fontDrawer = stdext::dynamic_pointer_cast<sfew::FontRendererComponent>( fontGo._Get()->GetComponent(sfew::ComponentType::FontRenderer) );
+	auto fontDrawer = stdext::static_pointer_cast<sfew::FontRendererComponent>( fontGo._Get()->GetComponentByType(sfew::ComponentType::FontRenderer) );
 	fontDrawer._Get()->GetRenderer()._Get()->SetPosition(400, 10);
 
 	// Cube object
 	auto cubeObj = sfew::GameObjectContainer::Create();
 	cubeObj._Get()->SetName("Cube");
 	cubeObj._Get()->AddComponent(sfew::ComponentType::ObjectRenderer);
-	auto cubeRenderer = stdext::dynamic_pointer_cast<sfew::ObjectRendererComponent>( cubeObj._Get()->GetComponent(sfew::ComponentType::ObjectRenderer) );
+	auto cubeRenderer = stdext::static_pointer_cast<sfew::ObjectRendererComponent>( cubeObj._Get()->GetComponentByType(sfew::ComponentType::ObjectRenderer) );
 	cubeRenderer._Get()->GetRenderer()._Get()->SetMesh(sfew::MeshRegistry::GetByName("CubeMesh"));
 	cubeRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("GameOver"));
 	cubeObj._Get()->GetTransform()._Get()->SetPosition(sfew::Vector3(-2.0f, 0.0f, 0.1f));
@@ -147,7 +148,7 @@ int main()
 	auto fpsDisplayer = sfew::GameObjectContainer::Create();
 	fpsDisplayer._Get()->SetName("FPS");
 	fpsDisplayer._Get()->AddComponent(sfew::ComponentType::FontRenderer);
-	auto fpsRenderer = stdext::dynamic_pointer_cast<sfew::FontRendererComponent>( fpsDisplayer._Get()->GetComponent(sfew::ComponentType::FontRenderer) );
+	auto fpsRenderer = stdext::static_pointer_cast<sfew::FontRendererComponent>( fpsDisplayer._Get()->GetComponentByType(sfew::ComponentType::FontRenderer) );
 	auto fpsLabel = fpsRenderer._Get()->GetRenderer();
 	fpsLabel._Get()->SetFontSize(48);
 	fpsLabel._Get()->SetColor(0.0f, 0.5f, 0.7f, 1.0f);
@@ -158,7 +159,7 @@ int main()
 	auto octoObj = sfew::GameObjectContainer::Create();
 	octoObj._Get()->SetName("Octo");
 	octoObj._Get()->AddComponent(sfew::ComponentType::ObjectRenderer);
-	auto octoRenderer = stdext::dynamic_pointer_cast<sfew::ObjectRendererComponent>( octoObj._Get()->GetComponent(sfew::ComponentType::ObjectRenderer) );
+	auto octoRenderer = stdext::static_pointer_cast<sfew::ObjectRendererComponent>( octoObj._Get()->GetComponentByType(sfew::ComponentType::ObjectRenderer) );
 	octoRenderer._Get()->GetRenderer()._Get()->SetMesh(sfew::MeshRegistry::GetByName("OctohedronMesh"));
 	octoRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("OrangePatches"));
 

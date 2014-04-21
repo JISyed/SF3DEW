@@ -1,6 +1,7 @@
 #include "GameObject.hpp"
 
 #include <iostream>
+#include <type_traits>
 
 #include "GameObjectContainer.hpp"
 
@@ -105,7 +106,7 @@ namespace sfew
 	void GameObject::OnCollision(PhysicsCollisionGroups otherGroup, 
 								 std::weak_ptr<PhysicsEntity> otherEntity)
 	{
-
+		// STILL NEEDS TO BE IMPLEMENTED!
 	}
 
 	// Properties =========================================
@@ -120,23 +121,23 @@ namespace sfew
 		return _transform;
 	}
 
-	std::weak_ptr<Component> GameObject::GetComponent(ComponentType type) const
+	std::weak_ptr<Component> GameObject::GetComponentByType(ComponentType type) const
 	{
 		switch (type)
 		{
-		case sfew::ComponentType::Audio:
+		case ComponentType::Audio:
 			return _audio;
 			break;
-		case sfew::ComponentType::ObjectRenderer:
+		case ComponentType::ObjectRenderer:
 			return _renderer;
 			break;
-		case sfew::ComponentType::FontRenderer:
+		case ComponentType::FontRenderer:
 			return _fontRenderer;
 			break;
-		case sfew::ComponentType::Physics:
+		case ComponentType::Physics:
 			return _physics;
 			break;
-		case sfew::ComponentType::Custom:
+		case ComponentType::Custom:
 			// Cannot retrieve a custom component with this method
 			return std::weak_ptr<CustomComponent>();
 			break;
@@ -158,6 +159,24 @@ namespace sfew
 		return _physics;
 	}
 
+	// Templated Methods ==================================
+
+	/*
+	template <typename T> std::weak_ptr<T> GameObject::GetComponent() const
+	{
+		// Get the Component's type
+		std::type_index componentClass(typeid(T));
+
+		if(std::type_index(typeid(_audio)) == componentClass)
+		{
+			return stdext::static_pointer_cast<T>(_audio);
+		}
+		else
+		{
+			return stdext::static_pointer_cast<T>(std::weak_ptr<Component>());
+		}
+	}
+	*/
 	// Helpers =========================================
 
 	std::weak_ptr<GameObject> GameObject::getSelf() const
