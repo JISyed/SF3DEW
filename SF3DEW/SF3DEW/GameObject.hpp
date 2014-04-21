@@ -96,18 +96,26 @@ namespace sfew
 	};
 
 	// Template Implementations ============================================
+
+	// Get component based on the component type
 	template <typename T> std::weak_ptr<T> GameObject::GetComponent() const
 	{
 		// Get the Component's type
 		std::type_index componentClass(typeid(T));
 
-		if(std::type_index(typeid(*_audio)) == componentClass)
+		if(std::type_index( typeid( decltype(*_audio) ) ) == componentClass)
 		{
-			return std::static_pointer_cast<T>(_audio);
+			return std::dynamic_pointer_cast<T>(_audio);
+		}
+		else if(std::type_index( typeid( decltype(*_physics) ) ) == componentClass)
+		{
+			return std::dynamic_pointer_cast<T>(_physics);
 		}
 		else
 		{
-			return std::static_pointer_cast<T>(std::shared_ptr<Component>());
+			std::cout << "Warning: Could not find component of type \"" << 
+				componentClass.name() << "\"." << std::endl;
+			return std::dynamic_pointer_cast<T>(std::shared_ptr<Component>());
 		}
 	}
 

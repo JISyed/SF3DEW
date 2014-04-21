@@ -159,24 +159,6 @@ namespace sfew
 		return _physics;
 	}
 
-	// Templated Methods ==================================
-
-	/*
-	template <typename T> std::weak_ptr<T> GameObject::GetComponent() const
-	{
-		// Get the Component's type
-		std::type_index componentClass(typeid(T));
-
-		if(std::type_index(typeid(_audio)) == componentClass)
-		{
-			return stdext::static_pointer_cast<T>(_audio);
-		}
-		else
-		{
-			return stdext::static_pointer_cast<T>(std::weak_ptr<Component>());
-		}
-	}
-	*/
 	// Helpers =========================================
 
 	std::weak_ptr<GameObject> GameObject::getSelf() const

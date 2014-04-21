@@ -169,7 +169,8 @@ int main()
 	physicsObj1._Get()->AddComponent(sfew::ComponentType::ObjectRenderer);
 	physicsObj1._Get()->GetTransform()._Get()->SetPosition(sfew::Vector3(0.0f, 0.0f, 0.0f));
 	physicsObj1._Get()->AddComponent(sfew::ComponentType::Physics);
-	auto physicsComp1 = physicsObj1._Get()->GetPhysicsComponent();
+	//auto physicsComp1 = physicsObj1._Get()->GetPhysicsComponent();
+	auto physicsComp1 = physicsObj1._Get()->GetComponent<sfew::PhysicsComponent>();
 	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetVelocity(sfew::Vector3(0.0f, 0.0f, 0.0f));
 	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetCollisionGroup(sfew::PhysicsCollisionGroups::GroupA);
 	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetRadius(0.5);
@@ -183,7 +184,8 @@ int main()
 	physicsObj2._Get()->AddComponent(sfew::ComponentType::ObjectRenderer);
 	physicsObj2._Get()->GetTransform()._Get()->SetPosition(sfew::Vector3(0.0f, 0.0f, -10.0f));
 	physicsObj2._Get()->AddComponent(sfew::ComponentType::Physics);
-	auto physicsComp2 = physicsObj2._Get()->GetPhysicsComponent();
+	//auto physicsComp2 = physicsObj2._Get()->GetPhysicsComponent();
+	auto physicsComp2 = physicsObj2._Get()->GetComponent<sfew::PhysicsComponent>();
 	//physicsComp2._Get()->GetPhysicsEntity()._Get()->SetVelocity(sfew::Vector3(0.0f, 0.0f, 1.0f));
 	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetVelocity(sfew::Vector3(0.0f, 0.0f, 0.0f));
 	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetAcceleration(sfew::Vector3(0.0f, 0.0f, 2.0f));
