@@ -41,6 +41,9 @@ namespace sfew
 		void SetPosition(Vector3 newPosition);
 		void SetScale(Vector3 newScale);
 		void SetEulerAngles(Vector3 newEulerAngles);
+		Vector3 Forward() const;
+		Vector3 Up() const;
+		Vector3 Right() const;
 
 	private:
 
@@ -49,6 +52,9 @@ namespace sfew
 		Vector3 _position;			// Spacial location as a vector
 		Vector3 _scale;				// Scaling as a vector
 		Vector3 _eulerAngles;		// Orientation as a vector
+		Vector3 _forward;			// Normalized forward direction
+		Vector3 _up;				// Normalized up direction
+		Vector3 _right;				// Normalized right direction
 
 	};
 

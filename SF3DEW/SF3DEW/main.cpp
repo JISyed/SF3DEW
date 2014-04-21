@@ -176,7 +176,7 @@ int main()
 	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetRotationalAcceleration(sfew::Vector3(0.0f, 20.0f, 0.0f));
 	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetAngularDrag(1.0f);
 
-	// Physics Object2
+	// Physics Object2 (moves)
 	auto physicsObj2 = sfew::GameObjectContainer::Create();
 	physicsObj2._Get()->SetName("Physics2");
 	physicsObj2._Get()->AddComponent(sfew::ComponentType::ObjectRenderer);
@@ -184,9 +184,10 @@ int main()
 	physicsObj2._Get()->AddComponent(sfew::ComponentType::Physics);
 	auto physicsComp2 = physicsObj2._Get()->GetComponent<sfew::PhysicsComponent>();
 	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetVelocity(sfew::Vector3(0.0f, 0.0f, 0.0f));
-	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetAcceleration(sfew::Vector3(0.0f, 0.0f, 2.0f));
+	//physicsComp2._Get()->GetPhysicsEntity()._Get()->SetAcceleration(sfew::Vector3(0.0f, 0.0f, 2.0f));
 	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetCollisionGroup(sfew::PhysicsCollisionGroups::GroupB);
 	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetRadius(0.5);
+	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetRotationalVelocity(sfew::Vector3(0.0f, 150.0f, 0.0f));
 
 	// Surrender pointers (only needed if everything is in main() )
 	go.reset();
@@ -201,8 +202,8 @@ int main()
 	octoRenderer.reset();
 	physicsComp1.reset();
 	physicsObj1.reset();
-	physicsObj2.reset();
-	physicsComp2.reset();
+	//physicsObj2.reset();
+	//physicsComp2.reset();
 
 	// Experiment: tesing Timers
 	// Move the center object up every 5 seconds with lambda!
@@ -270,6 +271,7 @@ int main()
 		theCamera._Get()->SetPosition(sfew::Vector3(camStart, camStart, camStart));
 
 		// Update GameObject
+		physicsComp2._Get()->GetPhysicsEntity()._Get()->SetVelocity( physicsObj2._Get()->GetTransform()._Get()->Forward() * 3.0f );
 		sfew::GameObjectContainer::GetByName("SoundCube")._Get()->GetTransform()._Get()->Rotate(sfew::Vector3(0.0f, 10.0f, 0.0f));
 		sfew::GameObjectContainer::GetByName("Octo")._Get()->GetTransform()._Get()->Rotate(sfew::Vector3(0.0f, 1.0f, 0.0f));
 
