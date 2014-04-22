@@ -1,4 +1,5 @@
 #include "ExamplePrefab.hpp"
+#include "GameObjectContainer.hpp"
 
 // System Includes not needed in header
 
@@ -23,6 +24,13 @@ namespace sfew
 		}
 
 		// Routines =========================================
+
+		std::weak_ptr<GameObject> ExamplePrefab::MakeObject()
+		{
+			std::weak_ptr<GameObject> go = GameObjectContainer::Create();
+
+			return go;
+		}
 
 		// Properties =========================================
 

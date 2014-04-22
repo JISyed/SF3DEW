@@ -6,7 +6,7 @@
 // Required Headers
 #ifndef SFEW_CUSTOM_PREFAB__EXAMPLE
 #define SFEW_CUSTOM_PREFAB__EXAMPLE
-//#include "Prefabrication.hpp"
+#include "Prefabrication.hpp"
 
 // System Headers
 
@@ -18,7 +18,7 @@ namespace sfew
 {
 	namespace prefab
 	{
-		class ExamplePrefab
+		class ExamplePrefab : public Prefabrication
 		{
 		public:
 
@@ -29,7 +29,7 @@ namespace sfew
 
 			// Routines =======================
 
-			
+			virtual std::weak_ptr<GameObject> MakeObject();
 
 			// Properties =====================
 
