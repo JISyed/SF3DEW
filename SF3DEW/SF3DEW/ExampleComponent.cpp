@@ -5,7 +5,7 @@
 
 
 // SFEW Headers not needed in header
-#include "GameObject.hpp"
+
 
 namespace sfew
 {
@@ -50,8 +50,7 @@ namespace sfew
 		void ExampleCmpt::OnCollision(PhysicsCollisionGroups otherGroup, 
 										 std::weak_ptr<PhysicsEntity> otherEntity)
 		{
-			std::cout << "Collision with \"" << GetGameObject()._Get()->GetName()
-				<< "\"" << std::endl;
+			
 		}
 
 		// Custom Routines =========================================

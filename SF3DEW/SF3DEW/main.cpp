@@ -169,7 +169,6 @@ int main()
 	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetRotationalVelocity(sfew::Vector3(0.0f, 20.0f, 0.0f));
 	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetRotationalAcceleration(sfew::Vector3(0.0f, 20.0f, 0.0f));
 	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetAngularDrag(1.0f);
-	physicsObj1._Get()->AddCustomComponent<sfew::component::ExampleCmpt>();
 
 	// Physics Object2 (moves)
 	auto physicsObj2 = sfew::GameObjectContainer::Create();
@@ -182,7 +181,6 @@ int main()
 	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetAcceleration(sfew::Vector3(0.0f, 0.0f, 2.0f));
 	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetCollisionGroup(sfew::PhysicsCollisionGroups::GroupB);
 	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetRadius(0.5);
-	physicsObj2._Get()->AddCustomComponent<sfew::component::ExampleCmpt>();
 
 	// Surrender pointers (only needed if everything is in main() )
 	go.reset();

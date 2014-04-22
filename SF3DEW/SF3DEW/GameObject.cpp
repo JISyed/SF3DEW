@@ -54,7 +54,7 @@ namespace sfew
 		// Update all custom components if they exist
 		if(!_customComponents.empty())
 		{
-			for(auto cmpt : _customComponents)
+			for(auto& cmpt : _customComponents)
 			{
 				cmpt.second->Update();
 			}
@@ -80,7 +80,7 @@ namespace sfew
 		// Message all custom components if they exist
 		if(!_customComponents.empty())
 		{
-			for(auto cmpt : _customComponents)
+			for(auto& cmpt : _customComponents)
 			{
 				cmpt.second->OnCollision(otherGroup, otherEntity);
 			}
