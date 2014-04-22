@@ -49,6 +49,8 @@ namespace sfew
 		// Templated Methods ==============
 
 		template <typename T> std::weak_ptr<T> GetComponent() const;
+		template <typename T> bool AddCustomComponent();
+		template <typename T> std::weak_ptr<T> GetCustomComponent() const;
 
 	private:
 
@@ -90,6 +92,7 @@ namespace sfew
 		// Get the Component's type
 		std::type_index componentClass(typeid(T));
 
+		// Add component if matches in type given
 		if(GameObject::_audioComponentType == componentClass)
 		{
 			return std::dynamic_pointer_cast<T>(_audio);
@@ -115,6 +118,43 @@ namespace sfew
 		}
 	}
 
+	// Add a custom component using template parameter
+	template <typename T> bool GameObject::AddCustomComponent()
+	{
+		std::type_index newComponentType(typeid(T));
+
+		// Check if custom component was already added
+		if(_customComponents.count(newComponentType) != 0)
+		{
+			std::cout << "Component \"" << newComponentType.name() <<
+				"\" already added!" << std::endl;
+			return false;
+		}
+
+		// Make new component of type
+		std::shared_ptr<T> newComponent(new T(getSelf()));
+
+		// Add it to hash table
+		_customComponents[std::type_index(typeid(*newComponent))] = newComponent;
+
+		return true;
+	}
+
+	// Get a custom component using template parameter
+	// Thanks to vijoc (http://gamedev.stackexchange.com/a/57282)
+	template <typename T> std::weak_ptr<T> GameObject::GetCustomComponent() const
+	{
+		std::type_index index(typeid(T));
+
+		// Return a weak pointer to the queried custom component if found
+		if(_customComponents.count(std::type_index(typeid(T))) != 0)
+		{
+			return std::static_pointer_cast<T>(_customComponents.at(index));
+		}
+
+		// If you're here, no component was found
+		return std::static_pointer_cast<T>(std::shared_ptr<CustomComponent>());
+	}
 
 } // namespace sfew
 

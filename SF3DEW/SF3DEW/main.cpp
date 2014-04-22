@@ -126,6 +126,8 @@ int main()
 	auto rend = go._Get()->GetComponent<sfew::ObjectRendererComponent>();
 	go._Get()->GetTransform()._Get()->SetPosition(sfew::Vector3(-3.0f, 0.0f, -3.0f));
 	rend._Get()->GetRenderer()._Get()->GetMaterial()._Get()->SetColor(sfew::Vector4(236/255.0f, 157/255.0f, 162/255.0f, 1.0f));
+	go._Get()->AddCustomComponent<sfew::CustomComponent>();
+	auto aCustomComponent = go._Get()->GetCustomComponent<sfew::CustomComponent>();
 
 	// Font Game Object
 	auto fontGo = sfew::GameObjectContainer::Create();

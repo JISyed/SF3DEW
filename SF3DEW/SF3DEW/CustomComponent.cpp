@@ -8,8 +8,7 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	CustomComponent::CustomComponent(std::weak_ptr<GameObject> owningGameObject) : 
-		INameable("Unnamed Custom Component"),
+	CustomComponent::CustomComponent(std::weak_ptr<GameObject> owningGameObject) :
 		Component(owningGameObject)
 	{
 		
@@ -21,6 +20,16 @@ namespace sfew
 	}
 
 	// Routines =========================================
+
+	void CustomComponent::Start()
+	{
+
+	}
+
+	void CustomComponent::Update()
+	{
+
+	}
 
 	// Properties =========================================
 

@@ -7,12 +7,11 @@
 #ifndef SFEW_CUSTOM_COMPONENT
 #define SFEW_CUSTOM_COMPONENT
 
-#include "INameable.hpp"
 #include "Component.hpp"
 
 namespace sfew
 {
-	class CustomComponent : public Component, public INameable
+	class CustomComponent : public Component
 	{
 	public:
 
@@ -23,8 +22,8 @@ namespace sfew
 
 		// Routines =======================
 
-		virtual void Start() = 0;
-		virtual void Update() = 0;
+		virtual void Start();// = 0;
+		virtual void Update();// = 0;
 
 		// Properties =====================
 
