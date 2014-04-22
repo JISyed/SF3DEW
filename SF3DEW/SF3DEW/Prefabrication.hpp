@@ -7,8 +7,10 @@
 #define SFEW_PREFABRICATION_H
 
 #include <SFML/System/NonCopyable.hpp>
+#include <memory>
 
 #include "INameable.hpp"
+#include "GameObject.hpp"
 
 namespace sfew
 {
@@ -19,11 +21,11 @@ namespace sfew
 		// Ctor/Dtor ======================
 
 		Prefabrication();
-		~Prefabrication();
+		virtual ~Prefabrication();
 
 		// Routines =======================
 
-		
+		virtual std::weak_ptr<GameObject> MakeObject() = 0;
 
 		// Properties =====================
 
