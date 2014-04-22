@@ -76,6 +76,9 @@
     <Filter Include="Header Files\Containers">
       <UniqueIdentifier>{d7265114-7bbd-46e0-8b4a-dd064379345a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Custom Components">
+      <UniqueIdentifier>{8ce85566-c26d-4679-a18e-9af4efaae346}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -194,6 +197,9 @@
     </ClCompile>
     <ClCompile Include="PhysicsEntity.cpp">
       <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSUpdaterComponent.cpp">
+      <Filter>Source Files\Custom Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -357,6 +363,9 @@
     </ClInclude>
     <ClInclude Include="PhysicsEntity.hpp">
       <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSUpdaterComponent.hpp">
+      <Filter>Header Files\CustomComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

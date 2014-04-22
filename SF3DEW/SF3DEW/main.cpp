@@ -126,8 +126,6 @@ int main()
 	auto rend = go._Get()->GetComponent<sfew::ObjectRendererComponent>();
 	go._Get()->GetTransform()._Get()->SetPosition(sfew::Vector3(-3.0f, 0.0f, -3.0f));
 	rend._Get()->GetRenderer()._Get()->GetMaterial()._Get()->SetColor(sfew::Vector4(236/255.0f, 157/255.0f, 162/255.0f, 1.0f));
-	go._Get()->AddCustomComponent<sfew::CustomComponent>();
-	auto aCustomComponent = go._Get()->GetCustomComponent<sfew::CustomComponent>();
 
 	// Font Game Object
 	auto fontGo = sfew::GameObjectContainer::Create();
@@ -148,13 +146,7 @@ int main()
 	// FPS Text display object
 	auto fpsDisplayer = sfew::GameObjectContainer::Create();
 	fpsDisplayer._Get()->SetName("FPS");
-	fpsDisplayer._Get()->AddComponent<sfew::FontRendererComponent>();
-	auto fpsRenderer = fpsDisplayer._Get()->GetComponent<sfew::FontRendererComponent>();
-	auto fpsLabel = fpsRenderer._Get()->GetRenderer();
-	fpsLabel._Get()->SetFontSize(48);
-	fpsLabel._Get()->SetColor(0.0f, 0.5f, 0.7f, 1.0f);
-	fpsLabel._Get()->SetStyle(sf::Text::Style::Regular);
-	fpsLabel._Get()->SetPosition(10, 10);
+	fpsDisplayer._Get()->AddCustomComponent<sfew::component::FpsUpdaterCmpt>();
 
 	// Octohedron object
 	auto octoObj = sfew::GameObjectContainer::Create();
@@ -186,10 +178,9 @@ int main()
 	physicsObj2._Get()->AddComponent<sfew::PhysicsComponent>();
 	auto physicsComp2 = physicsObj2._Get()->GetComponent<sfew::PhysicsComponent>();
 	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetVelocity(sfew::Vector3(0.0f, 0.0f, 0.0f));
-	//physicsComp2._Get()->GetPhysicsEntity()._Get()->SetAcceleration(sfew::Vector3(0.0f, 0.0f, 2.0f));
+	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetAcceleration(sfew::Vector3(0.0f, 0.0f, 2.0f));
 	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetCollisionGroup(sfew::PhysicsCollisionGroups::GroupB);
 	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetRadius(0.5);
-	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetRotationalVelocity(sfew::Vector3(0.0f, 150.0f, 0.0f));
 
 	// Surrender pointers (only needed if everything is in main() )
 	go.reset();
@@ -198,14 +189,13 @@ int main()
 	octoObj.reset();
 	cubeObj.reset();
 	rend.reset();
-	fpsRenderer.reset();
 	fontDrawer.reset();
 	audioComp.reset();
 	octoRenderer.reset();
 	physicsComp1.reset();
 	physicsObj1.reset();
-	//physicsObj2.reset();
-	//physicsComp2.reset();
+	physicsObj2.reset();
+	physicsComp2.reset();
 
 	// Experiment: tesing Timers
 	// Move the center object up every 5 seconds with lambda!
@@ -266,24 +256,7 @@ int main()
 			}
 		}
 
-		// Update objects
-
-		// Move camera
-		camStart += 0.0009f;
-		theCamera._Get()->SetPosition(sfew::Vector3(camStart, camStart, camStart));
-
-		// Update GameObject
-		physicsComp2._Get()->GetPhysicsEntity()._Get()->SetVelocity( physicsObj2._Get()->GetTransform()._Get()->Forward() * 3.0f );
-		sfew::GameObjectContainer::GetByName("SoundCube")._Get()->GetTransform()._Get()->Rotate(sfew::Vector3(0.0f, 10.0f, 0.0f));
-		sfew::GameObjectContainer::GetByName("Octo")._Get()->GetTransform()._Get()->Rotate(sfew::Vector3(0.0f, 1.0f, 0.0f));
-
-		// Update font renderer
-		float fpsVal = sfew::SystemTime::GetFPS();
-		fpsStr.str(std::string());
-		fpsStr << "FPS: " << fpsVal;
-		fpsLabel._Get()->SetTextString(fpsStr.str());
-
-		// ACTUAL UPDATE:
+		// ACTUAL UPDATE
 		physicsEntityContainer->Update();
 		gameObjectContainer->Update();
 
@@ -294,8 +267,6 @@ int main()
 
 	} // END OF GAME LOOP
 
-	sfew::AudioRegistry::GetByName("PlayerLaserSnd")._Get()->Play();
-	sf::sleep(sfew::AudioRegistry::GetByName("PlayerLaserSnd")._Get()->GetDuration());
 
 	// END OF PROGRAM
 	

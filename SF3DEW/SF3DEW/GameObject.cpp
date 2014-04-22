@@ -52,7 +52,13 @@ namespace sfew
 	void GameObject::Update()
 	{
 		// Update all custom components if they exist
-
+		if(!_customComponents.empty())
+		{
+			for(auto cmpt : _customComponents)
+			{
+				cmpt.second->Update();
+			}
+		}
 
 		// Update the builtin components if they exist
 		//if(_audio) _audio->Update(); // Does nothing
@@ -71,7 +77,14 @@ namespace sfew
 	void GameObject::OnCollision(PhysicsCollisionGroups otherGroup, 
 								 std::weak_ptr<PhysicsEntity> otherEntity)
 	{
-		// STILL NEEDS TO BE IMPLEMENTED!
+		// Message all custom components if they exist
+		if(!_customComponents.empty())
+		{
+			for(auto cmpt : _customComponents)
+			{
+				cmpt.second->OnCollision(otherGroup, otherEntity);
+			}
+		}
 	}
 
 	// Properties =========================================

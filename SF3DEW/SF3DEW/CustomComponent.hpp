@@ -8,6 +8,7 @@
 #define SFEW_CUSTOM_COMPONENT
 
 #include "Component.hpp"
+#include "PhysicsEntity.hpp"
 
 namespace sfew
 {
@@ -22,8 +23,11 @@ namespace sfew
 
 		// Routines =======================
 
-		virtual void Start();// = 0;
-		virtual void Update();// = 0;
+		virtual void Start() = 0;
+		virtual void Update() = 0;
+		virtual void Cleanup() = 0;
+		virtual void OnCollision(PhysicsCollisionGroups otherGroup, 
+								 std::weak_ptr<PhysicsEntity> otherEntity) = 0;
 
 		// Properties =====================
 

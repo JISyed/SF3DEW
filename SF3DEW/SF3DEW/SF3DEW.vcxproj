@@ -157,6 +157,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="FontRegistry.cpp" />
     <ClCompile Include="FontRenderer.cpp" />
     <ClCompile Include="FontRendererComponent.cpp" />
+    <ClCompile Include="FPSUpdaterComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectContainer.cpp" />
     <ClCompile Include="main.cpp" />
@@ -212,6 +213,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClInclude Include="FontRegistry.hpp" />
     <ClInclude Include="FontRenderer.hpp" />
     <ClInclude Include="FontRendererComponent.hpp" />
+    <ClInclude Include="FPSUpdaterComponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
     <ClInclude Include="GameObjectContainer.hpp" />
     <ClInclude Include="INameable.hpp" />
