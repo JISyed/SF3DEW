@@ -29,7 +29,6 @@ namespace sfew
 
 		// Properties =====================
 
-		virtual ComponentType GetType() const;
 		std::weak_ptr<PhysicsEntity> GetPhysicsEntity() const;
 
 	private:

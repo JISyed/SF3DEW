@@ -42,11 +42,6 @@ namespace sfew
 
 	// Properties =========================================
 
-	ComponentType PhysicsComponent::GetType() const
-	{
-		return ComponentType::Physics;
-	}
-
 	std::weak_ptr<PhysicsEntity> PhysicsComponent::GetPhysicsEntity() const
 	{
 		return _physicsData;

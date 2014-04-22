@@ -1,7 +1,6 @@
 #include "GameObject.hpp"
 
 #include <iostream>
-//#include <type_traits>
 
 #include "GameObjectContainer.hpp"
 
@@ -68,51 +67,6 @@ namespace sfew
 		_flaggedForDestruction = true;
 	}
 
-	// Add a new component of the given type
-	bool GameObject::AddComponent(ComponentType type)
-	{
-		// Check if the component type was already added
-		switch (type)
-		{
-		case ComponentType::Audio:
-			if(_audio) return false;
-			break;
-		case ComponentType::ObjectRenderer:
-			if(_renderer) return false;
-			break;
-		case ComponentType::FontRenderer:
-			if(_fontRenderer) return false;
-			break;
-		case ComponentType::Physics:
-			if(_physics) return false;
-			break;
-		case ComponentType::Custom:
-			// Cannot add custom components with this method
-			return false;
-			break;
-		}
-
-		// Add the specified component
-		switch (type)
-		{
-		case ComponentType::Audio:
-			_audio = std::shared_ptr<AudioComponent>(new AudioComponent(getSelf()));
-			break;
-		case ComponentType::ObjectRenderer:
-			_renderer = std::shared_ptr<ObjectRendererComponent>(new ObjectRendererComponent(getSelf()));
-			break;
-		case ComponentType::FontRenderer:
-			_fontRenderer = std::shared_ptr<FontRendererComponent>(new FontRendererComponent(getSelf()));
-			break;
-		case ComponentType::Physics:
-			_physics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent(getSelf()));
-			break;
-		}
-
-		// Success
-		return true;
-	}
-
 	// Message for when collision occurs
 	void GameObject::OnCollision(PhysicsCollisionGroups otherGroup, 
 								 std::weak_ptr<PhysicsEntity> otherEntity)
@@ -130,32 +84,6 @@ namespace sfew
 	std::weak_ptr<Transform> GameObject::GetTransform() const
 	{
 		return _transform;
-	}
-
-	std::weak_ptr<Component> GameObject::GetComponentByType(ComponentType type) const
-	{
-		switch (type)
-		{
-		case ComponentType::Audio:
-			return _audio;
-			break;
-		case ComponentType::ObjectRenderer:
-			return _renderer;
-			break;
-		case ComponentType::FontRenderer:
-			return _fontRenderer;
-			break;
-		case ComponentType::Physics:
-			return _physics;
-			break;
-		case ComponentType::Custom:
-			// Cannot retrieve a custom component with this method
-			return std::weak_ptr<CustomComponent>();
-			break;
-		}
-
-		// To stop warning C4715
-		return std::weak_ptr<Component>();
 	}
 
 	// Helpers =========================================

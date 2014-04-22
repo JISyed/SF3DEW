@@ -38,17 +38,12 @@ namespace sfew
 
 	// Properties =========================================
 
-	ComponentType AudioComponent::GetType() const
-	{
-		return ComponentType::Audio;
-	}
-
 	std::weak_ptr<AudioSource> AudioComponent::GetAudioSource() const
 	{
 		return _audioSource;
 	}
 
-	void AudioComponent::GetAudioSource(std::weak_ptr<AudioSource> newAudioSource)
+	void AudioComponent::SetAudioSource(std::weak_ptr<AudioSource> newAudioSource)
 	{
 		_audioSource = newAudioSource;
 	}

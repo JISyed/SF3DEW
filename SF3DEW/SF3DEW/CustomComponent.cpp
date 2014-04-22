@@ -33,10 +33,6 @@ namespace sfew
 
 	// Properties =========================================
 
-	ComponentType CustomComponent::GetType() const
-	{
-		return ComponentType::Custom;
-	}
 
 	// Helpers =========================================
 

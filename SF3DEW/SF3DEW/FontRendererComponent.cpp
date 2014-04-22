@@ -46,11 +46,6 @@ namespace sfew
 
 	// Properties =========================================
 
-	ComponentType FontRendererComponent::GetType() const
-	{
-		return ComponentType::FontRenderer;
-	}
-
 	std::weak_ptr<FontRenderer> FontRendererComponent::GetRenderer() const
 	{
 		return _renderer;

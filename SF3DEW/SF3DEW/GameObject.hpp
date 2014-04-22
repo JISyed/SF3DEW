@@ -33,21 +33,22 @@ namespace sfew
 
 		// Routines =======================
 
-		void Update();							// Updates the GameObject's states
-		void Destroy();							// Marks the GameObject for deletion
-		bool AddComponent(ComponentType type);	// Add a new component of the given type
+		void Update();					// Updates the GameObject's states
+		void Destroy();					// Marks the GameObject for deletion
+		
+		// Message for when collision occurs
 		void OnCollision(PhysicsCollisionGroups otherGroup, 
-						 std::weak_ptr<PhysicsEntity> otherEntity); // Message for when collision occurs
+						 std::weak_ptr<PhysicsEntity> otherEntity); 
 
 		// Properties =====================
 
 		bool IsToBeDestroyed() const;
 		std::weak_ptr<Transform> GetTransform() const;
-		std::weak_ptr<Component> GetComponentByType(ComponentType type) const;
 		std::weak_ptr<CustomComponent> GetCustomComponent(const std::string& name) const;
 
 		// Templated Methods ==============
 
+		template <typename T> bool AddComponent();
 		template <typename T> std::weak_ptr<T> GetComponent() const;
 		template <typename T> bool AddCustomComponent();
 		template <typename T> std::weak_ptr<T> GetCustomComponent() const;
@@ -86,13 +87,77 @@ namespace sfew
 
 	// Template Implementations ============================================
 
+	template <typename T> bool GameObject::AddComponent()
+	{
+		std::type_index componentClass(typeid(T));
+
+		if(GameObject::_audioComponentType == componentClass)
+		{
+			// Check if component already exists
+			if(_audio) 
+			{
+				std::cout << "Audio Component already exists!" << std::endl;
+				return false;
+			}
+
+			// Make new component
+			_audio = std::shared_ptr<AudioComponent>(new AudioComponent(getSelf()));
+			return true;
+		}
+		else if(GameObject::_physicsComponentType == componentClass)
+		{
+			// Check if component already exists
+			if(_physics) 
+			{
+				std::cout << "Physics Component already exists!" << std::endl;
+				return false;
+			}
+
+			// Make new component
+			_physics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent(getSelf()));
+			return true;
+		}
+		else if(GameObject::_rendererComponentType == componentClass)
+		{
+			// Check if component already exists
+			if(_renderer) 
+			{
+				std::cout << "Object Renderer Component already exists!" << std::endl;
+				return false;
+			}
+
+			// Make new component
+			_renderer = std::shared_ptr<ObjectRendererComponent>(new ObjectRendererComponent(getSelf()));
+			return true;
+		}
+		else if(GameObject::_fontRendererComponentType == componentClass)
+		{
+			// Check if component already exists
+			if(_fontRenderer) 
+			{
+				std::cout << "Font Renderer Component already exists!" << std::endl;
+				return false;
+			}
+
+			// Make new component
+			_fontRenderer = std::shared_ptr<FontRendererComponent>(new FontRendererComponent(getSelf()));
+			return true;
+		}
+
+		// If you're here, T was not a built-in component type
+		std::cout << "Warning: Could not add component of type \"" << 
+				componentClass.name() << "\"." << std::endl;
+		std::cout << "Consider using AddCustomComponent<T>() instead.\n";
+		return false;
+	}
+
 	// Get component based on the component type
 	template <typename T> std::weak_ptr<T> GameObject::GetComponent() const
 	{
 		// Get the Component's type
 		std::type_index componentClass(typeid(T));
 
-		// Add component if matches in type given
+		// Get component if matches in type given
 		if(GameObject::_audioComponentType == componentClass)
 		{
 			return std::dynamic_pointer_cast<T>(_audio);

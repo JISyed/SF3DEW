@@ -119,10 +119,10 @@ int main()
 	// Pink sound cube object
 	auto go = sfew::GameObjectContainer::Create();
 	go._Get()->SetName("SoundCube");
-	go._Get()->AddComponent(sfew::ComponentType::Audio);
+	go._Get()->AddComponent<sfew::AudioComponent>();
 	auto audioComp = go._Get()->GetComponent<sfew::AudioComponent>();
 	audioComp._Get()->GetAudioSource()._Get()->Play();
-	go._Get()->AddComponent(sfew::ComponentType::ObjectRenderer);
+	go._Get()->AddComponent<sfew::ObjectRendererComponent>();
 	auto rend = go._Get()->GetComponent<sfew::ObjectRendererComponent>();
 	go._Get()->GetTransform()._Get()->SetPosition(sfew::Vector3(-3.0f, 0.0f, -3.0f));
 	rend._Get()->GetRenderer()._Get()->GetMaterial()._Get()->SetColor(sfew::Vector4(236/255.0f, 157/255.0f, 162/255.0f, 1.0f));
@@ -132,14 +132,14 @@ int main()
 	// Font Game Object
 	auto fontGo = sfew::GameObjectContainer::Create();
 	fontGo._Get()->SetName("Font");
-	fontGo._Get()->AddComponent(sfew::ComponentType::FontRenderer);
+	fontGo._Get()->AddComponent<sfew::FontRendererComponent>();
 	auto fontDrawer = fontGo._Get()->GetComponent<sfew::FontRendererComponent>();
 	fontDrawer._Get()->GetRenderer()._Get()->SetPosition(400, 10);
 
 	// Cube object
 	auto cubeObj = sfew::GameObjectContainer::Create();
 	cubeObj._Get()->SetName("Cube");
-	cubeObj._Get()->AddComponent(sfew::ComponentType::ObjectRenderer);
+	cubeObj._Get()->AddComponent<sfew::ObjectRendererComponent>();
 	auto cubeRenderer = cubeObj._Get()->GetComponent<sfew::ObjectRendererComponent>();
 	cubeRenderer._Get()->GetRenderer()._Get()->SetMesh(sfew::MeshRegistry::GetByName("CubeMesh"));
 	cubeRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("GameOver"));
@@ -148,7 +148,7 @@ int main()
 	// FPS Text display object
 	auto fpsDisplayer = sfew::GameObjectContainer::Create();
 	fpsDisplayer._Get()->SetName("FPS");
-	fpsDisplayer._Get()->AddComponent(sfew::ComponentType::FontRenderer);
+	fpsDisplayer._Get()->AddComponent<sfew::FontRendererComponent>();
 	auto fpsRenderer = fpsDisplayer._Get()->GetComponent<sfew::FontRendererComponent>();
 	auto fpsLabel = fpsRenderer._Get()->GetRenderer();
 	fpsLabel._Get()->SetFontSize(48);
@@ -159,7 +159,7 @@ int main()
 	// Octohedron object
 	auto octoObj = sfew::GameObjectContainer::Create();
 	octoObj._Get()->SetName("Octo");
-	octoObj._Get()->AddComponent(sfew::ComponentType::ObjectRenderer);
+	octoObj._Get()->AddComponent<sfew::ObjectRendererComponent>();
 	auto octoRenderer = octoObj._Get()->GetComponent<sfew::ObjectRendererComponent>();
 	octoRenderer._Get()->GetRenderer()._Get()->SetMesh(sfew::MeshRegistry::GetByName("OctohedronMesh"));
 	octoRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("OrangePatches"));
@@ -167,9 +167,9 @@ int main()
 	// Physics Object1
 	auto physicsObj1 = sfew::GameObjectContainer::Create();
 	physicsObj1._Get()->SetName("Physics1");
-	physicsObj1._Get()->AddComponent(sfew::ComponentType::ObjectRenderer);
+	physicsObj1._Get()->AddComponent<sfew::ObjectRendererComponent>();
 	physicsObj1._Get()->GetTransform()._Get()->SetPosition(sfew::Vector3(0.0f, 0.0f, 0.0f));
-	physicsObj1._Get()->AddComponent(sfew::ComponentType::Physics);
+	physicsObj1._Get()->AddComponent<sfew::PhysicsComponent>();
 	auto physicsComp1 = physicsObj1._Get()->GetComponent<sfew::PhysicsComponent>();
 	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetVelocity(sfew::Vector3(0.0f, 0.0f, 0.0f));
 	physicsComp1._Get()->GetPhysicsEntity()._Get()->SetCollisionGroup(sfew::PhysicsCollisionGroups::GroupA);
@@ -181,9 +181,9 @@ int main()
 	// Physics Object2 (moves)
 	auto physicsObj2 = sfew::GameObjectContainer::Create();
 	physicsObj2._Get()->SetName("Physics2");
-	physicsObj2._Get()->AddComponent(sfew::ComponentType::ObjectRenderer);
+	physicsObj2._Get()->AddComponent<sfew::ObjectRendererComponent>();
 	physicsObj2._Get()->GetTransform()._Get()->SetPosition(sfew::Vector3(0.0f, 0.0f, -10.0f));
-	physicsObj2._Get()->AddComponent(sfew::ComponentType::Physics);
+	physicsObj2._Get()->AddComponent<sfew::PhysicsComponent>();
 	auto physicsComp2 = physicsObj2._Get()->GetComponent<sfew::PhysicsComponent>();
 	physicsComp2._Get()->GetPhysicsEntity()._Get()->SetVelocity(sfew::Vector3(0.0f, 0.0f, 0.0f));
 	//physicsComp2._Get()->GetPhysicsEntity()._Get()->SetAcceleration(sfew::Vector3(0.0f, 0.0f, 2.0f));

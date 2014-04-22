@@ -28,7 +28,6 @@ namespace sfew
 
 		// Properties =====================
 
-		virtual ComponentType GetType() const;
 		std::weak_ptr<ObjectRenderer> GetRenderer() const;
 
 	private:

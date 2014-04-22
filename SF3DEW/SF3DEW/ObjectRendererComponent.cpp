@@ -50,11 +50,6 @@ namespace sfew
 
 	// Properties =========================================
 
-	ComponentType ObjectRendererComponent::GetType() const
-	{
-		return ComponentType::ObjectRenderer;
-	}
-
 	std::weak_ptr<ObjectRenderer> ObjectRendererComponent::GetRenderer() const
 	{
 		return _renderer;

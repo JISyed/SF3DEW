@@ -29,9 +29,8 @@ namespace sfew
 
 		// Properties =====================
 
-		virtual ComponentType GetType() const;
 		std::weak_ptr<AudioSource> GetAudioSource() const;
-		void GetAudioSource(std::weak_ptr<AudioSource> newAudioSource);
+		void SetAudioSource(std::weak_ptr<AudioSource> newAudioSource);
 
 	private:
 

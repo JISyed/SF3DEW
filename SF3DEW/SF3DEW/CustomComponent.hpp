@@ -27,7 +27,6 @@ namespace sfew
 
 		// Properties =====================
 
-		virtual ComponentType GetType() const;
 
 	private:
 
