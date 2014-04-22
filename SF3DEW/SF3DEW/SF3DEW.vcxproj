@@ -154,6 +154,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="CustomComponent.cpp" />
     <ClCompile Include="ExampleComponent.cpp" />
+    <ClCompile Include="ExamplePrefab.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontRegistry.cpp" />
     <ClCompile Include="FontRenderer.cpp" />
@@ -211,6 +212,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClInclude Include="Container.hpp" />
     <ClInclude Include="CustomComponent.hpp" />
     <ClInclude Include="ExampleComponent.hpp" />
+    <ClInclude Include="ExamplePrefab.hpp" />
     <ClInclude Include="Font.hpp" />
     <ClInclude Include="FontRegistry.hpp" />
     <ClInclude Include="FontRenderer.hpp" />

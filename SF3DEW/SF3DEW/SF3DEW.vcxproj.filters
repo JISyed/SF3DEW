@@ -79,6 +79,12 @@
     <Filter Include="Source Files\Custom Components">
       <UniqueIdentifier>{8ce85566-c26d-4679-a18e-9af4efaae346}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Prefabrications">
+      <UniqueIdentifier>{26f54a0c-030c-498d-8d43-58af9df3f6b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Prefabrications">
+      <UniqueIdentifier>{5d3d2529-eabf-49f8-ae66-a4c3cefacd6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -203,6 +209,9 @@
     </ClCompile>
     <ClCompile Include="ExampleComponent.cpp">
       <Filter>Source Files\Custom Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ExamplePrefab.cpp">
+      <Filter>Source Files\Prefabrications</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -372,6 +381,9 @@
     </ClInclude>
     <ClInclude Include="ExampleComponent.hpp">
       <Filter>Header Files\CustomComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ExamplePrefab.hpp">
+      <Filter>Header Files\Prefabrications</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

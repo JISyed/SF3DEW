@@ -95,7 +95,7 @@ int main()
 	cubeObj._Get()->AddComponent<sfew::ObjectRendererComponent>();
 	auto cubeRenderer = cubeObj._Get()->GetComponent<sfew::ObjectRendererComponent>();
 	cubeRenderer._Get()->GetRenderer()._Get()->SetMesh(sfew::MeshRegistry::GetByName("CubeMesh"));
-	cubeRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("GameOver"));
+	cubeRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("WhitePatches"));
 	cubeObj._Get()->GetTransform()._Get()->SetPosition(sfew::Vector3(-2.0f, 0.0f, 0.1f));
 
 	// FPS Text display object
