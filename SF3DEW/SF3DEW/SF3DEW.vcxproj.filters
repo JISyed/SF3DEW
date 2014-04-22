@@ -201,6 +201,9 @@
     <ClCompile Include="FPSUpdaterComponent.cpp">
       <Filter>Source Files\Custom Components</Filter>
     </ClCompile>
+    <ClCompile Include="ExampleComponent.cpp">
+      <Filter>Source Files\Custom Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\basic.frag">
@@ -365,6 +368,9 @@
       <Filter>Header Files\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="FPSUpdaterComponent.hpp">
+      <Filter>Header Files\CustomComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ExampleComponent.hpp">
       <Filter>Header Files\CustomComponents</Filter>
     </ClInclude>
   </ItemGroup>

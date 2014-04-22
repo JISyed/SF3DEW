@@ -20,28 +20,8 @@ namespace sfew
 	}
 
 	// Routines =========================================
-	/*
-	void CustomComponent::Start()
-	{
 
-	}
 
-	void CustomComponent::Update()
-	{
-
-	}
-
-	void CustomComponent::Cleanup()
-	{
-
-	}
-
-	void CustomComponent::OnCollision(PhysicsCollisionGroups otherGroup, 
-									  std::weak_ptr<PhysicsEntity> otherEntity)
-	{
-
-	}
-	*/
 	// Properties =========================================
 
 

@@ -7,5 +7,6 @@
 #define SFEW_ALL_CUSTOM_COMPONENT_HEADERS_H
 
 #include "FPSUpdaterComponent.hpp"
+#include "ExampleComponent.hpp"
 
 #endif
