@@ -8,5 +8,7 @@
 
 #include "ExamplePrefab.hpp"
 #include "CubePrefab.hpp"
+#include "OctoPrefab.hpp"
+#include "FpsPrefab.hpp"
 
 #endif

@@ -42,6 +42,8 @@ namespace sfew
 	{
 		addPrefab<prefab::ExamplePrefab>();
 		addPrefab<prefab::CubePrefab>();
+		addPrefab<prefab::OctoPrefab>();
+		addPrefab<prefab::FpsPrefab>();
 
 		_resourcesLoaded = true;
 		return _resourcesLoaded;

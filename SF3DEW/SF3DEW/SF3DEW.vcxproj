@@ -160,6 +160,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="FontRegistry.cpp" />
     <ClCompile Include="FontRenderer.cpp" />
     <ClCompile Include="FontRendererComponent.cpp" />
+    <ClCompile Include="FpsPrefab.cpp" />
     <ClCompile Include="FPSUpdaterComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectContainer.cpp" />
@@ -170,6 +171,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="MeshRegistry.cpp" />
     <ClCompile Include="ObjectRenderer.cpp" />
     <ClCompile Include="ObjectRendererComponent.cpp" />
+    <ClCompile Include="OctoPrefab.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsEntity.cpp" />
     <ClCompile Include="PhysicsEntityContainer.cpp" />
@@ -220,6 +222,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClInclude Include="FontRegistry.hpp" />
     <ClInclude Include="FontRenderer.hpp" />
     <ClInclude Include="FontRendererComponent.hpp" />
+    <ClInclude Include="FpsPrefab.hpp" />
     <ClInclude Include="FPSUpdaterComponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
     <ClInclude Include="GameObjectContainer.hpp" />
@@ -232,6 +235,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClInclude Include="MeshRegistry.hpp" />
     <ClInclude Include="ObjectRenderer.hpp" />
     <ClInclude Include="ObjectRendererComponent.hpp" />
+    <ClInclude Include="OctoPrefab.hpp" />
     <ClInclude Include="PhysicsComponent.hpp" />
     <ClInclude Include="PhysicsEntity.hpp" />
     <ClInclude Include="PhysicsEntityContainer.hpp" />

@@ -97,31 +97,16 @@ int main()
 	// GAMEOBJECT TESTING GROUNDS
 
 	// Cube object
-	/*
-	auto cubeObj = sfew::GameObjectContainer::Create();
-	cubeObj._Get()->SetName("Cube");
-	cubeObj._Get()->AddComponent<sfew::ObjectRendererComponent>();
-	auto cubeRenderer = cubeObj._Get()->GetComponent<sfew::ObjectRendererComponent>();
-	cubeRenderer._Get()->GetRenderer()._Get()->SetMesh(sfew::MeshRegistry::GetByName("CubeMesh"));
-	cubeRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("WhitePatches"));
-	cubeObj._Get()->GetTransform()._Get()->SetPosition(sfew::Vector3(-2.0f, 0.0f, 0.1f));
-	*/
-
 	auto cubePrefab = sfew::PrefabricationRegistry::Get<sfew::prefab::CubePrefab>();
 	auto cubeObject = cubePrefab._Get()->MakeObject();
 
 	// FPS Text display object
-	auto fpsDisplayer = sfew::GameObjectContainer::Create();
-	fpsDisplayer._Get()->SetName("FPS");
-	fpsDisplayer._Get()->AddCustomComponent<sfew::component::FpsUpdaterCmpt>();
+	auto fpsPrefab = sfew::PrefabricationRegistry::Get<sfew::prefab::FpsPrefab>();
+	auto fpsObject = fpsPrefab._Get()->MakeObject();
 
 	// Octohedron object
-	auto octoObj = sfew::GameObjectContainer::Create();
-	octoObj._Get()->SetName("Octo");
-	octoObj._Get()->AddComponent<sfew::ObjectRendererComponent>();
-	auto octoRenderer = octoObj._Get()->GetComponent<sfew::ObjectRendererComponent>();
-	octoRenderer._Get()->GetRenderer()._Get()->SetMesh(sfew::MeshRegistry::GetByName("OctohedronMesh"));
-	octoRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("OrangePatches"));
+	auto octoPrefab = sfew::PrefabricationRegistry::Get<sfew::prefab::OctoPrefab>();
+	auto octoObject = octoPrefab._Get()->MakeObject();
 
 	// Experiment: testing SystemTime
 	std::cout << "Load: " << sfew::SystemTime::GetGameRunTime().asSeconds() << std::endl;
