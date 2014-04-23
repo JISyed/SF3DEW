@@ -40,50 +40,28 @@ namespace sfew
 	// Load all the resources
 	bool SceneRegistry::Load()
 	{
-		// Assumes that the resources were successfully loaded
-		_resourcesLoaded = true;
+		
 
-		return true;
+		_resourcesLoaded = true;
+		return _resourcesLoaded;
 	}
 
 	// Unload all the resources
 	void SceneRegistry::Unload()
 	{
+		// Mark the resources as unloaded
+		_resourcesLoaded = false;
+
 		// Skip unloading of list if empty
 		if(_resourceList.empty()) return;
 
 		// Empty the list
 		_resourceList.clear();
-
-		// Mark the resources as unloaded
-		_resourcesLoaded = false;
 	}
 
 	// Properties =========================================
 
-	// STATIC: Returns a weak reference to an object by name
-	std::weak_ptr<Scene> SceneRegistry::GetByName(const std::string& name)
-	{
-		// Make sure this registry exists
-		std::weak_ptr<Scene> empty = std::weak_ptr<Scene>();
-		if(!SceneRegistry::verifyInstantiation()) return empty;
-		if(SceneRegistry::_instance->_resourceList.empty()) return empty;
-
-		// Search through the list for an object with the same name as queried
-		std::weak_ptr<Scene> foundObject = std::weak_ptr<Scene>();
-		for(auto& resource : SceneRegistry::_instance->_resourceList)
-		{
-			// Are the two name string the same?
-			if(resource->GetName().compare(name) == 0)
-			{
-				foundObject = resource;
-				return foundObject;
-			}
-		}
-
-		// Couldn't find the queried name
-		return empty;
-	}
+	
 
 	// Helpers =========================================
 

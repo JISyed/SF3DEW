@@ -43,6 +43,7 @@ namespace sfew
 			fontCmpt._Get()->GetRenderer()._Get()->SetTextString("Example");
 			fontCmpt._Get()->GetRenderer()._Get()->SetPosition(10, 60);
 
+			// Return weak pointer
 			return go;
 		}
 
