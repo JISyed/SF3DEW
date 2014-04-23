@@ -14,6 +14,8 @@
 #include "MaterialRegistry.hpp"
 #include "AudioRegistry.hpp"
 #include "FontRegistry.hpp"
+#include "PrefabricationRegistry.hpp"
+#include "SceneRegistry.hpp"
 
 #include "GameObjectContainer.hpp"
 #include "PhysicsEntityContainer.hpp"
@@ -40,7 +42,8 @@ int main()
 	std::unique_ptr<sfew::MaterialRegistry> materialRegistry(new sfew::MaterialRegistry());
 	std::unique_ptr<sfew::AudioRegistry> audioRegistry(new sfew::AudioRegistry());
 	std::unique_ptr<sfew::FontRegistry> fontRegistry(new sfew::FontRegistry());
-
+	std::unique_ptr<sfew::PrefabricationRegistry> prefabRegistry(new sfew::PrefabricationRegistry());
+	std::unique_ptr<sfew::SceneRegistry> sceneRegistry(new sfew::SceneRegistry());
 
 	// Constuct the containers
 	std::unique_ptr<sfew::TimerContainer> timerContainer(new sfew::TimerContainer());
@@ -71,6 +74,10 @@ int main()
 
 	// Testing Font object
 	fontRegistry->Load();
+
+	// Loading prefabs and scenes
+	prefabRegistry->Load();
+	sceneRegistry->Load();
 
 
 	// Experiment: Test camera object
@@ -110,6 +117,10 @@ int main()
 	auto octoRenderer = octoObj._Get()->GetComponent<sfew::ObjectRendererComponent>();
 	octoRenderer._Get()->GetRenderer()._Get()->SetMesh(sfew::MeshRegistry::GetByName("OctohedronMesh"));
 	octoRenderer._Get()->GetRenderer()._Get()->SetMaterial(sfew::MaterialRegistry::GetByName("OrangePatches"));
+
+	// Prefab generated object
+	auto prefab = sfew::PrefabricationRegistry::Get<sfew::prefab::ExamplePrefab>();
+	auto prefabMadeGo = prefab._Get()->MakeObject();
 
 	// Experiment: testing SystemTime
 	std::cout << "Load: " << sfew::SystemTime::GetGameRunTime().asSeconds() << std::endl;
@@ -162,6 +173,8 @@ int main()
 	timerContainer->Cleanup();
 
 	// Unload all resources from all registries
+	sceneRegistry->Unload();
+	prefabRegistry->Unload();
 	fontRegistry->Unload();
 	audioRegistry->Unload();
 	materialRegistry->Unload();

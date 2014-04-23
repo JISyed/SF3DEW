@@ -385,6 +385,9 @@
     <ClInclude Include="ExamplePrefab.hpp">
       <Filter>Header Files\Prefabrications</Filter>
     </ClInclude>
+    <ClInclude Include="AllPrefabrications.hpp">
+      <Filter>Header Files\Prefabrications</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\texGameOver.png">

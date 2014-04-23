@@ -9,6 +9,8 @@
 #include <string>
 #include <unordered_map>
 #include <typeindex>
+#include <iostream>
+#include <memory>
 
 #include "INameable.hpp"
 #include "Transform.hpp"

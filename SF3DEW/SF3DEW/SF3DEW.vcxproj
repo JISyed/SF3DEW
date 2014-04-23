@@ -202,6 +202,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCustomComponentHeaders.hpp" />
+    <ClInclude Include="AllPrefabrications.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AudioComponent.hpp" />
     <ClInclude Include="AudioRegistry.hpp" />
