@@ -53,7 +53,15 @@ namespace sfew
 	// Loads scene at end of loop if requested
 	void SceneRegistry::loadSceneIfRequested()
 	{
+		// Skip if there wasn't a requested scene to load
+		if(!_sceneLoadingRequested) return;
 
+		// Load the requested scene
+
+
+		// Once scene is loaded, clear scene loading flags
+		_sceneLoadingRequested = false;
+		_loadSceneAdditively = false;
 	}
 
 	// Unload all the resources

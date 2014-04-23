@@ -32,9 +32,12 @@ namespace sfew
 		virtual void Unload();			// Unload all the resources
 		void loadSceneIfRequested();	// Loads scene at end of loop if requested
 
+		template <typename T> static bool LoadScene();	// Marks given scene to be loaded
+		template <typename T> static bool LoadAdditive();	// Marks given scene to be loaded additively
+		template <typename T> static bool IsSceneLoaded();	// Checks if given scene is current scene
+
 		// Properties =====================
 
-		template<typename T> static std::weak_ptr<T> Get(); 
 		static int NumberOfScenes();
 
 	private:
@@ -43,6 +46,7 @@ namespace sfew
 
 		static bool verifyInstantiation();	// Was this object instantiated?
 		template <typename T> bool addScene();
+		template<typename T> static std::weak_ptr<T> get(); 
 
 		// Data ===========================
 
@@ -83,8 +87,8 @@ namespace sfew
 		return true;
 	}
 
-	// Get custom scene from registry
-	template<typename T> std::weak_ptr<T> SceneRegistry::Get()
+	// STATIC: Get custom scene from registry
+	template<typename T> std::weak_ptr<T> SceneRegistry::get()
 	{
 		// Make sure this registry exists
 		std::weak_ptr<T> empty = std::weak_ptr<T>();
@@ -106,6 +110,81 @@ namespace sfew
 		return empty;
 	}
 
+	// STATIC: Marks given scene to be loaded
+	template <typename T> bool SceneRegistry::LoadScene()
+	{
+		// Make sure this registry exists
+		if(!SceneRegistry::verifyInstantiation()) return false;
+		if(SceneRegistry::_instance->_resourceList.empty()) return false;
+
+		// Get queried type
+		std::type_index requestedType(typeid(T));
+
+		// Get queried scene
+		std::weak_ptr<T> queriedScene = SceneRegistry::get<T>();
+
+		// Abort if scene wasn't found
+		if(queriedScene.expired())
+		{
+			std::cout << "Warning: Could not find scene \""
+				<< requestedType.name() << "\"." << std::endl;
+			SceneRegistry::_instance->_sceneLoadingRequested = false;
+			SceneRegistry::_instance->_loadSceneAdditively = false;
+			return false;
+		}
+
+		// Mark the scene to be loaded
+		SceneRegistry::_instance->_sceneLoadingRequested = true;
+		SceneRegistry::_instance->_loadSceneAdditively = false;
+		SceneRegistry::_instance->_requestedScene = requestedType;
+
+		return true;
+	}
+
+	// STATIC: Marks given scene to be loaded additively
+	template <typename T> bool SceneRegistry::LoadAdditive()
+	{
+		// Make sure this registry exists
+		if(!SceneRegistry::verifyInstantiation()) return false;
+		if(SceneRegistry::_instance->_resourceList.empty()) return false;
+
+		// Get queried type
+		std::type_index requestedType(typeid(T));
+
+		// Get queried scene
+		std::weak_ptr<T> queriedScene = SceneRegistry::get<T>();
+
+		// Abort if scene wasn't found
+		if(queriedScene.expired())
+		{
+			std::cout << "Warning: Could not find scene \""
+				<< requestedType.name() << "\"." << std::endl;
+			SceneRegistry::_instance->_sceneLoadingRequested = false;
+			SceneRegistry::_instance->_loadSceneAdditively = false;
+			return false;
+		}
+
+		// Mark the scene to be loaded additively
+		SceneRegistry::_instance->_sceneLoadingRequested = true;
+		SceneRegistry::_instance->_loadSceneAdditively = true;
+		SceneRegistry::_instance->_requestedScene = requestedType;
+
+		return true;
+	}
+
+	// STATIC: Checks if given scene is current scene
+	template <typename T> bool SceneRegistry::IsSceneLoaded()
+	{
+		// Make sure this registry exists
+		if(!SceneRegistry::verifyInstantiation()) return false;
+		if(SceneRegistry::_instance->_resourceList.empty()) return false;
+
+		// Get queried type
+		std::type_index requestedType(typeid(T));
+
+		// Compare if the requested scene is the current scene
+		return requestedType == SceneRegistry::_instance->_currentScene;
+	}
 	
 } // namespace sfew
 
