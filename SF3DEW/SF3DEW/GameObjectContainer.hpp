@@ -30,6 +30,8 @@ namespace sfew
 		
 		static std::weak_ptr<GameObject> Create();	// Factory method for GameObjects
 
+		static void RemoveEverything();
+
 		// Properties =====================
 
 		static std::weak_ptr<GameObject> GetByName(const std::string& name);

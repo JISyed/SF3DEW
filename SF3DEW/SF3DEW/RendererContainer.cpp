@@ -169,6 +169,26 @@ namespace sfew
 		std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 	}
 
+	// STATIC:
+	void RendererContainer::RemoveEverything()
+	{
+		// Was this initalized
+		if(!RendererContainer::verifyInstantiation()) return;
+
+		// Clear object renderers if they exist
+		if(!RendererContainer::_instance->_listOfObjectRenderers.empty())
+		{
+			RendererContainer::_instance->_listOfObjectRenderers.clear();
+		}
+
+		// Clear font renderers if they exist
+		if(!RendererContainer::_instance->_listOfFontRenderers.empty())
+		{
+			RendererContainer::_instance->_listOfFontRenderers.clear();
+		}
+		
+	}
+
 	// Properties =========================================
 
 	// STATIC:

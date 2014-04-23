@@ -26,6 +26,7 @@ namespace sfew
 		virtual bool Update();
 		virtual bool Cleanup();
 		static void Add(std::weak_ptr<PhysicsEntity> newObject);
+		static void RemoveEverything();
 
 		// Properties =====================
 

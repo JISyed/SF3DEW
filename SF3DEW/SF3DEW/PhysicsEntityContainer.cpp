@@ -129,6 +129,22 @@ namespace sfew
 		PhysicsEntityContainer::_instance->_listOfContainedObjects.push_front(newObject);
 	}
 
+	// STATIC:
+	void PhysicsEntityContainer::RemoveEverything()
+	{
+		// Was this initalized
+		if(!PhysicsEntityContainer::verifyInstantiation()) return;
+
+		// Check if container is already empty
+		if(PhysicsEntityContainer::_instance->_listOfContainedObjects.empty())
+		{
+			return;
+		}
+
+		// Remove everything
+		PhysicsEntityContainer::_instance->_listOfContainedObjects.clear();
+	}
+
 	// Properties =========================================
 
 	// Helpers =========================================

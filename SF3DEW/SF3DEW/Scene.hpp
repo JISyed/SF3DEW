@@ -6,6 +6,7 @@
 #ifndef SFEW_SCENE_H
 #define SFEW_SCENE_H
 
+#include <memory>
 #include <SFML/System/NonCopyable.hpp>
 
 #include "INameable.hpp"
@@ -19,11 +20,12 @@ namespace sfew
 		// Ctor/Dtor ======================
 
 		Scene();
-		~Scene();
+		virtual ~Scene();
 
 		// Routines =======================
 
-		
+		virtual bool Load() = 0;
+		virtual bool LoadAdditive() = 0;
 
 		// Properties =====================
 
@@ -31,7 +33,7 @@ namespace sfew
 
 		// Helpers ========================
 
-		
+
 
 		// Data ===========================
 

@@ -104,6 +104,22 @@ namespace sfew
 		return newObject;
 	}
 
+	// STATIC:
+	void TimerContainer::RemoveEverything()
+	{
+		// Was this initalized
+		if(!TimerContainer::verifyInstantiation()) return;
+
+		// Check if container is already empty
+		if(TimerContainer::_instance->_listOfContainedObjects.empty())
+		{
+			return;
+		}
+
+		// Remove everything
+		TimerContainer::_instance->_listOfContainedObjects.clear();
+	}
+
 	// Properties =========================================
 
 	// Helpers =========================================

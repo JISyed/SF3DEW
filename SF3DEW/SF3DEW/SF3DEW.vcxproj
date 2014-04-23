@@ -156,6 +156,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="CustomComponent.cpp" />
     <ClCompile Include="ExampleComponent.cpp" />
     <ClCompile Include="ExamplePrefab.cpp" />
+    <ClCompile Include="ExampleScene.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontRegistry.cpp" />
     <ClCompile Include="FontRenderer.cpp" />
@@ -206,6 +207,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
   <ItemGroup>
     <ClInclude Include="AllCustomComponentHeaders.hpp" />
     <ClInclude Include="AllPrefabrications.hpp" />
+    <ClInclude Include="AllScenes.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AudioComponent.hpp" />
     <ClInclude Include="AudioRegistry.hpp" />
@@ -218,6 +220,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClInclude Include="CustomComponent.hpp" />
     <ClInclude Include="ExampleComponent.hpp" />
     <ClInclude Include="ExamplePrefab.hpp" />
+    <ClInclude Include="ExampleScene.hpp" />
     <ClInclude Include="Font.hpp" />
     <ClInclude Include="FontRegistry.hpp" />
     <ClInclude Include="FontRenderer.hpp" />

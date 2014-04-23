@@ -104,6 +104,22 @@ namespace sfew
 		return newObject;
 	}
 
+	// STATIC:
+	void GameObjectContainer::RemoveEverything()
+	{
+		// Was this initalized
+		if(!GameObjectContainer::verifyInstantiation()) return;
+
+		// Check if container is already empty
+		if(GameObjectContainer::_instance->_listOfContainedObjects.empty())
+		{
+			return;
+		}
+
+		// Remove everything
+		GameObjectContainer::_instance->_listOfContainedObjects.clear();
+	}
+
 	// Properties =========================================
 
 	// STATIC:

@@ -13,6 +13,7 @@
 
 #include "Registry.hpp"
 #include "Scene.hpp"
+#include "AllScenes.hpp"
 
 namespace sfew
 {
@@ -33,6 +34,7 @@ namespace sfew
 		// Properties =====================
 
 		template<typename T> static std::weak_ptr<T> Get(); 
+		static int NumberOfScenes();
 
 	private:
 

@@ -85,6 +85,12 @@
     <Filter Include="Source Files\Prefabrications">
       <UniqueIdentifier>{5d3d2529-eabf-49f8-ae66-a4c3cefacd6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scenes">
+      <UniqueIdentifier>{8fb8a8fb-552e-4e0f-8386-2e543c281411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{9b7a8559-c308-44e3-ab5e-d690cb72bd44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -221,6 +227,9 @@
     </ClCompile>
     <ClCompile Include="FpsPrefab.cpp">
       <Filter>Source Files\Prefabrications</Filter>
+    </ClCompile>
+    <ClCompile Include="ExampleScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -405,6 +414,12 @@
     </ClInclude>
     <ClInclude Include="FpsPrefab.hpp">
       <Filter>Header Files\Prefabrications</Filter>
+    </ClInclude>
+    <ClInclude Include="AllScenes.hpp">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ExampleScene.hpp">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

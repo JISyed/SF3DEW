@@ -30,6 +30,7 @@ namespace sfew
 		static void Add(std::weak_ptr<FontRenderer> newFontRenderer);
 		bool Draw();
 		static void PrintOpenGLVersion();
+		static void RemoveEverything();
 
 		// Properties =====================
 

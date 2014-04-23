@@ -40,7 +40,7 @@ namespace sfew
 	// Load all the resources
 	bool SceneRegistry::Load()
 	{
-		
+		addScene<scene::ExampleScene>();
 
 		_resourcesLoaded = true;
 		return _resourcesLoaded;
@@ -61,7 +61,15 @@ namespace sfew
 
 	// Properties =========================================
 
-	
+	// STATIC:
+	int SceneRegistry::NumberOfScenes()
+	{
+		// Make sure this exists
+		if(!SceneRegistry::verifyInstantiation()) return 0;
+		if(SceneRegistry::_instance->_resourceList.empty()) return 0;
+
+		return SceneRegistry::_instance->_resourceList.size();
+	}
 
 	// Helpers =========================================
 
