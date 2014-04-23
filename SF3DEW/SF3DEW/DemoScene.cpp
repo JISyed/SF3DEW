@@ -5,6 +5,7 @@
 #include "RendererContainer.hpp"
 #include "TimerContainer.hpp"
 #include "PhysicsEntityContainer.hpp"
+#include "AudioRegistry.hpp"
 
 // System includes not needed in header
 #include <iostream>
@@ -41,6 +42,7 @@ namespace sfew
 			RendererContainer::RemoveEverything();
 			TimerContainer::RemoveEverything();
 			GameObjectContainer::RemoveEverything();
+			AudioRegistry::StopEverything();
 
 			// Load Scene
 			bool status = LoadAdditive();

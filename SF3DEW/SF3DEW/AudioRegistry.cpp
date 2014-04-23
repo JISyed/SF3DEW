@@ -64,14 +64,34 @@ namespace sfew
 	// Unload all the resources
 	void AudioRegistry::Unload()
 	{
+		// Mark the resources as unloaded
+		_resourcesLoaded = false;
+
 		// Skip unloading of list if empty
 		if(_resourceList.empty()) return;
 
+		// Stop all AudioSources
+		for(auto& audio : AudioRegistry::_instance->_resourceList)
+		{
+			audio->Stop();
+		}
+
 		// Empty the list
 		_resourceList.clear();
+	}
 
-		// Mark the resources as unloaded
-		_resourcesLoaded = false;
+	// Stop all AudioSources from playing
+	void AudioRegistry::StopEverything()
+	{
+		// Make sure this exists and is not empty
+		if(!AudioRegistry::verifyInstantiation()) return;
+		if(AudioRegistry::_instance->_resourceList.empty()) return;
+
+		// Stop all AudioSources
+		for(auto& audio : AudioRegistry::_instance->_resourceList)
+		{
+			audio->Stop();
+		}
 	}
 
 	// Properties =========================================

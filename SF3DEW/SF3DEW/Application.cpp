@@ -124,21 +124,17 @@ namespace sfew
 	// The main app loop
 	bool Application::MainLoop()
 	{
-		// START GAME LOOP
 		sf::Event event;
 		while(_isRunning)
 		{
-			// START THE UPDATE LOOP
+			// START THE MAIN LOOP
 
-			// Update the delta time and timer (mandatory)
+			// Update the delta time, timers, and scene loader
 			_systemTime->Update();
-
-			// Load a new scene if one was requested
 			_sceneRegistry->loadSceneIfRequested();
-
 			_timerContainer->Update();
 
-			
+			// Check if the window was requested to be closed
 			while(_window->pollEvent(event))
 			{
 				switch(event.type)
@@ -152,16 +148,16 @@ namespace sfew
 				}
 			}
 
-			// ACTUAL UPDATE
+			// UPDATE
 			_physicsContainer->Update();
 			_gameObjectContainer->Update();
 
-			// START OF DRAW LOOP
-
+			// DRAW
 			_shaderRegistry->UpdateCameraDataInShaders();
 			_rendererContainer->Draw();
 
-		} // END OF GAME LOOP
+			// END OF MAIN LOOP
+		}
 
 		return true;
 	}

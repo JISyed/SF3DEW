@@ -22,8 +22,9 @@ namespace sfew
 
 		// Routines =======================
 
-		virtual bool Load();						// Load all the resources
-		virtual void Unload();						// Unload all the resources
+		virtual bool Load();			// Load all the resources
+		virtual void Unload();			// Unload all the resources
+		static void StopEverything();	// Stop all AudioSources from playing
 
 		// Properties =====================
 
