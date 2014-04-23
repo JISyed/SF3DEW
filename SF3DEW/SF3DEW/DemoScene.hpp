@@ -1,7 +1,7 @@
-// [EXAMPLE] Scene
-// [DESCRIBE THE SCENE/LEVEL HERE]
+// Demo Scene
+// Example Scene demonstriating SF3DEW
 //
-// Written by [NAME] ([MONTH]-[DAY]-[YEAR])
+// Written by Jibran Syed (4-23-2014)
 
 // Required Headers
 #ifndef SFEW_CUSTOM_SCENE__DEMO

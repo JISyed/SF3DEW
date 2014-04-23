@@ -94,25 +94,6 @@ int main()
 	shaderRegistry->UpdateCameraDataInShaders();
 
 
-	// GAMEOBJECT TESTING GROUNDS
-
-	// Cube object
-	auto cubePrefab = sfew::PrefabricationRegistry::Get<sfew::prefab::CubePrefab>();
-	auto cubeObject = cubePrefab._Get()->MakeObject();
-
-	// FPS Text display object
-	auto fpsPrefab = sfew::PrefabricationRegistry::Get<sfew::prefab::FpsPrefab>();
-	auto fpsObject = fpsPrefab._Get()->MakeObject();
-
-	// Octohedron object
-	auto octoPrefab = sfew::PrefabricationRegistry::Get<sfew::prefab::OctoPrefab>();
-	auto octoObject = octoPrefab._Get()->MakeObject();
-
-
-	// Scene Test
-	bool sceneSuccess = sfew::SceneRegistry::LoadScene<sfew::scene::ExampleScene>();
-
-
 	// Experiment: testing SystemTime
 	std::cout << "Load: " << sfew::SystemTime::GetGameRunTime().asSeconds() << std::endl;
 
@@ -127,6 +108,10 @@ int main()
 
 		// Update the delta time and timer (mandatory)
 		systemTime.Update();
+
+		// Load a new scene if one was requested
+		sceneRegistry->loadSceneIfRequested();
+
 		timerContainer->Update();
 
 		sf::Event event;
@@ -151,11 +136,6 @@ int main()
 
 		shaderRegistry->UpdateCameraDataInShaders();
 		rendererContainer->Draw();
-
-		// End of Drawing
-
-		// Load a new scene if one was requested
-		sceneRegistry->loadSceneIfRequested();
 
 	} // END OF GAME LOOP
 

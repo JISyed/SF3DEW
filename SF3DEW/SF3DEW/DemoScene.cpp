@@ -1,5 +1,6 @@
 #include "DemoScene.hpp"
 #include "PrefabricationRegistry.hpp"
+#include "Camera.hpp"
 #include "GameObjectContainer.hpp"
 #include "RendererContainer.hpp"
 #include "TimerContainer.hpp"
@@ -9,7 +10,7 @@
 #include <iostream>
 
 // SFEW includes not needed in header
-
+#include "SceneRegistry.hpp"
 
 namespace sfew
 {
@@ -50,7 +51,26 @@ namespace sfew
 		bool DemoScene::LoadAdditive()
 		{
 			// Load the desired GameObjects here
+			
+			// Cube object
+			auto cubePrefab = PrefabricationRegistry::Get<prefab::CubePrefab>();
+			auto cubeObject = cubePrefab._Get()->MakeObject();
 
+			// FPS Text display object
+			auto fpsPrefab = PrefabricationRegistry::Get<prefab::FpsPrefab>();
+			auto fpsObject = fpsPrefab._Get()->MakeObject();
+
+			// Octohedron object
+			auto octoPrefab = PrefabricationRegistry::Get<prefab::OctoPrefab>();
+			auto octoObject = octoPrefab._Get()->MakeObject();
+
+			std::weak_ptr<sfew::Timer> reloadTimer = sfew::TimerContainer::Create(
+				sf::seconds(5.0f),
+				[]()
+				{
+					SceneRegistry::LoadScene<sfew::scene::ExampleScene>();
+				}
+			);
 
 			return true;
 		}

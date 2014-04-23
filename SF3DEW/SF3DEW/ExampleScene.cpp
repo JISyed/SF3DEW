@@ -1,5 +1,6 @@
 #include "ExampleScene.hpp"
 #include "PrefabricationRegistry.hpp"
+#include "Camera.hpp"
 #include "GameObjectContainer.hpp"
 #include "RendererContainer.hpp"
 #include "TimerContainer.hpp"
