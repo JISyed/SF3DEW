@@ -9,12 +9,11 @@
 #include <SFML/System/NonCopyable.hpp>
 #include <memory>
 
-#include "INameable.hpp"
 #include "GameObject.hpp"
 
 namespace sfew
 {
-	class Prefabrication : sf::NonCopyable, public INameable
+	class Prefabrication : sf::NonCopyable
 	{
 	public:
 

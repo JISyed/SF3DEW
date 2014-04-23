@@ -23,7 +23,7 @@ namespace sfew
 
 		CubePrefab::CubePrefab()
 		{
-			SetName("Cube");
+			
 		}
 
 		CubePrefab::~CubePrefab()

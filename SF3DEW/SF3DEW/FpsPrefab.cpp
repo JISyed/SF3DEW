@@ -23,7 +23,7 @@ namespace sfew
 
 		FpsPrefab::FpsPrefab()
 		{
-			SetName("FPS");
+			
 		}
 
 		FpsPrefab::~FpsPrefab()

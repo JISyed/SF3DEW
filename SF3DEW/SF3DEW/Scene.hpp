@@ -9,11 +9,9 @@
 #include <memory>
 #include <SFML/System/NonCopyable.hpp>
 
-#include "INameable.hpp"
-
 namespace sfew
 {
-	class Scene : sf::NonCopyable, public INameable
+	class Scene : sf::NonCopyable
 	{
 	public:
 

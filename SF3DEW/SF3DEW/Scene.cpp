@@ -6,7 +6,7 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	Scene::Scene() : INameable("Unnamed Scene")
+	Scene::Scene()
 	{
 		
 	}

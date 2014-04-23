@@ -23,7 +23,7 @@ namespace sfew
 
 		OctoPrefab::OctoPrefab()
 		{
-			SetName("Octo");
+			
 		}
 
 		OctoPrefab::~OctoPrefab()

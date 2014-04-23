@@ -6,7 +6,7 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
-	Prefabrication::Prefabrication() : INameable("Unnamed Prefab")
+	Prefabrication::Prefabrication()
 	{
 		
 	}

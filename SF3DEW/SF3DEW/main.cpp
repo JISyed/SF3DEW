@@ -147,6 +147,11 @@ int main()
 		shaderRegistry->UpdateCameraDataInShaders();
 		rendererContainer->Draw();
 
+		// End of Drawing
+
+		// Load a new scene if one was requested
+		sceneRegistry->loadSceneIfRequested();
+
 	} // END OF GAME LOOP
 
 

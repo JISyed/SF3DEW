@@ -6,7 +6,7 @@
 #include "PhysicsEntityContainer.hpp"
 
 // System includes not needed in header
-
+#include <iostream>
 
 // SFEW includes not needed in header
 
@@ -35,7 +35,12 @@ namespace sfew
 			// It is recommended to implement the scene loading in LoadActive()
 
 			// Clear current scene
+			PhysicsEntityContainer::RemoveEverything();
+			RendererContainer::RemoveEverything();
+			TimerContainer::RemoveEverything();
+			GameObjectContainer::RemoveEverything();
 
+			std::cout << "Clearing" <<std::endl;
 
 			// Load Scene
 			bool status = LoadAdditive();
@@ -47,7 +52,7 @@ namespace sfew
 		bool ExampleScene::LoadAdditive()
 		{
 			// Load the desired GameObjects here
-
+			std::cout << "Additive" <<std::endl;
 
 
 			return true;

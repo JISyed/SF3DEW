@@ -12,7 +12,11 @@ namespace sfew
 	// Ctor/Dtor ========================================
 
 	// Ctor
-	SceneRegistry::SceneRegistry()
+	SceneRegistry::SceneRegistry() :
+		_sceneLoadingRequested(false),
+		_loadSceneAdditively(false),
+		_requestedScene(typeid(Scene)),
+		_currentScene(typeid(Scene))
 	{
 		if(SceneRegistry::_instance != NULL)
 		{
@@ -44,6 +48,12 @@ namespace sfew
 
 		_resourcesLoaded = true;
 		return _resourcesLoaded;
+	}
+
+	// Loads scene at end of loop if requested
+	void SceneRegistry::loadSceneIfRequested()
+	{
+
 	}
 
 	// Unload all the resources

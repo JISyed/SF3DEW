@@ -23,7 +23,7 @@ namespace sfew
 
 		ExamplePrefab::ExamplePrefab()
 		{
-			SetName("Example");
+			
 		}
 
 		ExamplePrefab::~ExamplePrefab()

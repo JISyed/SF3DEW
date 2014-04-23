@@ -28,8 +28,9 @@ namespace sfew
 
 		// Routines =======================
 
-		virtual bool Load();						// Load all the resources
-		virtual void Unload();						// Unload all the resources
+		virtual bool Load();			// Load all the resources
+		virtual void Unload();			// Unload all the resources
+		void loadSceneIfRequested();	// Loads scene at end of loop if requested
 
 		// Properties =====================
 
@@ -49,7 +50,12 @@ namespace sfew
 		
 		// Hash table of custom prefabs stored by type
 		std::unordered_map<std::type_index, std::shared_ptr<Scene>> _resourceList;
-		
+
+		bool _sceneLoadingRequested;		// Was a new scene load requested?
+		bool _loadSceneAdditively;			// Will next scene load additively?
+		std::type_index _requestedScene;	// The scene requested to load
+		std::type_index _currentScene;		// The current scene loaded
+
 	};
 
 	// Template Implementations ===========================================
