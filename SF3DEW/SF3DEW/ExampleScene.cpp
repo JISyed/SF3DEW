@@ -10,7 +10,7 @@
 #include <iostream>
 
 // SFEW includes not needed in header
-
+#include "Random.hpp"
 
 namespace sfew
 {

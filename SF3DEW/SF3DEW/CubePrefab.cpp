@@ -13,6 +13,7 @@
 
 
 // SFEW Includes not needed in header
+#include "Random.hpp"
 
 
 namespace sfew

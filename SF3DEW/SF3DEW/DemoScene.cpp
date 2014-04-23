@@ -10,6 +10,7 @@
 #include <iostream>
 
 // SFEW includes not needed in header
+#include "Random.hpp"
 #include "SceneRegistry.hpp"
 
 namespace sfew
@@ -63,14 +64,6 @@ namespace sfew
 			// Octohedron object
 			auto octoPrefab = PrefabricationRegistry::Get<prefab::OctoPrefab>();
 			auto octoObject = octoPrefab._Get()->MakeObject();
-
-			std::weak_ptr<sfew::Timer> reloadTimer = sfew::TimerContainer::Create(
-				sf::seconds(5.0f),
-				[]()
-				{
-					SceneRegistry::LoadScene<sfew::scene::ExampleScene>();
-				}
-			);
 
 			return true;
 		}

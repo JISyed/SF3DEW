@@ -1,11 +1,12 @@
 #include "FPSUpdaterComponent.hpp"
 #include <iostream>
+#include "GameObject.hpp"
 
 // System Headers not needed in header
 #include <string>
 
 // SFEW Headers not needed in header
-#include "GameObject.hpp"
+#include "Random.hpp"
 #include "SystemTime.hpp"
 
 namespace sfew

@@ -15,6 +15,23 @@
 
 #include "ISystemObject.hpp"
 
+#include "SystemTime.hpp"
+#include "Camera.hpp"
+
+#include "MeshRegistry.hpp"
+#include "ShaderRegistry.hpp"
+#include "TextureRegistry.hpp"
+#include "MaterialRegistry.hpp"
+#include "AudioRegistry.hpp"
+#include "FontRegistry.hpp"
+#include "PrefabricationRegistry.hpp"
+#include "SceneRegistry.hpp"
+
+#include "TimerContainer.hpp"
+#include "PhysicsEntityContainer.hpp"
+#include "RendererContainer.hpp"
+#include "GameObjectContainer.hpp"
+
 namespace sfew
 {
 	class Application : sf::NonCopyable, public ISystemObject
@@ -34,10 +51,11 @@ namespace sfew
 
 		// Routines =======================
 
-
+		bool MainLoop();			// The main app loop
 
 		// Static Routines ================
 
+		static void Quit();
 
 		// Properties =====================
 
@@ -49,11 +67,38 @@ namespace sfew
 		// Helpers ========================
 
 		static bool verifyInstantiation();
+		void setupCamera();		// Setup the camera's default setting
+		void setupWindow();		// Setup the SFML Window
 
 		// Data ===========================
 
+		// Loop
+		bool _isRunning;		// Is the app still running?
+
+		// Window
 		sf::Vector2u _windowSize;						// Size of the window in pixels
 		std::shared_ptr<sf::RenderWindow> _window;		// Represents a window on the desktop
+
+		// System Objects
+		std::unique_ptr<SystemTime> _systemTime;	// Handles app time data
+		std::weak_ptr<Camera> _camera;				// Represents a camera to render 3D
+
+		// Registries
+		std::unique_ptr<MeshRegistry> _meshRegistry;				// Registry for Meshes
+		std::unique_ptr<ShaderRegistry> _shaderRegistry;			// Registry for Shaders
+		std::unique_ptr<TextureRegistry> _textureRegistry;			// Registry for Textures
+		std::unique_ptr<MaterialRegistry> _materialRegistry;		// Registry for Materials
+		std::unique_ptr<AudioRegistry> _audioRegistry;				// Registry for AudioSources
+		std::unique_ptr<FontRegistry> _fontRegistry;				// Registry for Fonts
+		std::unique_ptr<PrefabricationRegistry> _prefabRegistry;	// Registry for Prefabrications
+		std::unique_ptr<SceneRegistry> _sceneRegistry;				// Registry for Scenes
+
+		// Containers
+		std::unique_ptr<TimerContainer> _timerContainer;			// Container for Timers
+		std::unique_ptr<PhysicsEntityContainer> _physicsContainer;	// Container for PhysicsEntities
+		std::unique_ptr<RendererContainer> _rendererContainer;		// Container for ObjectRenderers and FontRenderers
+		std::unique_ptr<GameObjectContainer> _gameObjectContainer;	// Container for GameObjects
+
 
 		// Singleton Data =================
 

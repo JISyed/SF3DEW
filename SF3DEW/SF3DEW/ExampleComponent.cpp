@@ -1,11 +1,12 @@
 #include "ExampleComponent.hpp"
 #include <iostream>
+#include "GameObject.hpp"
 
 // System Headers not needed in header
 
 
 // SFEW Headers not needed in header
-
+#include "Random.hpp"
 
 namespace sfew
 {
