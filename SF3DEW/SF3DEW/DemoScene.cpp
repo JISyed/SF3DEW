@@ -1,4 +1,4 @@
-#include "ExampleScene.hpp"
+#include "DemoScene.hpp"
 #include "PrefabricationRegistry.hpp"
 #include "GameObjectContainer.hpp"
 #include "RendererContainer.hpp"
@@ -17,12 +17,12 @@ namespace sfew
 	{
 		// Ctor/Dtor ========================================
 
-		ExampleScene::ExampleScene()
+		DemoScene::DemoScene()
 		{
 			
 		}
 
-		ExampleScene::~ExampleScene()
+		DemoScene::~DemoScene()
 		{
 			
 		}
@@ -30,7 +30,7 @@ namespace sfew
 		// Routines =========================================
 
 		// Clears current scene and loads
-		bool ExampleScene::Load()
+		bool DemoScene::Load()
 		{
 			// It is recommended to implement the scene loading in LoadActive()
 
@@ -47,7 +47,7 @@ namespace sfew
 		}
 
 		// Loads without clearing current scene
-		bool ExampleScene::LoadAdditive()
+		bool DemoScene::LoadAdditive()
 		{
 			// Load the desired GameObjects here
 

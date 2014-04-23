@@ -45,6 +45,7 @@ namespace sfew
 	bool SceneRegistry::Load()
 	{
 		addScene<scene::ExampleScene>();
+		addScene<scene::DemoScene>();
 
 		_resourcesLoaded = true;
 		return _resourcesLoaded;
@@ -57,7 +58,11 @@ namespace sfew
 		if(!_sceneLoadingRequested) return;
 
 		// Load the requested scene
-
+		std::shared_ptr<Scene> sceneToBeLoaded = _resourceList.at(_requestedScene);
+		if(_loadSceneAdditively)
+			sceneToBeLoaded->LoadAdditive();
+		else
+			sceneToBeLoaded->Load();
 
 		// Once scene is loaded, clear scene loading flags
 		_sceneLoadingRequested = false;

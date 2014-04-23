@@ -33,7 +33,7 @@ namespace sfew
 		void loadSceneIfRequested();	// Loads scene at end of loop if requested
 
 		template <typename T> static bool LoadScene();	// Marks given scene to be loaded
-		template <typename T> static bool LoadAdditive();	// Marks given scene to be loaded additively
+		template <typename T> static bool LoadSceneAdditive();	// Marks given scene to be loaded additively
 		template <typename T> static bool IsSceneLoaded();	// Checks if given scene is current scene
 
 		// Properties =====================
@@ -142,7 +142,7 @@ namespace sfew
 	}
 
 	// STATIC: Marks given scene to be loaded additively
-	template <typename T> bool SceneRegistry::LoadAdditive()
+	template <typename T> bool SceneRegistry::LoadSceneAdditive()
 	{
 		// Make sure this registry exists
 		if(!SceneRegistry::verifyInstantiation()) return false;

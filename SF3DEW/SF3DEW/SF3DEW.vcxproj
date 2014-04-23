@@ -154,6 +154,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="CubePrefab.cpp" />
     <ClCompile Include="CustomComponent.cpp" />
+    <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="ExampleComponent.cpp" />
     <ClCompile Include="ExamplePrefab.cpp" />
     <ClCompile Include="ExampleScene.cpp" />
@@ -218,6 +219,7 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
     <ClInclude Include="Container.hpp" />
     <ClInclude Include="CubePrefab.hpp" />
     <ClInclude Include="CustomComponent.hpp" />
+    <ClInclude Include="DemoScene.hpp" />
     <ClInclude Include="ExampleComponent.hpp" />
     <ClInclude Include="ExamplePrefab.hpp" />
     <ClInclude Include="ExampleScene.hpp" />

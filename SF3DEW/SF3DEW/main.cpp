@@ -108,6 +108,11 @@ int main()
 	auto octoPrefab = sfew::PrefabricationRegistry::Get<sfew::prefab::OctoPrefab>();
 	auto octoObject = octoPrefab._Get()->MakeObject();
 
+
+	// Scene Test
+	bool sceneSuccess = sfew::SceneRegistry::LoadScene<sfew::scene::ExampleScene>();
+
+
 	// Experiment: testing SystemTime
 	std::cout << "Load: " << sfew::SystemTime::GetGameRunTime().asSeconds() << std::endl;
 

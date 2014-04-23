@@ -7,5 +7,6 @@
 #define SFEW_ALL_SCENE_HEADERS_H
 
 #include "ExampleScene.hpp"
+#include "DemoScene.hpp"
 
 #endif
