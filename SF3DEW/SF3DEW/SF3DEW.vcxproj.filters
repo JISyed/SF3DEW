@@ -213,6 +213,9 @@
     <ClCompile Include="ExamplePrefab.cpp">
       <Filter>Source Files\Prefabrications</Filter>
     </ClCompile>
+    <ClCompile Include="CubePrefab.cpp">
+      <Filter>Source Files\Prefabrications</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\basic.frag">
@@ -386,6 +389,9 @@
       <Filter>Header Files\Prefabrications</Filter>
     </ClInclude>
     <ClInclude Include="AllPrefabrications.hpp">
+      <Filter>Header Files\Prefabrications</Filter>
+    </ClInclude>
+    <ClInclude Include="CubePrefab.hpp">
       <Filter>Header Files\Prefabrications</Filter>
     </ClInclude>
   </ItemGroup>

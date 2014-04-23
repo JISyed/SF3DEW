@@ -1,4 +1,4 @@
-#include "ExamplePrefab.hpp"
+#include "CubePrefab.hpp"
 #include "GameObjectContainer.hpp"
 #include "MaterialRegistry.hpp"
 #include "MeshRegistry.hpp"
@@ -21,26 +21,30 @@ namespace sfew
 	{
 		// Ctor/Dtor ========================================
 
-		ExamplePrefab::ExamplePrefab()
+		CubePrefab::CubePrefab()
 		{
-			SetName("Example");
+			SetName("Cube");
 		}
 
-		ExamplePrefab::~ExamplePrefab()
+		CubePrefab::~CubePrefab()
 		{
 			
 		}
 
 		// Routines =========================================
 
-		std::weak_ptr<GameObject> ExamplePrefab::MakeObject()
+		std::weak_ptr<GameObject> CubePrefab::MakeObject()
 		{
 			// Create GameObject and name it
 			std::weak_ptr<GameObject> go = GameObjectContainer::Create();
-			go._Get()->SetName("Example");
+			go._Get()->SetName("Cube");
 
 			// Setup other properties here
-			
+			go._Get()->AddComponent<ObjectRendererComponent>();
+			auto cubeRenderer = go._Get()->GetComponent<ObjectRendererComponent>();
+			cubeRenderer._Get()->GetRenderer()._Get()->SetMesh(MeshRegistry::GetByName("CubeMesh"));
+			cubeRenderer._Get()->GetRenderer()._Get()->SetMaterial(MaterialRegistry::GetByName("WhitePatches"));
+			go._Get()->GetTransform()._Get()->SetPosition(Vector3(-2.0f, 0.0f, 0.1f));
 
 			// Return weak pointer
 			return go;

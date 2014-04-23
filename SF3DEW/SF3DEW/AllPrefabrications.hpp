@@ -7,5 +7,6 @@
 #define SFEW_ALL_PREFABRICATION_HEADERS_H
 
 #include "ExamplePrefab.hpp"
+#include "CubePrefab.hpp"
 
 #endif

@@ -41,7 +41,8 @@ namespace sfew
 	bool PrefabricationRegistry::Load()
 	{
 		addPrefab<prefab::ExamplePrefab>();
-		
+		addPrefab<prefab::CubePrefab>();
+
 		_resourcesLoaded = true;
 		return _resourcesLoaded;
 	}
