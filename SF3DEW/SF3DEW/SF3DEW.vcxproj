@@ -271,6 +271,9 @@ if %frce% geq 4 exit %frce% else exit 0</Command>
   <ItemGroup>
     <Font Include="Fonts\Mars_1_0_0_6.otf" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

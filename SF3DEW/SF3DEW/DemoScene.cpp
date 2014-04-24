@@ -69,19 +69,9 @@ namespace sfew
 			// Octohedron object
 			auto octoPrefab = PrefabricationRegistry::Get<prefab::OctoPrefab>();
 			auto octoObject = octoPrefab._Get()->MakeObject();
-			octoObject._Get()->SetPersistance(true);
 			octoObject._Get()->AddComponent<PhysicsComponent>();
 			auto phys = octoObject._Get()->GetComponent<PhysicsComponent>();
-			phys._Get()->GetPhysicsEntity()._Get()->SetRotationalAcceleration(Vector3(0.0f, 50.0f, 0.0f));
-
-			// Timer for loading new scene
-			std::weak_ptr<Timer> sceneLoadTimer = TimerContainer::Create(
-				sf::seconds(5.0f),
-				[]()
-				{
-					SceneRegistry::LoadScene<scene::ExampleScene>();
-				}
-			);
+			phys._Get()->GetPhysicsEntity()._Get()->SetRotationalAcceleration(Vector3(0.0f, 51.0f, 0.0f));
 
 			return true;
 		}
