@@ -87,10 +87,13 @@ namespace sfew
 		if(!AudioRegistry::verifyInstantiation()) return;
 		if(AudioRegistry::_instance->_resourceList.empty()) return;
 
-		// Stop all AudioSources
+		// Stop all AudioSources if interuptable
 		for(auto& audio : AudioRegistry::_instance->_resourceList)
 		{
-			audio->Stop();
+			if(audio->IsInteruptable())
+			{
+				audio->Stop();
+			}
 		}
 	}
 
