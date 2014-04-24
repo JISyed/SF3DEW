@@ -27,7 +27,8 @@ namespace sfew
 		_linearDrag(0.0f),
 		_angularDrag(0.0f),
 		_gameObject(gameObject),
-		_transform(gameObject._Get()->GetTransform())
+		_transform(gameObject._Get()->GetTransform()),
+		_isPersistant(false)
 	{
 		_uniqueID = _idSource++;
 	}
@@ -172,6 +173,16 @@ namespace sfew
 	float PhysicsEntity::GetAngularDrag() const
 	{
 		return _angularDrag;
+	}
+
+	void PhysicsEntity::SetPersistance(bool willBePersistant)
+	{
+		_isPersistant = willBePersistant;
+	}
+
+	bool PhysicsEntity::IsPersistant() const
+	{
+		return _isPersistant;
 	}
 
 } // namespace sfew

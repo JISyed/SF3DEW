@@ -38,6 +38,8 @@ namespace sfew
 		std::weak_ptr<Mesh> GetMesh() const;
 		void SetMaterial(std::weak_ptr<Material> newMaterial);
 		std::weak_ptr<Material> GetMaterial() const;
+		void SetPersistance(bool willBePersistant);
+		bool IsPersistant() const;
 
 	private:
 
@@ -53,6 +55,7 @@ namespace sfew
 		std::shared_ptr<Mesh> _blankMesh;			// Strong reference to a blank mesh
 		std::shared_ptr<Material> _blankMaterial;	// Strong reference to a blank material
 		Matrix4 _modelMatrix;						// Model matrix of this entity
+		bool _isPersistant;							// Will object persist between scene loads?
 
 	};
 

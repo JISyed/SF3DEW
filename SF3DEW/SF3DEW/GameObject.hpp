@@ -46,7 +46,8 @@ namespace sfew
 
 		bool IsToBeDestroyed() const;
 		std::weak_ptr<Transform> GetTransform() const;
-		std::weak_ptr<CustomComponent> GetCustomComponent(const std::string& name) const;
+		void SetPersistance(bool willBePersistant);
+		bool IsPersistant() const;
 
 		// Templated Methods ==============
 
@@ -73,6 +74,8 @@ namespace sfew
 
 		// Hash table of custom components stored by type
 		std::unordered_map<std::type_index, std::shared_ptr<CustomComponent>> _customComponents;
+
+		bool _isPersistant;		// Will object persist between scene loads?
 
 		// Type IDs =======================
 

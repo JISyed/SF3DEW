@@ -12,7 +12,8 @@ namespace sfew
 		_triggerEvent(function),
 		_loops(false),
 		_alreadyTriggered(false),
-		_flaggedForDestruction(false)
+		_flaggedForDestruction(false),
+		_isPersistant(false)
 	{
 		
 	}
@@ -139,6 +140,16 @@ namespace sfew
 	bool Timer::IsToBeDestroyed() const
 	{
 		return _flaggedForDestruction;
+	}
+
+	void Timer::SetPersistance(bool willBePersistant)
+	{
+		_isPersistant = willBePersistant;
+	}
+
+	bool Timer::IsPersistant() const
+	{
+		return _isPersistant;
 	}
 
 	// Helpers =========================================

@@ -59,6 +59,8 @@ namespace sfew
 		void SetOrigin(const sf::Vector2f& newOrigin);
 		void SetOrigin(float newX, float newY);
 		const sf::Vector2f& GetOrigin() const;
+		void SetPersistance(bool willBePersistant);
+		bool IsPersistant() const;
 
 
 	private:
@@ -66,7 +68,8 @@ namespace sfew
 		// Data ===========================
 
 		sf::Text _textLabel;		// Container to font rendering properties
-		
+		bool _isPersistant;			// Will object persist between scene loads?
+
 	};
 
 	

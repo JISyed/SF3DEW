@@ -45,6 +45,8 @@ namespace sfew
 		sf::Time GetTimeElapsed() const;
 		sf::Time GetTimeRemaining() const;
 		bool IsToBeDestroyed() const;
+		void SetPersistance(bool willBePersistant);
+		bool IsPersistant() const;
 
 	private:
 
@@ -60,6 +62,7 @@ namespace sfew
 		Callback _triggerEvent;		// Function to call when timer has triggered
 		bool _alreadyTriggered;		// Did the timer already trigger?
 		bool _flaggedForDestruction;// It this to be destroyed?
+		bool _isPersistant;			// Will object persist between scene loads?
 
 	};
 

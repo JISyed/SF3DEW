@@ -68,6 +68,8 @@ namespace sfew
 		bool IsStopped() const;
 		bool IsMuted() const;
 
+		void SetInteruptability(bool willBeInteruptable);
+		bool IsInteruptable() const;
 
 	private:
 
@@ -86,6 +88,8 @@ namespace sfew
 		
 		float _volBeforeMute;				// Volume before muting started
 		AudioStatusType _statusBeforeMute;	// Play state before muting started
+
+		bool _isInteruptable;		// Will audio stop upon loading a new scene?
 
 		// Flags ==========================
 

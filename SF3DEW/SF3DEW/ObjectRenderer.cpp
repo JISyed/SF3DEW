@@ -10,7 +10,8 @@ namespace sfew
 	// Ctor/Dtor ========================================
 
 	// Default Ctor
-	ObjectRenderer::ObjectRenderer()
+	ObjectRenderer::ObjectRenderer() :
+		_isPersistant(false)
 	{
 		// Make a default mesh and assign it
 		_blankMesh = std::shared_ptr<Mesh>(new Mesh());
@@ -23,7 +24,8 @@ namespace sfew
 
 	// Mesh Ctor
 	ObjectRenderer::ObjectRenderer(std::weak_ptr<Mesh> mesh) :
-		_mesh(mesh)
+		_mesh(mesh),
+		_isPersistant(false)
 	{
 		// Make a default material and assign it
 		_blankMaterial = std::shared_ptr<Material>(new Material());
@@ -32,7 +34,8 @@ namespace sfew
 
 	// Material Ctor
 	ObjectRenderer::ObjectRenderer(std::weak_ptr<Material> material) :
-		_material(material)
+		_material(material),
+		_isPersistant(false)
 	{
 		// Make a default mesh and assign it
 		_blankMesh = std::shared_ptr<Mesh>(new Mesh());
@@ -42,7 +45,8 @@ namespace sfew
 	// Mesh and Material Ctor
 	ObjectRenderer::ObjectRenderer(std::weak_ptr<Mesh> mesh, std::weak_ptr<Material> material) :
 		_mesh(mesh),
-		_material(material)
+		_material(material),
+		_isPersistant(false)
 	{
 		
 	}
@@ -129,6 +133,16 @@ namespace sfew
 		}
 
 		return true;
+	}
+	
+	void ObjectRenderer::SetPersistance(bool willBePersistant)
+	{
+		_isPersistant = willBePersistant;
+	}
+
+	bool ObjectRenderer::IsPersistant() const
+	{
+		return _isPersistant;
 	}
 
 } // namespace sfew

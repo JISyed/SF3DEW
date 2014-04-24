@@ -11,7 +11,8 @@ namespace sfew
 	// Ctor/Dtor ========================================
 
 	// Ctor
-	FontRenderer::FontRenderer(const sf::Font& font)
+	FontRenderer::FontRenderer(const sf::Font& font) :
+		_isPersistant(false)
 	{
 		_textLabel.setFont(font);
 		_textLabel.setString("Example Text");
@@ -204,6 +205,16 @@ namespace sfew
 	const sf::Vector2f& FontRenderer::GetOrigin() const
 	{
 		return _textLabel.getOrigin();
+	}
+
+	void FontRenderer::SetPersistance(bool willBePersistant)
+	{
+		_isPersistant = willBePersistant;
+	}
+
+	bool FontRenderer::IsPersistant() const
+	{
+		return _isPersistant;
 	}
 
 } // namespace sfew

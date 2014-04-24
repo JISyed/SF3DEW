@@ -68,6 +68,8 @@ namespace sfew
 		float GetLinearDrag() const;
 		void SetAngularDrag(float newDrag);
 		float GetAngularDrag() const;
+		void SetPersistance(bool willBePersistant);
+		bool IsPersistant() const;
 
 	private:
 
@@ -84,6 +86,7 @@ namespace sfew
 		Vector3 _rotationalAcceleration;		// Change in rotational velocity
 		float _linearDrag;						// Friction against linear motion
 		float _angularDrag;						// Friction against angular motion
+		bool _isPersistant;						// Will object persist between scene loads?
 
 		// Static Data ====================
 

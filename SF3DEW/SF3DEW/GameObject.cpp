@@ -28,7 +28,8 @@ namespace sfew
 	// Ctor
 	GameObject::GameObject() : 
 		INameable("Unnamed GameObject"),
-		_flaggedForDestruction(false)
+		_flaggedForDestruction(false),
+		_isPersistant(false)
 	{
 		// Prevent ownership of this object by the shared pointer
 		_self = std::shared_ptr<GameObject>(this, shared_un_deleter() );
@@ -97,6 +98,35 @@ namespace sfew
 	std::weak_ptr<Transform> GameObject::GetTransform() const
 	{
 		return _transform;
+	}
+
+	void GameObject::SetPersistance(bool willBePersistant)
+	{
+		// Set GameObject's persistance
+		_isPersistant = willBePersistant;
+
+		// Set PhysicsEntity's persistance, if exists
+		if(_physics)
+		{
+			_physics->GetPhysicsEntity()._Get()->SetPersistance(willBePersistant);
+		}
+
+		// Set ObjectRenderer's persistance, if exists
+		if(_renderer)
+		{
+			_renderer->GetRenderer()._Get()->SetPersistance(willBePersistant);
+		}
+
+		// Set FontRenderer's persistance, if exists
+		if(_fontRenderer)
+		{
+			_fontRenderer->GetRenderer()._Get()->SetPersistance(willBePersistant);
+		}
+	}
+
+	bool GameObject::IsPersistant() const
+	{
+		return _isPersistant;
 	}
 
 	// Helpers =========================================

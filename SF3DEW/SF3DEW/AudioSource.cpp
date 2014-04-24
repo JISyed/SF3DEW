@@ -13,7 +13,8 @@ namespace sfew
 		_playStatus(AudioStatusType::Stopped),
 		_volBeforeMute(100.0f),
 		_statusBeforeMute(AudioStatusType::Muted),
-		_flaggedAsLoaded(false)
+		_flaggedAsLoaded(false),
+		_isInteruptable(true)
 	{
 		std::cout << "Loading audio from \"" << audioFilePath << "\"" << std::endl;
 		bool audioLoadSuccessful;
@@ -361,6 +362,16 @@ namespace sfew
 	bool AudioSource::IsMuted() const
 	{
 		return _playStatus == AudioStatusType::Muted;
+	}
+
+	void AudioSource::SetInteruptability(bool willBeInteruptable)
+	{
+		_isInteruptable = willBeInteruptable;
+	}
+
+	bool AudioSource::IsInteruptable() const
+	{
+		return _isInteruptable;
 	}
 
 	// Helpers =========================================
