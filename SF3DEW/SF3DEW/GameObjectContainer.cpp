@@ -112,13 +112,33 @@ namespace sfew
 		if(!GameObjectContainer::verifyInstantiation()) return;
 
 		// Check if container is already empty
-		if(GameObjectContainer::_instance->_listOfContainedObjects.empty())
-		{
-			return;
-		}
+		auto& objList = GameObjectContainer::_instance->_listOfContainedObjects;
+		if(objList.empty()) return;
 
-		// Remove everything
-		GameObjectContainer::_instance->_listOfContainedObjects.clear();
+		// Remove everything not flagged as persistant
+		auto back_itr = objList.before_begin();
+		auto front_itr = objList.begin();
+		while(front_itr != objList.end())
+		{
+			// Check for null ptr
+			if(front_itr->_Expired())
+			{
+				// Delete the pointer at front_itr
+				front_itr = objList.erase_after(back_itr);
+			}
+			// Check if not persistant
+			else if(!(*front_itr)->IsPersistant())
+			{
+				// Delete the pointer at front_itr
+				front_itr = objList.erase_after(back_itr);
+			}
+			// Iterate
+			else
+			{
+				front_itr++;
+				back_itr++;
+			}
+		}
 	}
 
 	// Properties =========================================

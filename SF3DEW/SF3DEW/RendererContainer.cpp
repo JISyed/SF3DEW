@@ -176,18 +176,66 @@ namespace sfew
 		// Was this initalized
 		if(!RendererContainer::verifyInstantiation()) return;
 
-		// Clear object renderers if they exist
-		if(!RendererContainer::_instance->_listOfObjectRenderers.empty())
+		// Get references to both lists
+		auto& o_objList = RendererContainer::_instance->_listOfObjectRenderers;
+		auto& f_objList = RendererContainer::_instance->_listOfFontRenderers;
+
+		// Remove every object renderer not flagged as persistant
+		if(!o_objList.empty())
 		{
-			RendererContainer::_instance->_listOfObjectRenderers.clear();
+			auto o_back_itr = o_objList.before_begin();
+			auto o_front_itr = o_objList.begin();
+			while(o_front_itr != o_objList.end())
+			{
+				// Check for null ptr
+				if(o_front_itr->expired())
+				{
+					// Delete the pointer at front_itr
+					o_front_itr = o_objList.erase_after(o_back_itr);
+				}
+				// Check if not persistant
+				else if(!(*o_front_itr)._Get()->IsPersistant())
+				{
+					// Delete the pointer at front_itr
+					o_front_itr = o_objList.erase_after(o_back_itr);
+				}
+				// Iterate
+				else
+				{
+					o_front_itr++;
+					o_back_itr++;
+				}
+			}
 		}
 
-		// Clear font renderers if they exist
-		if(!RendererContainer::_instance->_listOfFontRenderers.empty())
+		// Remove every font not flagged as persistant
+		if(!f_objList.empty())
 		{
-			RendererContainer::_instance->_listOfFontRenderers.clear();
+			auto f_back_itr = f_objList.before_begin();
+			auto f_front_itr = f_objList.begin();
+			while(f_front_itr != f_objList.end())
+			{
+				// Check for null ptr
+				if(f_front_itr->expired())
+				{
+					// Delete the pointer at front_itr
+					f_front_itr = f_objList.erase_after(f_back_itr);
+				}
+				// Check if not persistant
+				else if(!(*f_front_itr)._Get()->IsPersistant())
+				{
+					// Delete the pointer at front_itr
+					f_front_itr = f_objList.erase_after(f_back_itr);
+				}
+				// Iterate
+				else
+				{
+					f_front_itr++;
+					f_back_itr++;
+				}
+			}
 		}
-		
+
 	}
 
 	// Properties =========================================
