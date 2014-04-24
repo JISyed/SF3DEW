@@ -28,19 +28,6 @@ namespace sfew
 		virtual void Cleanup() = 0;
 		virtual void OnCollision(PhysicsCollisionGroups otherGroup, 
 								 std::weak_ptr<PhysicsEntity> otherEntity) = 0;
-
-		// Properties =====================
-
-
-	private:
-
-		// Helpers ========================
-
-		
-
-		// Data ===========================
-
-
 		
 	};
 

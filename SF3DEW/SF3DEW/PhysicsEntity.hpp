@@ -71,10 +71,6 @@ namespace sfew
 
 	private:
 
-		// Helpers ========================
-
-		
-
 		// Data ===========================
 
 		PhysicsCollisionGroups _collisionGroup;	// The entity's collision group

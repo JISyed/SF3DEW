@@ -19,11 +19,13 @@ namespace sfew
 	{
 		// Ctor/Dtor ========================================
 
+		// Constructor
 		ExampleScene::ExampleScene()
 		{
 			
 		}
 
+		// Destructor
 		ExampleScene::~ExampleScene()
 		{
 			

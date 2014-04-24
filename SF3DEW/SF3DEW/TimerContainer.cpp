@@ -39,6 +39,7 @@ namespace sfew
 
 	bool TimerContainer::Setup()
 	{
+		// Does nothing
 		return true;
 	}
 
@@ -104,7 +105,7 @@ namespace sfew
 		return newObject;
 	}
 
-	// STATIC:
+	// STATIC: Removes every object except persistant objects
 	void TimerContainer::RemoveEverything()
 	{
 		// Was this initalized
@@ -119,8 +120,6 @@ namespace sfew
 		// Remove everything
 		TimerContainer::_instance->_listOfContainedObjects.clear();
 	}
-
-	// Properties =========================================
 
 	// Helpers =========================================
 

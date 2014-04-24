@@ -20,11 +20,13 @@ namespace sfew
 	{
 		// Ctor/Dtor ========================================
 
+		// Ctor
 		DemoScene::DemoScene()
 		{
 			
 		}
 
+		// Ctor
 		DemoScene::~DemoScene()
 		{
 			
@@ -69,11 +71,6 @@ namespace sfew
 
 			return true;
 		}
-
-		// Properties =========================================
-
-		// Helpers =========================================
-
 
 	} // namespace sfew::scene
 } // namespace sfew

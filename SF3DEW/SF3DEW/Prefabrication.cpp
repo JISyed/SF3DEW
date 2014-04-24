@@ -6,20 +6,16 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
+	// Ctor
 	Prefabrication::Prefabrication()
 	{
 		
 	}
 
+	// Dtor
 	Prefabrication::~Prefabrication()
 	{
 		
 	}
-
-	// Routines =========================================
-
-	// Properties =========================================
-
-	// Helpers =========================================
 
 } // namespace sfew

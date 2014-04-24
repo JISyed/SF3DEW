@@ -11,6 +11,7 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
+	// Ctor
 	ObjectRendererComponent::ObjectRendererComponent(std::weak_ptr<GameObject> owningGameObject) :
 		Component(owningGameObject)
 	{
@@ -29,6 +30,7 @@ namespace sfew
 		Start();
 	}
 
+	// Dtor
 	ObjectRendererComponent::~ObjectRendererComponent()
 	{
 		
@@ -38,7 +40,7 @@ namespace sfew
 
 	void ObjectRendererComponent::Start()
 	{
-
+		// Does nothing
 	}
 
 	void ObjectRendererComponent::Update()
@@ -54,7 +56,5 @@ namespace sfew
 	{
 		return _renderer;
 	}
-
-	// Helpers =========================================
 
 } // namespace sfew

@@ -33,10 +33,6 @@ namespace sfew
 
 	private:
 
-		// Helpers ========================
-
-		
-
 		// Data ===========================
 		
 		std::shared_ptr<FontRenderer> _renderer;		// The font renderer itself

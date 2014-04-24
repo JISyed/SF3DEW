@@ -10,6 +10,7 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
+	// Ctor
 	FontRendererComponent::FontRendererComponent(std::weak_ptr<GameObject> owningGameObject) :
 		Component(owningGameObject)
 	{
@@ -27,6 +28,7 @@ namespace sfew
 		Start();
 	}
 
+	// Dtor
 	FontRendererComponent::~FontRendererComponent()
 	{
 		
@@ -50,7 +52,5 @@ namespace sfew
 	{
 		return _renderer;
 	}
-
-	// Helpers =========================================
 
 } // namespace sfew

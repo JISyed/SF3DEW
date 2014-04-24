@@ -9,6 +9,7 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
+	// Ctor
 	AudioComponent::AudioComponent(std::weak_ptr<GameObject> owningGameObject) :
 		Component(owningGameObject)
 	{
@@ -19,6 +20,7 @@ namespace sfew
 		Start();
 	}
 
+	// Dtor
 	AudioComponent::~AudioComponent()
 	{
 		
@@ -47,7 +49,5 @@ namespace sfew
 	{
 		_audioSource = newAudioSource;
 	}
-
-	// Helpers =========================================
 
 } // namespace sfew

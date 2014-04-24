@@ -11,12 +11,13 @@
 
 namespace sfew
 {
-	// Static data
+	// Static data =========================================
 
 	unsigned int PhysicsEntity::_idSource = 0;
 
 	// Ctor/Dtor ========================================
 
+	// Ctor
 	PhysicsEntity::PhysicsEntity(std::weak_ptr<GameObject> gameObject) :
 		_radius(1.0f),
 		_velocity(0.0f, 0.0f, 0.0f),
@@ -31,6 +32,7 @@ namespace sfew
 		_uniqueID = _idSource++;
 	}
 
+	// Dtor
 	PhysicsEntity::~PhysicsEntity()
 	{
 		
@@ -171,8 +173,5 @@ namespace sfew
 	{
 		return _angularDrag;
 	}
-
-
-	// Helpers =========================================
 
 } // namespace sfew

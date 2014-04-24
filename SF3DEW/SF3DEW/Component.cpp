@@ -21,15 +21,11 @@ namespace sfew
 		
 	}
 
-	// Routines =========================================
-
 	// Properties =========================================
 
 	std::weak_ptr<GameObject> Component::GetGameObject() const
 	{
 		return _gameObject;
 	}
-
-	// Helpers =========================================
 
 } // namespace sfew

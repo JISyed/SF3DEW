@@ -63,10 +63,6 @@ namespace sfew
 
 	private:
 
-		// Helpers ========================
-
-		
-
 		// Data ===========================
 
 		sf::Text _textLabel;		// Container to font rendering properties

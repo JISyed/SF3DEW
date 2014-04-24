@@ -33,10 +33,6 @@ namespace sfew
 
 	private:
 
-		// Helpers ========================
-
-		
-
 		// Data ===========================
 		
 		std::shared_ptr<PhysicsEntity> _physicsData;	// The physics entity

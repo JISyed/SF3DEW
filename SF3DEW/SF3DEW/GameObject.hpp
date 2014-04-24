@@ -31,7 +31,7 @@ namespace sfew
 		// Ctor/Dtor ======================
 
 		GameObject();
-		~GameObject();
+		virtual ~GameObject();
 
 		// Routines =======================
 
@@ -89,6 +89,7 @@ namespace sfew
 
 	// Template Implementations ============================================
 
+	// Add a bulit in component using template parameter
 	template <typename T> bool GameObject::AddComponent()
 	{
 		std::type_index componentClass(typeid(T));

@@ -34,10 +34,6 @@ namespace sfew
 
 	private:
 
-		// Helpers ========================
-
-		
-
 		// Data ===========================
 
 		std::weak_ptr<AudioSource> _audioSource;	// The audio source

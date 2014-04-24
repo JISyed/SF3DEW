@@ -24,18 +24,6 @@ namespace sfew
 
 		virtual bool Load() = 0;
 		virtual bool LoadAdditive() = 0;
-
-		// Properties =====================
-
-	private:
-
-		// Helpers ========================
-
-
-
-		// Data ===========================
-
-		
 		
 	};
 

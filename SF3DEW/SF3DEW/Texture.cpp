@@ -158,8 +158,4 @@ namespace sfew
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, oglMagFilter);
 	}
 
-	// Properties =========================================
-
-	// Helpers =========================================
-
 } // namespace sfew

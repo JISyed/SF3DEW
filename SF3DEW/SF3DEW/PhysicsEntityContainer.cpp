@@ -42,6 +42,7 @@ namespace sfew
 
 	bool PhysicsEntityContainer::Setup()
 	{
+		// Does nothing
 		return true;
 	}
 
@@ -129,7 +130,7 @@ namespace sfew
 		PhysicsEntityContainer::_instance->_listOfContainedObjects.push_front(newObject);
 	}
 
-	// STATIC:
+	// STATIC: Removes every object except persistant objects
 	void PhysicsEntityContainer::RemoveEverything()
 	{
 		// Was this initalized
@@ -144,8 +145,6 @@ namespace sfew
 		// Remove everything
 		PhysicsEntityContainer::_instance->_listOfContainedObjects.clear();
 	}
-
-	// Properties =========================================
 
 	// Helpers =========================================
 

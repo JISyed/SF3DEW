@@ -41,7 +41,7 @@ namespace sfew
 		// Ctor/Dtor ======================
 
 		Application();
-		virtual ~Application();
+		~Application();
 
 		// System Routines ================
 

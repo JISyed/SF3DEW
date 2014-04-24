@@ -137,6 +137,4 @@ namespace sfew
 		return _numberOfVerts;
 	}
 
-	// Helpers =========================================
-
 } // namespace sfew

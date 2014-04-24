@@ -25,18 +25,6 @@ namespace sfew
 		// Routines =======================
 
 		virtual std::weak_ptr<GameObject> MakeObject() = 0;
-
-		// Properties =====================
-
-	private:
-
-		// Helpers ========================
-
-		
-
-		// Data ===========================
-
-		
 		
 	};
 

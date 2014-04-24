@@ -6,6 +6,7 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
+	// Ctor
 	AudioSource::AudioSource(const std::string& audioFilePath, AudioType type) : 
 		INameable("Unnamed AudioSource"),
 		_audioType(type),
@@ -45,6 +46,7 @@ namespace sfew
 		}
 }
 
+	// Dtor
 	AudioSource::~AudioSource()
 	{
 		Stop();
@@ -102,6 +104,7 @@ namespace sfew
 			_playStatus = AudioStatusType::Paused;
 		}
 	}
+
 	void AudioSource::Stop()
 	{
 		// Make sure audio was successfully loaded

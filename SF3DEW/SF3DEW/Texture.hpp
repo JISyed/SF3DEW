@@ -47,15 +47,7 @@ namespace sfew
 		void SetWrapping(TextureWrapType wrapBehavior);	// Set wrapping behavior when outside standard UV coordinates
 		void SetFiltering(TextureFilterType filter);	// Set texture filtering (how texture gets sampled)
 
-		// Properties =====================
-
-
-
 	private:
-
-		// Helpers ========================
-
-		
 
 		// Data ===========================
 

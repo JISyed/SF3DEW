@@ -56,10 +56,6 @@ namespace sfew
 		void DeclareProjectionMatrixAsUnchanged();
 
 	private:
-		
-		// Helpers ========================
-
-		
 
 		// Data ===========================
 

@@ -22,11 +22,13 @@ namespace sfew
 	{
 		// Ctor/Dtor ========================================
 
+		// Constructor
 		ExamplePrefab::ExamplePrefab()
 		{
 			
 		}
 
+		// Destructor
 		ExamplePrefab::~ExamplePrefab()
 		{
 			

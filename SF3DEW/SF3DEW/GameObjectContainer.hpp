@@ -30,7 +30,7 @@ namespace sfew
 		
 		static std::weak_ptr<GameObject> Create();	// Factory method for GameObjects
 
-		static void RemoveEverything();
+		static void RemoveEverything();		// Removes every object except persistant objects
 
 		// Properties =====================
 

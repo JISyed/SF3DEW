@@ -35,10 +35,6 @@ namespace sfew
 
 	private:
 
-		// Helpers ========================
-
-		
-
 		// Data ===========================
 
 		GLuint _vao;		// Handle to vertex format

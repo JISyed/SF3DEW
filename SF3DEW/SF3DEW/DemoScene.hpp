@@ -8,12 +8,6 @@
 #define SFEW_CUSTOM_SCENE__DEMO
 #include "Scene.hpp"
 
-// System Headers
-
-
-// SFEW Headers
-
-
 namespace sfew
 {
 	namespace scene
@@ -31,18 +25,6 @@ namespace sfew
 
 			virtual bool Load();			// Clears current scene and loads
 			virtual bool LoadAdditive();	// Loads without clearing current scene
-
-			// Properties =====================
-
-		private:
-
-			// Helpers ========================
-
-			
-			
-			// Data ===========================
-
-			
 			
 		};
 

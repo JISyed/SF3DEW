@@ -21,6 +21,7 @@ namespace sfew
 		_material = _blankMaterial;
 	}
 
+	// Mesh Ctor
 	ObjectRenderer::ObjectRenderer(std::weak_ptr<Mesh> mesh) :
 		_mesh(mesh)
 	{
@@ -29,6 +30,7 @@ namespace sfew
 		_material = _blankMaterial;
 	}
 
+	// Material Ctor
 	ObjectRenderer::ObjectRenderer(std::weak_ptr<Material> material) :
 		_material(material)
 	{
@@ -37,6 +39,7 @@ namespace sfew
 		_mesh = _blankMesh;
 	}
 
+	// Mesh and Material Ctor
 	ObjectRenderer::ObjectRenderer(std::weak_ptr<Mesh> mesh, std::weak_ptr<Material> material) :
 		_mesh(mesh),
 		_material(material)

@@ -38,19 +38,7 @@ namespace sfew
 			virtual void OnCollision(PhysicsCollisionGroups otherGroup, 
 								 std::weak_ptr<PhysicsEntity> otherEntity);
 
-			// Custom Routines ================
-
-
-
-			// Properties =====================
-
-			
-
 		private:
-
-			// Private Routines ========================
-
-			
 
 			// Data ===========================
 

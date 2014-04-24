@@ -9,12 +9,8 @@
 #include "ShaderRegistry.hpp"
 #include "TextureRegistry.hpp"
 
-// System Includes not needed in header
-
-
 // SFEW Includes not needed in header
 #include "Random.hpp"
-
 
 namespace sfew
 {
@@ -22,11 +18,13 @@ namespace sfew
 	{
 		// Ctor/Dtor ========================================
 
+		// Ctor
 		CubePrefab::CubePrefab()
 		{
 			
 		}
 
+		// Dtor
 		CubePrefab::~CubePrefab()
 		{
 			
@@ -50,11 +48,6 @@ namespace sfew
 			// Return weak pointer
 			return go;
 		}
-
-		// Properties =========================================
-
-		// Helpers =========================================
-
 
 	} // namespace sfew::prefab
 } // namespace sfew

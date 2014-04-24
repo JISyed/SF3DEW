@@ -28,18 +28,6 @@ namespace sfew
 		virtual bool Update() = 0;
 		virtual bool Cleanup() = 0;
 
-		// Properties =====================
-
-	private:
-
-		// Helpers ========================
-
-		
-
-		// Data ===========================
-
-		
-		
 	};
 
 	

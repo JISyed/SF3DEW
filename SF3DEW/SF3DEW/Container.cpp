@@ -4,20 +4,16 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
+	// Ctor
 	Container::Container()
 	{
 		
 	}
 
+	// Dtor
 	Container::~Container()
 	{
 		
 	}
-
-	// Routines =========================================
-
-	// Properties =========================================
-
-	// Helpers =========================================
 
 } // namespace sfew

@@ -75,7 +75,7 @@ namespace sfew
 		return true;
 	}
 
-	// Get custom prefab from registry
+	// STATIC: Get custom prefab from registry
 	template<typename T> std::weak_ptr<T> PrefabricationRegistry::Get()
 	{
 		// Make sure this registry exists

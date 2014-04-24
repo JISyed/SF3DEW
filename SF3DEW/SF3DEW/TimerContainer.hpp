@@ -28,9 +28,7 @@ namespace sfew
 		
 		static std::weak_ptr<Timer> Create(sf::Time setTime, Callback function); // Factory method for Timers
 
-		static void RemoveEverything();
-
-		// Properties =====================
+		static void RemoveEverything();		// Removes every object except persistant objects
 
 	private:
 

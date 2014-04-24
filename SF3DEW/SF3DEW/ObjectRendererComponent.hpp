@@ -32,10 +32,6 @@ namespace sfew
 
 	private:
 
-		// Helpers ========================
-
-		
-
 		// Data ===========================
 		
 		std::shared_ptr<ObjectRenderer> _renderer;		// The renderer itself

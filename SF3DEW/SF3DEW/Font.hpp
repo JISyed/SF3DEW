@@ -21,21 +21,13 @@ namespace sfew
 		// Ctor/Dtor ======================
 
 		Font(const std::string& fontFilePath);
-		~Font();
-
-		// Routines =======================
-
-		
+		virtual ~Font();
 
 		// Properties =====================
 
 		sf::Font& GetReference();
 
 	private:
-
-		// Helpers ========================
-
-		
 
 		// Data ===========================
 

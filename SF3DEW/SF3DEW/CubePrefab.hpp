@@ -8,12 +8,6 @@
 #define SFEW_CUSTOM_PREFAB__CUBE
 #include "Prefabrication.hpp"
 
-// System Headers
-
-
-// SFEW Headers 
-
-
 namespace sfew
 {
 	namespace prefab
@@ -30,19 +24,6 @@ namespace sfew
 			// Routines =======================
 
 			virtual std::weak_ptr<GameObject> MakeObject();
-
-			// Properties =====================
-
-
-		private:
-
-			// Helpers ========================
-
-			
-
-			// Data ===========================
-			
-			
 			
 		}; // End of custom prefab class header
 

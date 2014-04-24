@@ -149,15 +149,6 @@ namespace sfew
 		// Mark as already triggered
 		_alreadyTriggered = true;
 
-		// Check if target is valid
-		/*
-		if(_triggerEvent.target<Callback>() == nullptr)
-		{
-			std::cout << "Error! Timer's callback has no target!" << std::endl;
-			return;
-		}
-		*/
-
 		// Fire the callback
 		_triggerEvent();
 	}

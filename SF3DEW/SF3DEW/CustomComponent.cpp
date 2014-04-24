@@ -8,23 +8,17 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
+	// Ctor
 	CustomComponent::CustomComponent(std::weak_ptr<GameObject> owningGameObject) :
 		Component(owningGameObject)
 	{
 		
 	}
 
+	// Dtor
 	CustomComponent::~CustomComponent()
 	{
 		
 	}
-
-	// Routines =========================================
-
-
-	// Properties =========================================
-
-
-	// Helpers =========================================
 
 } // namespace sfew

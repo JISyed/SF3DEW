@@ -11,8 +11,6 @@
 #include <forward_list>
 #include <SFML/System/NonCopyable.hpp>
 
-// PERSONAL HEADERS HERE
-
 namespace sfew
 {
 	class Registry : sf::NonCopyable

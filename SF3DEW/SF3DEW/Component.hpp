@@ -32,10 +32,6 @@ namespace sfew
 
 	private:
 
-		// Helpers ========================
-
-		
-
 		// Data ===========================
 
 		std::weak_ptr<GameObject> _gameObject;	// Back reference to GameObject

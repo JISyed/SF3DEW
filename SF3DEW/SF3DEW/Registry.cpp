@@ -4,20 +4,16 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
+	// Ctor
 	Registry::Registry() : _resourcesLoaded(false)
 	{
 		
 	}
 
+	// Dtor
 	Registry::~Registry()
 	{
 		
 	}
-	
-	// Routines =========================================
-
-	// Properties =========================================
-
-	// Helpers =========================================
 
 } // namespace sfew

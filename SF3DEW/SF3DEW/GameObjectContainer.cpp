@@ -39,6 +39,7 @@ namespace sfew
 
 	bool GameObjectContainer::Setup()
 	{
+		// Does nothing
 		return true;
 	}
 
@@ -104,7 +105,7 @@ namespace sfew
 		return newObject;
 	}
 
-	// STATIC:
+	// STATIC: Removes every object except persistant objects
 	void GameObjectContainer::RemoveEverything()
 	{
 		// Was this initalized

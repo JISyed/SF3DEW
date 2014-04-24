@@ -7,6 +7,7 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
+	// Ctor
 	Font::Font(const std::string& fontFilePath) : INameable("Unnamed Font")
 	{
 		if(!_font.loadFromFile(fontFilePath))
@@ -17,12 +18,11 @@ namespace sfew
 		}
 	}
 
+	// Dtor
 	Font::~Font()
 	{
 		
 	}
-
-	// Routines =========================================
 
 	// Properties =========================================
 
@@ -30,7 +30,5 @@ namespace sfew
 	{
 		return _font;
 	}
-
-	// Helpers =========================================
 
 } // namespace sfew

@@ -6,7 +6,6 @@
 #include "Mesh.hpp"
 #include "Texture.hpp"
 
-
 namespace sfew
 {
 	// Ctor/Dtor ========================================
@@ -206,8 +205,5 @@ namespace sfew
 	{
 		return _textLabel.getOrigin();
 	}
-
-
-	// Helpers =========================================
 
 } // namespace sfew

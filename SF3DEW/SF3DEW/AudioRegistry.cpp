@@ -80,7 +80,7 @@ namespace sfew
 		_resourceList.clear();
 	}
 
-	// Stop all AudioSources from playing
+	// STATIC: Stop all AudioSources from playing
 	void AudioRegistry::StopEverything()
 	{
 		// Make sure this exists and is not empty

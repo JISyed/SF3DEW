@@ -67,11 +67,5 @@ namespace sfew
 			// Does nothing here
 		}
 
-		// Custom Routines =========================================
-
-		// Properties =========================================
-
-		// Private Routines =========================================
-
 	} // namespace sfew::component
 } // namespace sfew

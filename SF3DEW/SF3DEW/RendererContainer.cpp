@@ -66,6 +66,7 @@ namespace sfew
 
 	bool RendererContainer::Update()
 	{
+		// Does nothing
 		return Draw();
 	}
 
@@ -169,7 +170,7 @@ namespace sfew
 		std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 	}
 
-	// STATIC:
+	// STATIC: Removes every object except persistant objects
 	void RendererContainer::RemoveEverything()
 	{
 		// Was this initalized

@@ -40,11 +40,13 @@ namespace sfew
 	// Load all the resources
 	bool PrefabricationRegistry::Load()
 	{
+		// Load all the custom prefabs here
 		addPrefab<prefab::ExamplePrefab>();
 		addPrefab<prefab::CubePrefab>();
 		addPrefab<prefab::OctoPrefab>();
 		addPrefab<prefab::FpsPrefab>();
 
+		// Loading successful
 		_resourcesLoaded = true;
 		return _resourcesLoaded;
 	}
@@ -61,9 +63,6 @@ namespace sfew
 		// Empty the list
 		_resourceList.clear();
 	}
-
-	// Properties =========================================
-
 
 	// Helpers =========================================
 

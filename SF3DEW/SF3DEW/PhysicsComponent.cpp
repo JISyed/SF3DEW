@@ -9,6 +9,7 @@ namespace sfew
 {
 	// Ctor/Dtor ========================================
 
+	// Ctor
 	PhysicsComponent::PhysicsComponent(std::weak_ptr<GameObject> owningGameObject) :
 		Component(owningGameObject)
 	{
@@ -23,6 +24,7 @@ namespace sfew
 		Start();
 	}
 
+	// Dtor
 	PhysicsComponent::~PhysicsComponent()
 	{
 		
@@ -32,7 +34,7 @@ namespace sfew
 
 	void PhysicsComponent::Start()
 	{
-
+		// Does nothing
 	}
 	
 	void PhysicsComponent::Update()
@@ -46,7 +48,5 @@ namespace sfew
 	{
 		return _physicsData;
 	}
-
-	// Helpers =========================================
 
 } // namespace sfew

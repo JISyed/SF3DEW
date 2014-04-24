@@ -11,6 +11,7 @@ namespace sfew
 
 	// Ctor/Dtor ========================================
 
+	// Ctor
 	Application::Application() : _isRunning(true)
 	{
 		// Create system time
@@ -50,6 +51,7 @@ namespace sfew
 		_gameObjectContainer = std::unique_ptr<sfew::GameObjectContainer>(new sfew::GameObjectContainer());
 	}
 
+	// Dtor
 	Application::~Application()
 	{
 		// Clear the internal singleton
@@ -91,7 +93,7 @@ namespace sfew
 
 	bool Application::Update()
 	{
-		// Not used.
+		// Not used. See MainLoop()
 		return true;
 	}
 
