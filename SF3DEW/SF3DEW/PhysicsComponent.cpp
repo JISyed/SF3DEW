@@ -17,6 +17,12 @@ namespace sfew
 		_physicsData = std::shared_ptr<PhysicsEntity>(new PhysicsEntity(owningGameObject));
 		_physicsData->SetCollisionGroup(PhysicsCollisionGroups::GroupA);
 
+		// Make persistant, if owning GameObject is
+		if(owningGameObject._Get()->IsPersistant())
+		{
+			_physicsData->SetPersistance(true);
+		}
+
 		// Add the entity to the PhysicsEntityContainer
 		PhysicsEntityContainer::Add(_physicsData);
 

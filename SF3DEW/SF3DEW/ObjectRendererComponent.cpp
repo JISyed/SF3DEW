@@ -23,6 +23,12 @@ namespace sfew
 			)
 		);
 
+		// Make persistant, if owning GameObject is
+		if(owningGameObject._Get()->IsPersistant())
+		{
+			_renderer->SetPersistance(true);
+		}
+
 		// Add it to the render container
 		RendererContainer::Add(_renderer);
 
