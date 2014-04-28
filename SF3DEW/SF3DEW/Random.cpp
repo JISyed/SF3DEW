@@ -64,11 +64,13 @@ namespace sfew
 	unsigned long Random::newSeed()
 	{
 		Random::updateTimeStamp();
-		std::mt19937 generateSeed(Random::_timeStamp++);
+		std::mt19937 generateSeed(Random::_timeStamp);
+
+		static unsigned long seedBounce = 0;
 
 		unsigned long seed = (unsigned long) generateSeed();
 
-		return seed;
+		return seed + (seedBounce++);
 	}
 
 } // namespace sfew
