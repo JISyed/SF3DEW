@@ -7,6 +7,13 @@
 
 // SFEW Headers not needed in header
 #include "Random.hpp"
+#include "SceneRegistry.hpp"
+#include "GameObjectContainer.hpp"
+#include "PrefabricationRegistry.hpp"
+#include "MaterialRegistry.hpp"
+#include "ShaderRegistry.hpp"
+#include "TextureRegistry.hpp"
+#include "AudioRegistry.hpp"
 
 namespace sfew
 {
