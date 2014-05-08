@@ -51,16 +51,19 @@ namespace sfew
 		_forward = glm::rotateX(_forward, relativeRotation.x);
 		_forward = glm::rotateY(_forward, relativeRotation.y);
 		_forward = glm::rotateZ(_forward, relativeRotation.z);
+		_forward = glm::normalize(_forward);
 
 		// Rotate up orientation
 		_up = glm::rotateX(_up, relativeRotation.x);
 		_up = glm::rotateY(_up, relativeRotation.y);
 		_up = glm::rotateZ(_up, relativeRotation.z);
+		_up = glm::normalize(_up);
 
 		// Rotate right orientation
 		_right = glm::rotateX(_right, relativeRotation.x);
 		_right = glm::rotateY(_right, relativeRotation.y);
 		_right = glm::rotateZ(_right, relativeRotation.z);
+		_right = glm::normalize(_right);
 
 		_eulerAngles += relativeRotation;
 	}
@@ -130,16 +133,19 @@ namespace sfew
 		_forward = glm::rotateX(s_worldForward, newEulerAngles.x);
 		_forward = glm::rotateY(_forward, newEulerAngles.y);
 		_forward = glm::rotateZ(_forward, newEulerAngles.z);
+		_forward = glm::normalize(_forward);
 
 		// Rotate up orientation
 		_up = glm::rotateX(s_worldUp, newEulerAngles.x);
 		_up = glm::rotateY(_up, newEulerAngles.y);
 		_up = glm::rotateZ(_up, newEulerAngles.z);
+		_up = glm::normalize(_up);
 
 		// Rotate right orientation
 		_right = glm::rotateX(s_worldRight, newEulerAngles.x);
 		_right = glm::rotateY(_right, newEulerAngles.y);
 		_right = glm::rotateZ(_right, newEulerAngles.z);
+		_right = glm::normalize(_right);
 
 		_eulerAngles = newEulerAngles;
 	}
