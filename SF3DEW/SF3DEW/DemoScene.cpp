@@ -73,6 +73,9 @@ namespace sfew
 			auto phys = octoObject._Get()->GetComponent<PhysicsComponent>();
 			phys._Get()->GetPhysicsEntity()._Get()->SetRotationalAcceleration(Vector3(0.0f, 51.0f, 0.0f));
 
+			auto aSound = AudioRegistry::GetByName("PlayerLaserSnd");
+			aSound._Get()->Play();
+
 			return true;
 		}
 

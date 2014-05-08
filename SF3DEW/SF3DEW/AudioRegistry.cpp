@@ -41,19 +41,13 @@ namespace sfew
 	bool AudioRegistry::Load()
 	{
 		// Load the Player Laser Sound
-		std::shared_ptr<AudioSource> playerLaserSound(new AudioSource("./Audio/sndPlayerLaser.wav", AudioType::Sound) );
-		playerLaserSound->SetName("PlayerLaserSnd");
-		_resourceList.push_front(playerLaserSound);
+		addAudio("./Audio/sndPlayerLaser.wav", AudioType::Sound, "PlayerLaserSnd");
 
 		// Load the Item Get Sound
-		std::shared_ptr<AudioSource> itemGetSound(new AudioSource("./Audio/sndItemGet.wav", AudioType::Sound) );
-		itemGetSound->SetName("ItemGetSnd");
-		_resourceList.push_front(itemGetSound);
+		addAudio("./Audio/sndItemGet.wav", AudioType::Sound, "ItemGetSnd");
 
 		// Load the Rolling Music
-		std::shared_ptr<AudioSource> rollingMus(new AudioSource("./Audio/rolling_by_madgarden.ogg", AudioType::Music) );
-		rollingMus->SetName("RollingMus");
-		_resourceList.push_front(rollingMus);
+		addAudio("./Audio/rolling_by_madgarden.ogg", AudioType::Music, "RollingMus");
 
 		// Assumes that the resources were successfully loaded
 		_resourcesLoaded = true;
@@ -135,6 +129,16 @@ namespace sfew
 		}
 
 		return true;
+	}
+
+	// Add a new AudioSource and give it a name
+	void AudioRegistry::addAudio(const std::string& filePath, 
+								 AudioType type, 
+								 const std::string& name)
+	{
+		std::shared_ptr<AudioSource> newSound(new AudioSource(filePath, type) );
+		newSound->SetName(name);
+		_resourceList.push_front(newSound);
 	}
 
 } // namespace sfew

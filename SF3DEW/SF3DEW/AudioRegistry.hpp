@@ -35,6 +35,7 @@ namespace sfew
 		// Helpers ========================
 
 		static bool verifyInstantiation();	// Was this object instantiated?
+		void addAudio(const std::string& filePath, AudioType type, const std::string& name);
 
 		// Data ===========================
 
