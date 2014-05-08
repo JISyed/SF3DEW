@@ -44,29 +44,16 @@ namespace sfew
 	bool MaterialRegistry::Load()
 	{
 		// Load a blank texture
-		std::shared_ptr<Material> blankMaterial(new Material(ShaderRegistry::GetByName("BasicShader"),
-															 TextureRegistry::GetByName("Blank")));
-		blankMaterial->SetName("Blank");
-		_resourceList.push_front(blankMaterial);
+		addMaterial("BasicShader", "Blank", "Blank");
 
 		// Load White Patches Material
-		std::shared_ptr<Material> whitePatchesMaterial(new Material(ShaderRegistry::GetByName("BasicShader"),
-																    TextureRegistry::GetByName("Patches")));
-		whitePatchesMaterial->SetName("WhitePatches");
-		_resourceList.push_front(whitePatchesMaterial);
+		addMaterial("BasicShader", "Patches", "WhitePatches");
 
 		// Load Orange Patches Material
-		std::shared_ptr<Material> orangePatchesMaterial(new Material(ShaderRegistry::GetByName("BasicShader"),
-																     TextureRegistry::GetByName("Patches")));
-		orangePatchesMaterial->SetName("OrangePatches");
-		orangePatchesMaterial->SetColor(Vector4(1.0f, 0.5f, 0.0f, 1.0f));
-		_resourceList.push_front(orangePatchesMaterial);
+		addMaterial("BasicShader", "Patches", "OrangePatches", Vector4(1.0f, 0.5f, 0.0f, 1.0f));
 
 		// Load Game Over Material
-		std::shared_ptr<Material> gameOverMaterial(new Material(ShaderRegistry::GetByName("BasicShader"),
-																TextureRegistry::GetByName("GameOver")));
-		gameOverMaterial->SetName("GameOver");
-		_resourceList.push_front(gameOverMaterial);
+		addMaterial("BasicShader", "GameOver", "GameOver");
 
 		// Assumes that the resources were successfully loaded
 		_resourcesLoaded = true;
@@ -125,6 +112,40 @@ namespace sfew
 		}
 
 		return true;
+	}
+
+	void MaterialRegistry::addMaterial(
+		const std::string& shaderName, 
+		const std::string& textureName, 
+		const std::string name
+	)
+	{
+		std::shared_ptr<Material> newMaterial(
+			new Material(
+				ShaderRegistry::GetByName(shaderName),
+				TextureRegistry::GetByName(textureName)
+			)
+		);
+		newMaterial->SetName(name);
+		_resourceList.push_front(newMaterial);
+	}
+
+	void MaterialRegistry::addMaterial(
+		const std::string& shaderName, 
+		const std::string& textureName, 
+		const std::string name, 
+		Vector4 color
+	)
+	{
+		std::shared_ptr<Material> newMaterial(
+			new Material(
+				ShaderRegistry::GetByName(shaderName),
+				TextureRegistry::GetByName(textureName)
+			)
+		);
+		newMaterial->SetName(name);
+		_resourceList.push_front(newMaterial);
+		newMaterial->SetColor(color);
 	}
 
 } // namespace sfew

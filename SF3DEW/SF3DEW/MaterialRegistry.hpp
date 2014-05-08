@@ -34,6 +34,8 @@ namespace sfew
 		// Helpers ========================
 
 		static bool verifyInstantiation();	// Was this object instantiated?
+		void addMaterial(const std::string& shaderName, const std::string& textureName, const std::string name);
+		void addMaterial(const std::string& shaderName, const std::string& textureName, const std::string name, Vector4 color);
 
 		// Data ===========================
 
