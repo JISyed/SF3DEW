@@ -41,9 +41,7 @@ namespace sfew
 	bool FontRegistry::Load()
 	{
 		// Load the Player Laser Sound
-		std::shared_ptr<Font> marsFont(new Font("./Fonts/Mars_1_0_0_6.otf") );
-		marsFont->SetName("Mars");
-		_resourceList.push_front(marsFont);
+		addFont("./Fonts/Mars_1_0_0_6.otf", "Mars");
 
 		// Assumes that the resources were successfully loaded
 		_resourcesLoaded = true;
@@ -102,6 +100,14 @@ namespace sfew
 		}
 
 		return true;
+	}
+
+	// Load a single font and give it a name
+	void FontRegistry::addFont(const std::string& filePath, const std::string& name)
+	{
+		std::shared_ptr<Font> newFont(new Font(filePath) );
+		newFont->SetName(name);
+		_resourceList.push_front(newFont);
 	}
 
 } // namespace sfew
