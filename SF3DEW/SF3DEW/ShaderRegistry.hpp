@@ -38,6 +38,7 @@ namespace sfew
 		// Helpers ========================
 
 		static bool verifyInstantiation();	// Was this object instantiated?
+		void addShader(const std::string& vertexFilePath, const std::string& fragmentFilePath, const std::string& name);
 
 		// Data ===========================
 

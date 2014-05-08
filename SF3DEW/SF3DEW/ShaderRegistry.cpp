@@ -43,16 +43,10 @@ namespace sfew
 	bool ShaderRegistry::Load()
 	{
 		// Load the Basic Shader
-		std::shared_ptr<Shader> basicShader(new Shader("./Shaders/basic.vert", 
-													   "./Shaders/basic.frag") );
-		basicShader->SetName("BasicShader");
-		_resourceList.push_front(basicShader);
+		addShader("./Shaders/basic.vert", "./Shaders/basic.frag", "BasicShader");
 
 		// Load the Brightness Shader
-		std::shared_ptr<Shader> brightnessShader(new Shader("./Shaders/brightness.vert", 
-															"./Shaders/brightness.frag") );
-		brightnessShader->SetName("BrightnessShader");
-		_resourceList.push_front(brightnessShader);
+		addShader("./Shaders/brightness.vert", "./Shaders/brightness.frag", "BrightnessShader");
 
 		// Assumes that the resources were successfully loaded
 		_resourcesLoaded = true;
@@ -140,6 +134,22 @@ namespace sfew
 		}
 
 		return true;
+	}
+
+	void ShaderRegistry::addShader(
+		const std::string& vertexFilePath, 
+		const std::string& fragmentFilePath, 
+		const std::string& name
+	)
+	{
+		std::shared_ptr<Shader> newShader(
+			new Shader(
+				vertexFilePath, 
+				fragmentFilePath
+			) 
+		);
+		newShader->SetName(name);
+		_resourceList.push_front(newShader);
 	}
 
 } // namespace sfew
