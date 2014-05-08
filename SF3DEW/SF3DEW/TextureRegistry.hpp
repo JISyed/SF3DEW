@@ -34,6 +34,7 @@ namespace sfew
 		// Helpers ========================
 
 		static bool verifyInstantiation();	// Was this object instantiated?
+		void addTexture(const std::string& filePath, const std::string& name);
 
 		// Data ===========================
 

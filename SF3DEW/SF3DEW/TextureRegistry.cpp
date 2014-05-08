@@ -46,14 +46,10 @@ namespace sfew
 		_resourceList.push_front(blankTexture);
 
 		// Load the Patches Texture
-		std::shared_ptr<Texture> patchesTexture(new Texture("./Textures/texPatches.png"));
-		patchesTexture->SetName("Patches");
-		_resourceList.push_front(patchesTexture);
+		addTexture("./Textures/texPatches.png", "Patches");
 
 		// Load the Game Over Texture
-		std::shared_ptr<Texture> gameOverTexture(new Texture("./Textures/texGameOver.png"));
-		gameOverTexture->SetName("GameOver");
-		_resourceList.push_front(gameOverTexture);
+		addTexture("./Textures/texGameOver.png", "GameOver");
 
 		// Assumes that the resources were successfully loaded
 		_resourcesLoaded = true;
@@ -112,6 +108,13 @@ namespace sfew
 		}
 
 		return true;
+	}
+
+	void TextureRegistry::addTexture(const std::string& filePath, const std::string& name)
+	{
+		std::shared_ptr<Texture> newTexture(new Texture(filePath));
+		newTexture->SetName(name);
+		_resourceList.push_front(newTexture);
 	}
 
 } // namespace sfew
