@@ -17,7 +17,7 @@ int main()
 		<< std::endl;
 
 	// Start the Application's loop
-	bool runSuccess = app->MainLoop();
+	app->MainLoop();
 
 	// Clean up all the engine subsystems in Application
 	app->Cleanup();

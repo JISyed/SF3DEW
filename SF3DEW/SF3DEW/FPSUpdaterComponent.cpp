@@ -65,6 +65,7 @@ namespace sfew
 										 std::weak_ptr<PhysicsEntity> otherEntity)
 		{
 			// Does nothing here
+			otherGroup;
 		}
 
 	} // namespace sfew::component

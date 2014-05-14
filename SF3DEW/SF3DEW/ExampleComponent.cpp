@@ -58,7 +58,8 @@ namespace sfew
 		void ExampleCmpt::OnCollision(PhysicsCollisionGroups otherGroup, 
 										 std::weak_ptr<PhysicsEntity> otherEntity)
 		{
-			
+			// Does nothing
+			otherGroup;
 		}
 
 		// Custom Routines =========================================

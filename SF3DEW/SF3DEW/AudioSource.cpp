@@ -17,7 +17,7 @@ namespace sfew
 		_isInteruptable(true)
 	{
 		std::cout << "Loading audio from \"" << audioFilePath << "\"" << std::endl;
-		bool audioLoadSuccessful;
+		bool audioLoadSuccessful = false;
 
 		// Load the audio file as either sound or music
 		if(_audioType == AudioType::Sound)
@@ -171,7 +171,7 @@ namespace sfew
 
 	bool AudioSource::IsLooping() const
 	{
-		bool wasLooping;
+		bool wasLooping = false;
 
 		if(_audioType == AudioType::Sound)
 		{
@@ -210,7 +210,7 @@ namespace sfew
 
 	float AudioSource::GetVolume() const
 	{
-		float volumeLevel;
+		float volumeLevel = false;
 
 		if(_audioType == AudioType::Sound)
 		{
@@ -249,7 +249,7 @@ namespace sfew
 
 	float AudioSource::GetPitch() const
 	{
-		float pitchLevel;
+		float pitchLevel = false;
 
 		if(_audioType == AudioType::Sound)
 		{
@@ -311,7 +311,7 @@ namespace sfew
 
 	unsigned int AudioSource::GetChannelCount() const
 	{
-		unsigned int numOfChannels;
+		unsigned int numOfChannels = false;
 
 		if(_audioType == AudioType::Sound)
 		{
@@ -327,7 +327,7 @@ namespace sfew
 
 	unsigned int AudioSource::GetSampleRate() const
 	{
-		unsigned int sampleRate;
+		unsigned int sampleRate = false;
 
 		if(_audioType == AudioType::Sound)
 		{
@@ -379,7 +379,7 @@ namespace sfew
 	// Get play state directly from SFML
 	sf::SoundSource::Status AudioSource::getInternalStatus() const
 	{
-		sf::SoundSource::Status audioStatus;
+		sf::SoundSource::Status audioStatus = sf::SoundSource::Status::Stopped;
 
 		if(_audioType == AudioType::Sound)
 		{

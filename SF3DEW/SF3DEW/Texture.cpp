@@ -110,7 +110,7 @@ namespace sfew
 		glBindTexture(GL_TEXTURE_2D, _textureHandle);
 
 		// Get the wrap behavior in something OpenGL understands
-		GLint oglWrapBehavior;
+		GLint oglWrapBehavior = 0;
 		switch (wrapBehavior)
 		{
 		case TextureWrapType::Repeat:
@@ -135,8 +135,8 @@ namespace sfew
 		glBindTexture(GL_TEXTURE_2D, _textureHandle);
 
 		// Get filtering in something OpenGL understands
-		GLint oglMinFilter;
-		GLint oglMagFilter;
+		GLint oglMinFilter = 0;
+		GLint oglMagFilter = 0;
 		switch (filter)
 		{
 		case TextureFilterType::NearestNeighbor:
